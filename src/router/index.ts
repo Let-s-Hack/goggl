@@ -1,22 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Timer from '../pages/Timer.vue';
+import Reports from '../pages/Reports.vue';
+import Calendar from '../pages/Calendar.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
+  // TimerページをHome画面とする（本家と同じ）
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    redirect: '/timer',
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/timer',
+    name: 'timer',
+    component: Timer,
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    // 遅延ロード。こうすることでページを開いた時に読み込まれる。
+    component: () => import(/* webpackChunkName: "reports" */ '../pages/Reports.vue'),
+  },
+  {
+    path: '/calendar',
+    name: 'calendar',
+    component: () => import(/* webpackChunkName: "calendar" */ '../pages/Calendar.vue'),
   },
 ];
 
