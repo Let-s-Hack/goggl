@@ -1,6 +1,6 @@
 <template>
-  <div class="TimerEditor">
-    TimerEditor
+  <div class="TimerSkeletonScreen">
+    TimerSkeletonScreen
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class TimerEditor extends Vue {
+export default class TimerSkeletonScreen extends Vue {
 }
 </script>

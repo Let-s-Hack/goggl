@@ -1,18 +1,20 @@
 <template>
   <div class="Reports">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import BaseCard from '@/components/atoms/BaseCard.vue';
+import ReportsSkeletonScreen from '@/components/molecules/ReportsSkeletonScreen.vue';
+import ReportsHeader from '@/components/organisms/ReportsHeader.vue';
+import NoReports from '@/components/atoms/NoReports.vue';
+import ReportsTotal from '@/components/molecules/ReportsTotal.vue';
+import ReportsBarGraph from '@/components/molecules/ReportsBarGraph.vue';
+import ReportsPieChart from '@/components/molecules/ReportsPieChart.vue';
 
 export default {
   name: 'reports',
   components: {
-    HelloWorld,
   },
 };
 </script>

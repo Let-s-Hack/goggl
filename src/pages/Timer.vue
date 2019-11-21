@@ -1,18 +1,31 @@
 <template>
-  <div>
-    <h1>This is an timer page</h1>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="Timer">
+    <GlobalHeader />
+    <BaseContent>
+      <TimerSkeletonScreen />
+    </BaseContent>
+    <GlobalNav />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import GlobalHeader from '@/components/organisms/GlobalHeader.vue';
+import BaseContent from '@/components/organisms/BaseContent.vue';
+import GlobalNav from '@/components/organisms/GlobalNav.vue';
+import TimerCreator from '@/components/organisms/TimerCreator.vue';
+import TimerEditor from '@/components/organisms/TimerEditor.vue';
+import TimerSkeletonScreen from '@/components/molecules/TimerSkeletonScreen.vue';
+import RecordGroup from '@/components/molecules/RecordGroup.vue';
+import TimerActionButton from '@/components/atoms/TimerActionButton.vue';
+import LoadingBar from '@/components/atoms/LoadingBar.vue';
 
 export default {
   name: 'timer',
   components: {
-    HelloWorld,
+    GlobalHeader,
+    BaseContent,
+    GlobalNav,
+    TimerSkeletonScreen,
   },
 };
 </script>
