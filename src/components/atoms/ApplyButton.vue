@@ -1,6 +1,6 @@
 <template>
-  <div class="ExecButton">
-    ExecButton
+  <div class="ApplyButton">
+    ApplyButton
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class ExecButton extends Vue {
+export default class ApplyButton extends Vue {
 }
 </script>
