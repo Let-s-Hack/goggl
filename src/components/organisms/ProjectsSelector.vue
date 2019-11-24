@@ -1,13 +1,18 @@
 <template>
-  <div class="ProjectsSelector">
+  <BottomSheet class="ProjectsSelector">
     ProjectsSelector
-  </div>
+  </BottomSheet>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BottomSheet from '@/components/molecules/BottomSheet.vue';
 
-@Component
+@Component({
+  components: {
+    BottomSheet,
+  },
+})
 export default class ProjectsSelector extends Vue {
 }
 </script>
