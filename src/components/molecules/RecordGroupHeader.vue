@@ -1,6 +1,6 @@
 <template>
-  <div class="ApplyButton">
-    ApplyButton
+  <div class="RecordGroupHeader">
+    RecordGroupHeader
   </div>
 </template>
 
@@ -8,6 +8,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class ApplyButton extends Vue {
+export default class RecordGroupHeader extends Vue {
 }
 </script>

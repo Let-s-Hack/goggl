@@ -1,13 +1,18 @@
 <template>
-  <div class="ReportsTotal">
+  <BaseCard class="ReportsTotal">
     ReportsTotal
-  </div>
+  </BaseCard>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BaseCard from '@/components/atoms/BaseCard.vue';
 
-@Component
+@Component({
+  components: {
+    BaseCard,
+  },
+})
 export default class ReportsTotal extends Vue {
 }
 </script>
