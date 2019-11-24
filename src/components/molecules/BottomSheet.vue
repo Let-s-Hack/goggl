@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BackgroundOverlay from '@/components/atoms/BackgroundOverlay.vue';
+import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 
 @Component({
   components: {
