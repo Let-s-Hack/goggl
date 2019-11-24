@@ -18,4 +18,11 @@ module.exports = {
       swDest: 'service-worker.js',
     },
   },
+  css: {
+    loaderOptions: {
+      sass: {
+        prependData: '@import "@/assets/sass/prepend.scss";',
+      },
+    },
+  },
 };
