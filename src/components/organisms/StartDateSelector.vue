@@ -1,13 +1,18 @@
 <template>
-  <div class="StartDateSelector">
+  <BottomSheet class="StartDateSelector">
     StartDateSelector
-  </div>
+  </BottomSheet>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BottomSheet from '@/components/molecules/BottomSheet.vue';
 
-@Component
+@Component({
+  components: {
+    BottomSheet,
+  },
+})
 export default class StartDateSelector extends Vue {
 }
 </script>

@@ -1,13 +1,18 @@
 <template>
-  <div class="TagsSelector">
+  <BottomSheet class="TagsSelector">
     TagsSelector
-  </div>
+  </BottomSheet>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BottomSheet from '@/components/molecules/BottomSheet.vue';
 
-@Component
+@Component({
+  components: {
+    BottomSheet,
+  },
+})
 export default class TagsSelector extends Vue {
 }
 </script>

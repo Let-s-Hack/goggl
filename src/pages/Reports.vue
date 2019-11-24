@@ -1,6 +1,12 @@
 <template>
-  <div class="Reports">
-  </div>
+  <BaseCard class="Reports">
+    <ReportsSkeletonScreen />
+    <ReportsHeader />
+    <NoReports />
+    <ReportsTotal />
+    <ReportsBarGraph />
+    <ReportsPieChart />
+  </BaseCard>
 </template>
 
 <script>
@@ -15,6 +21,13 @@ import ReportsPieChart from '@/components/molecules/ReportsPieChart.vue';
 export default {
   name: 'reports',
   components: {
+    BaseCard,
+    ReportsSkeletonScreen,
+    ReportsHeader,
+    NoReports,
+    ReportsTotal,
+    ReportsBarGraph,
+    ReportsPieChart,
   },
 };
 </script>

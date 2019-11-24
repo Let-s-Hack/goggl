@@ -1,6 +1,7 @@
 <template>
-  <div class="ApplyButton">
-    ApplyButton
+  <div class="BackgroundOverlay">
+    BackgroundOverlay
+    <slot />
   </div>
 </template>
 
@@ -8,6 +9,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class ApplyButton extends Vue {
+export default class BackgroundOverlay extends Vue {
 }
 </script>
