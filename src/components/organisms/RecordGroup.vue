@@ -9,9 +9,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Record from '@/components/atoms/Record.vue';
-import RecordList from '@/components/molecules/RecordList.vue';
-import RecordGroupHeader from '@/components/molecules/RecordGroupHeader.vue';
+import Record from '~/atoms/Record.vue';
+import RecordList from '~/molecules/RecordList.vue';
+import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
 
 @Component({
   components: {

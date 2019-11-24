@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import RecordListItem from '@/components/atoms/RecordListItem.vue';
+import RecordListItem from '~/atoms/RecordListItem.vue';
 
 @Component({
   components: {
