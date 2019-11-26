@@ -1,7 +1,5 @@
 import firebase from 'firebase';
 
-// TODO: class化してDBの追加・取得処理を関数化
-
 const config = {
   apiKey: 'AIzaSyCPYzBxcigadg2VpDeXaGoQWJ5xUtCJ09U',
   authDomain: 'goggl-1941d.firebaseapp.com',
