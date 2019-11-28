@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import RecordGroup from '@/components/organisms/RecordGroup.vue';
+import RecordGroup from '~/organisms/RecordGroup.vue';
 
 @Component({
   components: {

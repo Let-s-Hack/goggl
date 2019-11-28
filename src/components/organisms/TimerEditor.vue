@@ -12,13 +12,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheet from '@/components/molecules/BottomSheet.vue';
-import DiscardButtonGroup from '@/components/molecules/DiscardButtonGroup.vue';
-import DeleteButtonGroup from '@/components/molecules/DeleteButtonGroup.vue';
-import ProjectsSelector from '@/components/organisms/ProjectsSelector.vue';
-import TagsSelector from '@/components/organisms/TagsSelector.vue';
-import DurationSelector from '@/components/organisms/DurationSelector.vue';
-import StartDateSelector from '@/components/organisms/StartDateSelector.vue';
+import BottomSheet from '~/molecules/BottomSheet.vue';
+import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
+import DeleteButtonGroup from '~/molecules/DeleteButtonGroup.vue';
+import ProjectsSelector from '~/organisms/ProjectsSelector.vue';
+import TagsSelector from '~/organisms/TagsSelector.vue';
+import DurationSelector from '~/organisms/DurationSelector.vue';
+import StartDateSelector from '~/organisms/StartDateSelector.vue';
 
 @Component({
   components: {

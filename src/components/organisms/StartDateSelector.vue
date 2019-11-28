@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheet from '@/components/molecules/BottomSheet.vue';
+import BottomSheet from '~/molecules/BottomSheet.vue';
 
 @Component({
   components: {

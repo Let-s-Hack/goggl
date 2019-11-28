@@ -15,16 +15,16 @@
 </template>
 
 <script>
-import LoadingBar from '@/components/atoms/LoadingBar.vue';
-import TimerActionButton from '@/components/atoms/TimerActionButton.vue';
-import TimerSkeletonScreen from '@/components/molecules/TimerSkeletonScreen.vue';
-import ActiveTimer from '@/components/molecules/ActiveTimer.vue';
-import RecordContainer from '@/components/organisms/RecordContainer.vue';
-import GlobalHeader from '@/components/organisms/GlobalHeader.vue';
-import BaseContent from '@/components/organisms/BaseContent.vue';
-import GlobalNav from '@/components/organisms/GlobalNav.vue';
-import TimerCreator from '@/components/organisms/TimerCreator.vue';
-import TimerEditor from '@/components/organisms/TimerEditor.vue';
+import LoadingBar from '~/atoms/LoadingBar.vue';
+import TimerActionButton from '~/atoms/TimerActionButton.vue';
+import TimerSkeletonScreen from '~/molecules/TimerSkeletonScreen.vue';
+import ActiveTimer from '~/molecules/ActiveTimer.vue';
+import RecordContainer from '~/organisms/RecordContainer.vue';
+import GlobalHeader from '~/organisms/GlobalHeader.vue';
+import BaseContent from '~/organisms/BaseContent.vue';
+import GlobalNav from '~/organisms/GlobalNav.vue';
+import TimerCreator from '~/organisms/TimerCreator.vue';
+import TimerEditor from '~/organisms/TimerEditor.vue';
 
 export default {
   name: 'timer',

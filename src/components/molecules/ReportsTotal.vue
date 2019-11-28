@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BaseCard from '@/components/atoms/BaseCard.vue';
+import BaseCard from '~/atoms/BaseCard.vue';
 
 @Component({
   components: {
