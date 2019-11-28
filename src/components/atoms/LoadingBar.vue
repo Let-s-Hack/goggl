@@ -31,7 +31,7 @@ export default class LoadingBar extends Vue {
   roop(): void {
     setTimeout(() => {
       this.isLoading = !this.isLoading;
-      // 動かす場合はここのroopメソッドの呼び出しをコメントアウト
+      // 試しに動かす場合はここのroopメソッドのコメントアウトを外す
       // this.roop();
     }, 5000);
   }
