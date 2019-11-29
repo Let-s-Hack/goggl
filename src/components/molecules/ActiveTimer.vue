@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import TimerActionButton from '~/atoms/TimerActionButton.vue';
+import TimerStartButton from '~/atoms/TimerStartButton.vue';
 
 @Component
 export default class ActiveTimer extends Vue {

@@ -5,7 +5,7 @@
       <LoadingBar />
       <TimerSkeletonScreen />
       <RecordContainer />
-      <TimerActionButton />
+      <TimerStartButton />
       <ActiveTimer />
     </BaseContent>
     <GlobalNav />
@@ -16,7 +16,7 @@
 
 <script>
 import LoadingBar from '~/atoms/LoadingBar.vue';
-import TimerActionButton from '~/atoms/TimerActionButton.vue';
+import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import TimerSkeletonScreen from '~/molecules/TimerSkeletonScreen.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
 import RecordContainer from '~/organisms/RecordContainer.vue';
@@ -30,7 +30,7 @@ export default {
   name: 'timer',
   components: {
     LoadingBar,
-    TimerActionButton,
+    TimerStartButton,
     TimerSkeletonScreen,
     ActiveTimer,
     RecordContainer,
