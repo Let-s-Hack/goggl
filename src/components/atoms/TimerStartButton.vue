@@ -27,10 +27,9 @@ export default class TimerStartButton extends Vue {
       position: absolute;
       width: 100%;
       height: 100%;
-      background: #000;
       border-radius: 50%;
-      opacity: 0.3;
-      content: "";
+      background: rgba(#000, 0.3);
+      content: '';
     }
 
     > img {
