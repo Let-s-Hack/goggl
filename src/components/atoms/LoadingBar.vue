@@ -1,40 +1,17 @@
 <template>
-  <div :class="{ LoadingBar: true, _isLoading: isLoading }">
+  <div class="LoadingBar _isLoading">
     <p class="LoadingBar_Text">
-      {{ loadingText() }}
+      Syncing...
     </p>
     <div class="LoadingBar_Icon"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class LoadingBar extends Vue {
-  isLoading: boolean = false;
-
-  // 状態切り替えテスト用
-  public mounted() {
-    setTimeout(() => {
-      this.isLoading = !this.isLoading;
-      this.roop();
-    }, 3000);
-  }
-
-  @Watch('isLoading')
-  loadingText(): string {
-    return this.isLoading ? 'Syncing...' : 'Synced';
-  }
-
-  // 状態切り替えテスト用関数
-  roop(): void {
-    setTimeout(() => {
-      this.isLoading = !this.isLoading;
-      // 試しに動かす場合はここのroopメソッドのコメントアウトを外す
-      // this.roop();
-    }, 5000);
-  }
 }
 </script>
 
@@ -47,16 +24,16 @@ export default class LoadingBar extends Vue {
   justify-content: center;
   height: 2.17em;
   font-size: 1.2rem;
-  background: #4cd964;
+  background: #4CD964;
 
   &._isLoading{
     animation: loadingStart .3s ease;
     transform: translateY(0);
-    background: #b5bcc0;
+    background: #B5BCC0;
   }
 
   &_Text {
-    color: #fff;
+    color: #FFF;
     letter-spacing: 0.02rem;
   }
 
@@ -65,8 +42,8 @@ export default class LoadingBar extends Vue {
     width: 0.4em;
     height: 0.8em;
     margin: -6px 0 0 8px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
+    border-right: 2px solid #FFF;
+    border-bottom: 2px solid #FFF;
 
     ._isLoading & {
       width: 1.5em;
@@ -77,8 +54,8 @@ export default class LoadingBar extends Vue {
       position: relative;
       margin: 0 0 0 4px;
       border: 0.16em solid transparent;
-      border-bottom: 0.16em solid #fff;
-      border-left: 0.16em solid #fff;
+      border-bottom: 0.16em solid #FFF;
+      border-left: 0.16em solid #FFF;
       box-sizing: border-box;
     }
   }

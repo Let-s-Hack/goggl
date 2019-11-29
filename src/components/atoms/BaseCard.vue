@@ -1,8 +1,8 @@
 <template>
-  <div class="BaseCard">
+  <button class="BaseCard">
     BaseCard
     <slot />
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -17,7 +17,7 @@ export default class BaseCard extends Vue {
 .BaseCard {
   padding: 16px 12px;
   border-radius: 8px;
-  box-shadow: 0 2px 22px 0 rgba($color: #424147, $alpha: 0.17);
-  background: #fff;
+  box-shadow: 0 2px 22px 0 rgba(#424147, 0.17);
+  background: #FFF;
 }
 </style>

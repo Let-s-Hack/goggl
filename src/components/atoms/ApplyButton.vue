@@ -1,13 +1,13 @@
 <template>
-  <div class="ApplyButton">
+  <button class="ApplyButton">
     <!-- TODO: 使う場所によってここのspanを出し分ける -->
-    <span class="ApplyButton_Text">
+    <span class="ApplyButton_SubText">
       Would you like to discard this time entry?
     </span>
-    <p class="ApplyButton_Title">
+    <p class="ApplyButton_Text">
       Discard
     </p>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -20,26 +20,39 @@ export default class ApplyButton extends Vue {
 
 <style lang="scss" scoped>
 .ApplyButton {
+  position: relative;
+  width: 100%;
   border-radius: 13px;
-  background: #efefef;
+  background: #EFEFEF;
   text-align: center;
   font-weight: 300;
 
-  &_Text {
+  &:active::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(#000, 0.03);
+    border-radius: inherit;
+    content: '';
+  }
+
+  &_SubText {
     display: block;
     height: 44px;
     line-height: 44px;
-    border-bottom: 1px solid #d8d8d8;
+    border-bottom: 1px solid #D8D8D8;
     box-sizing: border-box;
     font-size: 1.3rem;
     color: #838484;
     letter-spacing: 0.24px;
   }
 
-  &_Title {
+  &_Text {
     height: 56px;
     line-height: 56px;
-    color: #ff3b30;
+    color: #FF3B30;
     letter-spacing: 0.36px;
     font-size: 1.9rem;
   }
