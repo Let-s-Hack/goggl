@@ -52,7 +52,7 @@ export default class RecordListItemListItem extends Vue {
       display: block;
       width: 16px;
       height: 100%;
-      background: linear-gradient(to left, #FFF, rgba(#FFF, 0));
+      background: linear-gradient(to left, #F9FAFC, rgba(#F9FAFC, 0));
       content: '';
     }
   }
