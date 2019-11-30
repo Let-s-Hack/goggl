@@ -1,6 +1,6 @@
 <template>
   <button class="TimerStartButton">
-    <img src="/img/icons/triangle.svg" />
+    <img src="/img/icons/triangle-white.svg" />
   </button>
 </template>
 
