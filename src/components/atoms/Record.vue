@@ -1,5 +1,5 @@
 <template>
-  <section class="Record">
+  <li class="Record">
     <div class="Record_Left">
       <h3 class="Record_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h3>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
@@ -17,7 +17,7 @@
       <span class="Record_Time">0:30:00</span>
       <img src="/img/icons/triangle-gray.svg" />
     </div>
-  </section>
+  </li>
 </template>
 
 <script lang="ts">
@@ -30,11 +30,22 @@ export default class Record extends Vue {
 
 <style lang="scss" scoped>
 .Record {
+  $heightSize: 64px;
   display: flex;
-  height: 64px;
+  height: $heightSize;
   padding: 14px 16px;
   background: #FFF;
   box-sizing: border-box;
+
+  &:active {
+    background: linear-gradient(
+      to bottom,
+      #C5C6C8 0px,
+      #FFF 1px,
+      #FFF $heightSize - 2,
+      #C5C6C8 $heightSize - 1
+    );
+  }
 
   &_Left {
     position: relative;

@@ -1,5 +1,5 @@
 <template>
-  <section class="RecordListItem">
+  <li class="RecordListItem">
     <div class="RecordListItem_Left">
       <h3 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h3>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
@@ -17,7 +17,7 @@
       <span class="RecordListItem_Time">0:30:00</span>
       <img src="/img/icons/triangle-gray.svg" />
     </div>
-  </section>
+  </li>
 </template>
 
 <script lang="ts">
@@ -30,11 +30,22 @@ export default class RecordListItemListItem extends Vue {
 
 <style lang="scss" scoped>
 .RecordListItem {
+  $heightSize: 64px;
   display: flex;
-  height: 64px;
+  height: $heightSize;
   padding: 14px 16px 14px 76px;
   background: #F9FAFC;
   box-sizing: border-box;
+
+  &:active {
+    background: linear-gradient(
+      to bottom,
+      #C5C6C8 0px,
+      #F9FAFC 1px,
+      #F9FAFC $heightSize - 2,
+      #C5C6C8 $heightSize - 1
+    );
+  }
 
   &_Left {
     position: relative;
