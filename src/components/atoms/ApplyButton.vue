@@ -16,7 +16,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class ApplyButton extends Vue {
-  @Prop({ type: String, required: false }) subText!: string;
+  @Prop({ type: String, required: false }) readonly subText!: string;
 }
 </script>
 
