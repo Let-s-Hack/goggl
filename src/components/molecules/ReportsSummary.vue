@@ -1,6 +1,6 @@
 <template>
   <BaseCard class="ReportsSummary">
-    <div class="ReportsSummary_Total _isActive">
+    <div class="ReportsSummary_Total">
       <p class="ReportsSummary_Label">TOTAL</p>
       <p class="ReportsSummary_Count">59:15:47</p>
       <div class="ReportsSummary_BarGraph">
@@ -37,6 +37,7 @@ export default class ReportsSummary extends Vue {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  margin: 12px 16px;
   padding: 16px 12px 32px 12px;
 
   &_Total {
