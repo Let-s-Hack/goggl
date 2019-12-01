@@ -1,8 +1,11 @@
 <template>
   <div class="DiscardButtonGroup">
-    DiscardButtonGroup
-    <ApplyButton />
-    <CancelButton />
+    <ApplyButton
+      sub-text="Would you like to discard this time entry?"
+    >
+      Discard
+    </ApplyButton>
+    <CancelButton>Continue Editing</CancelButton>
   </div>
 </template>
 
