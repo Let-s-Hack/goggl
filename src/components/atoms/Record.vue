@@ -110,9 +110,11 @@ export default class Record extends Vue {
       display: inline-block;
       margin-right: 4px;
       border-radius: 50%;
+      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
       border-width: 3px;
       border-style: solid;
       border-color: inherit;
+      border: 3px solid inherit;
       content: '';
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <li class="RecordListItem">
     <div class="RecordListItem_Left">
-      <h3 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h3>
+      <h4 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h4>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
       <span
         class="RecordListItem_Project"
@@ -24,7 +24,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class RecordListItemListItem extends Vue {
+export default class RecordListItem extends Vue {
 }
 </script>
 
