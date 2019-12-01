@@ -1,20 +1,22 @@
 <template>
+  <!-- TODO: callbackで押した後の処理を実行 -->
   <button class="ApplyButton">
-    <!-- TODO: 使う場所によってここのspanを出し分ける -->
-    <span class="ApplyButton_SubText">
-      Would you like to discard this time entry?
+    <span
+      v-if="subText"
+      class="ApplyButton_SubText"
+    >
+      {{ subText }}
     </span>
-    <p class="ApplyButton_Text">
-      Discard
-    </p>
+    <p class="ApplyButton_Text"><slot /></p>
   </button>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class ApplyButton extends Vue {
+  @Prop({ type: String, required: false }) subText!: string;
 }
 </script>
 
