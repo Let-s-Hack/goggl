@@ -1,7 +1,7 @@
 <template>
   <div class="DeleteButtonGroup">
-    <ApplyButton>Delete</ApplyButton>
-    <CancelButton>Cancel</CancelButton>
+    <ApplyButton class="DeleteButtonGroup_Button">Delete</ApplyButton>
+    <CancelButton class="DeleteButtonGroup_Button">Cancel</CancelButton>
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default class DeleteButtonGroup extends Vue {
 .DeleteButtonGroup {
   padding: 0 8px 8px 8px;
 
-  > button:not(:first-child) {
+  &_Button + &_Button {
     margin-top: 8px;
   }
 }

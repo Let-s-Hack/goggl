@@ -2,10 +2,11 @@
   <div class="DiscardButtonGroup">
     <ApplyButton
       sub-text="Would you like to discard this time entry?"
+      class="DiscardButtonGroup_Button"
     >
       Discard
     </ApplyButton>
-    <CancelButton>Continue Editing</CancelButton>
+    <CancelButton class="DiscardButtonGroup_Button">Continue Editing</CancelButton>
   </div>
 </template>
 
@@ -28,7 +29,7 @@ export default class DiscardButtonGroup extends Vue {
 .DiscardButtonGroup {
   padding: 0 8px 8px 8px;
 
-  > button:not(:first-child) {
+  &_Button + &_Button {
     margin-top: 8px;
   }
 }
