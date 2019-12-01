@@ -23,3 +23,13 @@ import CancelButton from '~/atoms/CancelButton.vue';
 export default class DiscardButtonGroup extends Vue {
 }
 </script>
+
+<style lang="scss" scoped>
+.DiscardButtonGroup {
+  padding: 0 8px 8px 8px;
+
+  > button:not(:first-child) {
+    margin-top: 8px;
+  }
+}
+</style>
