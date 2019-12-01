@@ -1,7 +1,6 @@
 <template>
-  <button class="CancelButton">
-    Continue Editing
-  </button>
+  <!-- TODO: callbackで押した後の処理を実行 -->
+  <button class="CancelButton"><slot /></button>
 </template>
 
 <script lang="ts">
