@@ -24,6 +24,6 @@ export default class BackgroundOverlay extends Vue {
   left: 0;
   width: 100vw;
   // height: 100vh;
-  background: rgba($color: #D4D4D9, $alpha: 0.87);
+  background: rgba(#D4D4D9, 0.87);
 }
 </style>
