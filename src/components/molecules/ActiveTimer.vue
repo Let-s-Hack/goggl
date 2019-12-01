@@ -3,6 +3,7 @@
     <div class="ActiveTimer_Label">
       <div class="ActiveTimer_Time">1:43:35</div>
       <div class="ActiveTimer_TitleGroup">
+        <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
         <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
         <span
           class="ActiveTimer_Project"
