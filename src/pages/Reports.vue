@@ -1,28 +1,28 @@
 <template>
-  <BaseCard class="Reports">
+  <BaseContent class="Reports">
     <ReportsSkeletonScreen />
     <ReportsHeader />
-    <ReportsTotal />
+    <ReportsSummary />
     <ReportsBarGraph />
     <ReportsPieChart />
-  </BaseCard>
+  </BaseContent>
 </template>
 
 <script>
-import BaseCard from '~/atoms/BaseCard.vue';
+import BaseContent from '~/organisms/BaseContent.vue';
 import ReportsSkeletonScreen from '~/molecules/ReportsSkeletonScreen.vue';
 import ReportsHeader from '~/organisms/ReportsHeader.vue';
-import ReportsTotal from '~/molecules/ReportsTotal.vue';
+import ReportsSummary from '~/molecules/ReportsSummary.vue';
 import ReportsBarGraph from '~/molecules/ReportsBarGraph.vue';
 import ReportsPieChart from '~/molecules/ReportsPieChart.vue';
 
 export default {
   name: 'reports',
   components: {
-    BaseCard,
+    BaseContent,
     ReportsSkeletonScreen,
     ReportsHeader,
-    ReportsTotal,
+    ReportsSummary,
     ReportsBarGraph,
     ReportsPieChart,
   },

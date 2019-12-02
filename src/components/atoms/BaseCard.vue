@@ -1,8 +1,7 @@
 <template>
-  <button class="BaseCard">
-    BaseCard
+  <div class="BaseCard">
     <slot />
-  </button>
+  </div>
 </template>
 
 <script lang="ts">
