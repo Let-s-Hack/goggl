@@ -3,7 +3,7 @@
     <div class="ActiveTimer_Time">1:43:35</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
-      <span class="ActiveTimer_Title">gogl | 静的コーディング</span>
+      <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
       <span
         class="ActiveTimer_Project"
         :style="{ borderColor: '#E30909', color: '#E30909' }"
@@ -30,6 +30,7 @@ export default class ActiveTimer extends Vue {
 
 <style lang="scss" scoped>
 .ActiveTimer {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -100,8 +101,10 @@ export default class ActiveTimer extends Vue {
 
   &_Button {
     position: absolute;
-    right: 0;
-    margin-right: 12px;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
   }
 }
 </style>
