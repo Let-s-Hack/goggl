@@ -1,14 +1,15 @@
 <template>
-  <div class="Reports">
+  <BaseContent class="Reports">
     <ReportsSkeletonScreen />
     <ReportsHeader />
     <ReportsSummary />
     <ReportsBarGraph />
     <ReportsPieChart />
-  </div>
+  </BaseContent>
 </template>
 
 <script>
+import BaseContent from '~/organisms/BaseContent.vue';
 import ReportsSkeletonScreen from '~/molecules/ReportsSkeletonScreen.vue';
 import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsSummary from '~/molecules/ReportsSummary.vue';
@@ -18,6 +19,7 @@ import ReportsPieChart from '~/molecules/ReportsPieChart.vue';
 export default {
   name: 'reports',
   components: {
+    BaseContent,
     ReportsSkeletonScreen,
     ReportsHeader,
     ReportsSummary,

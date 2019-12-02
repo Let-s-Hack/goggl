@@ -1,10 +1,9 @@
 <template>
   <BaseCard class="ReportsSummary">
-    <div class="ReportsSummary_Total">
+    <div class="ReportsSummary_Total _isActive">
       <p class="ReportsSummary_Label">TOTAL</p>
       <p class="ReportsSummary_Count">59:15:47</p>
       <div class="ReportsSummary_BarGraph">
-        <!-- TODO: v-forを使う -->
         <div class="ReportsSummary_BarGraphItem"></div>
         <div class="ReportsSummary_BarGraphItem"></div>
         <div class="ReportsSummary_BarGraphItem"></div>
@@ -37,7 +36,6 @@ export default class ReportsSummary extends Vue {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 12px 16px;
   padding: 16px 12px 32px 12px;
 
   &_Total {
@@ -46,6 +44,8 @@ export default class ReportsSummary extends Vue {
   }
 
   &_Billable {
+    display: flex;
+    flex-direction: column;
     width: 50%;
   }
 
@@ -72,6 +72,7 @@ export default class ReportsSummary extends Vue {
   &_BarGraph {
     $maxHeight: 21px;
     display: flex;
+    align-items: flex-end;
     flex-direction: row;
     justify-content: flex-start;
     margin-top: 12px;
@@ -84,7 +85,6 @@ export default class ReportsSummary extends Vue {
       $heights: (15px, 10px, 21px, 6px);
       @each $height in $heights {
         &:nth-child(#{index($heights, $height)}) {
-          margin-top: $maxHeight - $height;
           height: $height;
         }
       }
@@ -100,7 +100,7 @@ export default class ReportsSummary extends Vue {
   }
 
   &_Line {
-    margin-top: 27px;
+    margin-top: auto;
     border-radius: 1px;
     border-bottom: 6px solid #ECF0F3;
 
