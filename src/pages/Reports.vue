@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import BaseContent from '~/organisms/BaseContent.vue';
 import ReportsSkeletonScreen from '~/molecules/ReportsSkeletonScreen.vue';
-import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsSummary from '~/molecules/ReportsSummary.vue';
-import ReportsBarGraph from '~/molecules/ReportsBarGraph.vue';
-import ReportsPieChart from '~/molecules/ReportsPieChart.vue';
+import BaseContent from '~/organisms/BaseContent.vue';
+import ReportsHeader from '~/organisms/ReportsHeader.vue';
+import ReportsBarGraph from '~/organisms/ReportsBarGraph.vue';
+import ReportsPieChart from '~/organisms/ReportsPieChart.vue';
 
 export default {
   name: 'reports',
