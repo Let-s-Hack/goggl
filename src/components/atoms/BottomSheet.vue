@@ -20,7 +20,7 @@ export default class BottomSheet extends Vue {
   // position: fixed;
   // bottom: 0;
   width: 100vw;
-  border-radius: 8px 8px 0 0;
+  border-radius: 8px;
   background: #FFF;
 }
 </style>
