@@ -1,6 +1,6 @@
 <template>
   <div class="RecordGroupHeader">
-    <h2 class="RecordGroupHeader_Title">Thu, 21 Nov</h2>
+    <h2 class="RecordGroupHeader_Date">Thu, 21 Nov</h2>
     <p class="RecordGroupHeader_Time">8:40:36</p>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default class RecordGroupHeader extends Vue {
   padding: 0 16px;
   color: #85858C;
 
-  &_Title {
+  &_Date {
     font-size: 1.5rem;
   }
 
