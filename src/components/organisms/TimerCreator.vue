@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheet from '~/molecules/BottomSheet.vue';
+import BottomSheet from '~/atoms/BottomSheet.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
 import ProjectsSelector from '~/organisms/ProjectsSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
