@@ -1,6 +1,7 @@
 <template>
   <div class="RecordGroupHeader">
-    RecordGroupHeader
+    <h2 class="RecordGroupHeader_Title">Thu, 21 Nov</h2>
+    <p class="RecordGroupHeader_Time">8:40:36</p>
   </div>
 </template>
 
@@ -11,3 +12,22 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class RecordGroupHeader extends Vue {
 }
 </script>
+
+<style lang="scss" scoped>
+.RecordGroupHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 16px;
+  color: #85858C;
+
+  &_Title {
+    font-size: 1.5rem;
+  }
+
+  &_Time {
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+  }
+}
+</style>
