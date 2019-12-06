@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ReportsSkeletonScreen from '~/molecules/ReportsSkeletonScreen.vue';
+import ReportsSkeletonScreen from '~/organisms/ReportsSkeletonScreen.vue';
 import ReportsSummary from '~/molecules/ReportsSummary.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
 import ReportsHeader from '~/organisms/ReportsHeader.vue';
