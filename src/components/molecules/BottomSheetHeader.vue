@@ -37,14 +37,19 @@ export default class BottomSheetHeader extends Vue {
 
   &_Title {
     font-size: 1.4rem;
-    font-weight: bold;
+    font-weight: 500;
     letter-spacing: 0.1rem;
   }
 
   &_ActionButton {
+    transition: color 0.2s ease;
     font-size: 1.4rem;
-    font-weight: bold;
+    font-weight: 500;
     color: #57DC77;
+
+    &:active {
+      color: rgba(#57DC77, 0.3);
+    }
   }
 }
 </style>
