@@ -45,16 +45,16 @@ export default class Reportsheader extends Vue {
   }
 
   &_Title {
+    display: flex;
+    align-items: center;
     font-size: 1.3rem;
-    letter-spacing: 0.1rem;
+    letter-spacing: 0.05rem;
 
     &::after {
       content: '';
       width: 0;
       height: 0;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-25%);
+      margin-top: 4px;
       margin-left: 3px;
       border: 2px solid transparent;
       border-top: 4px solid #000;
