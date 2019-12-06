@@ -1,6 +1,10 @@
 <template>
   <div class="ReportsHeader">
-    <h1 class="ReportsHeader_Title">This week</h1>
+    <div class="ReportsHeader_Inner">
+      <!-- TODO: ローディング時の出し分け -->
+      <img class="ReportsHeader_Spinner" src="/img/icons/spinner.svg">
+      <p class="ReportsHeader_Title">This week</p>
+    </div>
   </div>
 </template>
 
@@ -26,9 +30,21 @@ export default class Reportsheader extends Vue {
   background-color: #FFF;
   box-sizing: border-box;
 
-  &_Title {
+  &_Inner {
     position: relative;
-    text-align: center;
+    margin: 0 auto;
+  }
+
+  &_Spinner {
+    position: absolute;
+    left: -10px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    transform: translateX(-100%);
+  }
+
+  &_Title {
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
 
@@ -38,9 +54,10 @@ export default class Reportsheader extends Vue {
       height: 0;
       position: absolute;
       top: 50%;
+      transform: translateY(-25%);
       margin-left: 3px;
       border: 2px solid transparent;
-      border-top: 3px solid #000;
+      border-top: 4px solid #000;
     }
   }
 }
