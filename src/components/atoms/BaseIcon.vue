@@ -6,7 +6,6 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-// 相対パスである必要がある
 // TODO: SVGを一つずつimportしているので、一括でimportしたい。参考：https://github.com/nicooprat/icon.vue/blob/master/src/components/Icon.vue
 import IconAdd from '~public/img/icons/add.svg';
 import IconArrow from '~public/img/icons/arrow.svg';
