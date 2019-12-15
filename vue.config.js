@@ -8,6 +8,7 @@ module.exports = {
     resolve: {
       alias: {
         '~': path.join(__dirname, '/src/components'),
+        '~public': path.join(__dirname, '/public'),
       },
     },
   },
