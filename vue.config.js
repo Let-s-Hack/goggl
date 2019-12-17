@@ -16,18 +16,8 @@ module.exports = {
     const svgRule = config.module.rule('svg');
     svgRule.uses.clear();
 
-    // 通常はインラインSVGでインポートする。?externalをつけると外部SVGをインポートできる
+    // SVGをインラインで読み込む設定
     svgRule
-      .oneOf('external')
-      .resourceQuery(/external/)
-      .use('file-loader')
-      .loader('file-loader')
-      .options({
-        name: 'assets/[name].[hash:8].[ext]',
-      })
-      .end()
-      .end()
-      .oneOf('inline')
       .use('vue-svg-loader')
       .loader('vue-svg-loader')
       .options({
