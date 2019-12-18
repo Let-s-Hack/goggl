@@ -40,7 +40,7 @@ import IconTriangleWhite from '~public/img/icons/triangle-white.svg';
     IconTriangleWhite,
   },
 })
-export default class BaseIcon extends Vue {
+export default class SvgIcon extends Vue {
   @Prop() name!: String;
 }
 </script>
