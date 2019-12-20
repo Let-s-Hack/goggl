@@ -8,11 +8,10 @@ import SvgIcon from '~/atoms/SvgIcon.vue';
 
 Vue.config.productionTip = false;
 
+Vue.component('SvgIcon', SvgIcon);
+
 new Vue({
   router,
   store,
-  components: {
-    SvgIcon,
-  },
   render: h => h(App),
 }).$mount('#app');
