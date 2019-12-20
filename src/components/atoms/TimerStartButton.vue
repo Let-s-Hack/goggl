@@ -1,13 +1,18 @@
 <template>
   <button class="TimerStartButton">
-    <img src="/img/icons/triangle-white.svg" />
+    <SvgIcon class="TimerStartButton_IconStart" name="triangle" />
   </button>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SvgIcon from '~/atoms/SvgIcon.vue';
 
-@Component
+@Component({
+  components: {
+    SvgIcon,
+  },
+})
 export default class TimerStartButton extends Vue {
 }
 </script>
@@ -32,8 +37,10 @@ export default class TimerStartButton extends Vue {
     content: '';
   }
 
-  > img {
+  &_IconStart {
+    width: 16px;
     margin-left: 4px;
+    fill: #FFF;
   }
 }
 </style>

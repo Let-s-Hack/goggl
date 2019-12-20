@@ -2,7 +2,7 @@
   <BottomSheet class="DurationSelector">
     <BottomSheetHeader>
       <template v-slot:icon>
-        <img src="/img/icons/arrow.svg">
+        <SvgIcon class="Record_IconTag" name="arrow" />
       </template>
       <template v-slot:title>Start and stop times</template>
       <!-- TODO: クリックされたときに渡されたメソッドを実行する処理を書く -->
@@ -14,11 +14,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheet from '~/atoms/BottomSheet.vue';
+import SvgIcon from '~/atoms/SvgIcon.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 
 @Component({
   components: {
     BottomSheet,
+    SvgIcon,
     BottomSheetHeader,
   },
 })

@@ -11,19 +11,24 @@
       </span>
     </div>
     <div class="Record_Center">
-      <img src="/img/icons/tag.svg" />
+      <SvgIcon class="Record_IconTag" name="tag" />
     </div>
     <div class="Record_Right">
       <span class="Record_Time">0:30:00</span>
-      <img src="/img/icons/triangle-gray.svg" />
+      <SvgIcon class="Record_IconStart" name="triangle" />
     </div>
   </li>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SvgIcon from '~/atoms/SvgIcon.vue';
 
-@Component
+@Component({
+  components: {
+    SvgIcon,
+  },
+})
 export default class Record extends Vue {
 }
 </script>
@@ -71,10 +76,6 @@ export default class Record extends Vue {
   &_Center {
     flex: 0 1 auto;
     margin-right: 36px;
-
-    > img {
-      width: 10px;
-    }
   }
 
   &_Right {
@@ -82,12 +83,6 @@ export default class Record extends Vue {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-    > img {
-      align-self: flex-end;
-      width: 10px;
-      margin-right: 12px;
-    }
   }
 
   &_Title {
@@ -122,6 +117,18 @@ export default class Record extends Vue {
   &_Time {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
+  }
+
+  &_IconTag {
+    width: 10px;
+    fill: #B5BCC0;
+  }
+
+  &_IconStart {
+    align-self: flex-end;
+    width: 10px;
+    margin-right: 12px;
+    fill: #DCDCDD;
   }
 }
 </style>

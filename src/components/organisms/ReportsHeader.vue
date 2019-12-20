@@ -2,7 +2,7 @@
   <div class="ReportsHeader">
     <div class="ReportsHeader_Inner">
       <!-- TODO: ローディング時の出し分け -->
-      <img class="ReportsHeader_Spinner" src="/img/icons/spinner.svg">
+      <SvgIcon class="ReportsHeader_Spinner" name="spinner" />
       <p class="ReportsHeader_Title">This week</p>
     </div>
   </div>
@@ -10,8 +10,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SvgIcon from '~/atoms/SvgIcon.vue';
 
-@Component
+@Component({
+  components: {
+    SvgIcon,
+  },
+})
 export default class Reportsheader extends Vue {
 }
 </script>
@@ -40,8 +45,10 @@ export default class Reportsheader extends Vue {
     left: -10px;
     top: 0;
     bottom: 0;
+    width: 20px;
     margin: auto;
     transform: translateX(-100%);
+    fill: #BABABA;
   }
 
   &_Title {
