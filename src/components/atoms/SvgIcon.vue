@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <component :is="`icon-${name}`" />
-  </div>
+  <component :is="`icon-${name}`" />
 </template>
 
 <script lang="ts">
