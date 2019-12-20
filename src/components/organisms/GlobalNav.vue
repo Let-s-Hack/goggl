@@ -3,13 +3,13 @@
     <ul class="GlobalNav_List">
       <!-- TODO: 選択中は遷移させない -->
       <li class="GlobalNav_Item">
-        <a href="/timer"><img class="GlobalNav_Icon" src="/img/icons/time.svg"></a>
+        <a href="/timer"><SvgIcon class="GlobalNav_Icon _isActive" name="time" /></a>
       </li>
       <li class="GlobalNav_Item">
-        <a href="/reports"><img class="GlobalNav_Icon" src="/img/icons/graph.svg"></a>
+        <a href="/reports"><SvgIcon class="GlobalNav_Icon" name="graph" /></a>
       </li>
       <li class="GlobalNav_Item">
-        <a href="/calendar"><img class="GlobalNav_Icon" src="/img/icons/calendar.svg"></a>
+        <a href="/calendar"><SvgIcon class="GlobalNav_Icon" name="calendar" /></a>
       </li>
     </ul>
   </nav>
@@ -52,9 +52,10 @@ export default class GlobalNav extends Vue {
   &_Icon {
     width: 20px;
     height: 20px;
+    fill: #999;
 
-    &.isActive {
-      // #06AAF5;
+    &._isActive {
+      fill: #06AAF5;
     }
   }
 }
