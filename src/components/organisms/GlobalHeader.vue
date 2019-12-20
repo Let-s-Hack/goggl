@@ -1,7 +1,7 @@
 <template>
   <div class="GlobalHeader">
     <img class="GlobalHeader_Logo" src="/img/logo.svg" />
-    <img class="GlobalHeader_Setting" src="/img/icons/setting.svg" />
+    <SvgIcon class="GlobalHeader_Setting" name="setting" />
   </div>
 </template>
 
@@ -34,9 +34,10 @@ export default class GlobalHeader extends Vue {
 
   &_Setting {
     position: absolute;
-    width: 16px;
+    width: 18px;
     right: 28px;
     margin: auto;
+    fill: #5B5B5B;
   }
 }
 </style>

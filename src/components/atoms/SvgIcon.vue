@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <component :is="`icon-${name}`" />
-  </div>
+  <component :is="`icon-${name}`" />
 </template>
 
 <script lang="ts">
@@ -19,8 +17,7 @@ import IconSpinner from '~public/img/icons/spinner.svg';
 import IconTag from '~public/img/icons/tag.svg';
 import IconTime from '~public/img/icons/time.svg';
 import IconTimer from '~public/img/icons/timer.svg';
-import IconTriangleGray from '~public/img/icons/triangle-gray.svg';
-import IconTriangleWhite from '~public/img/icons/triangle-white.svg';
+import IconTriangle from '~public/img/icons/triangle.svg';
 
 @Component({
   components: {
@@ -36,8 +33,7 @@ import IconTriangleWhite from '~public/img/icons/triangle-white.svg';
     IconTag,
     IconTime,
     IconTimer,
-    IconTriangleGray,
-    IconTriangleWhite,
+    IconTriangle,
   },
 })
 export default class SvgIcon extends Vue {
