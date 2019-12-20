@@ -7,13 +7,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import SvgIcon from '~/atoms/SvgIcon.vue';
 
-@Component({
-  components: {
-    SvgIcon,
-  },
-})
+@Component
 export default class GlobalHeader extends Vue {
 }
 </script>

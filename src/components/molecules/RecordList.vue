@@ -31,12 +31,10 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import RecordListItem from '~/atoms/RecordListItem.vue';
-import SvgIcon from '~/atoms/SvgIcon.vue';
 
 @Component({
   components: {
     RecordListItem,
-    SvgIcon,
   },
 })
 export default class RecordList extends Vue {
