@@ -1,6 +1,6 @@
 <template>
   <button class="TimerStartButton">
-    <img src="/img/icons/triangle-white.svg" />
+    <SvgIcon class="TimerStartButton_IconStart" name="triangle" />
   </button>
 </template>
 
@@ -32,8 +32,10 @@ export default class TimerStartButton extends Vue {
     content: '';
   }
 
-  > img {
+  &_IconStart {
+    width: 16px;
     margin-left: 4px;
+    fill: #FFF;
   }
 }
 </style>

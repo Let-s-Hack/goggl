@@ -13,6 +13,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheet from '~/atoms/BottomSheet.vue';
+import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
 import DeleteButtonGroup from '~/molecules/DeleteButtonGroup.vue';
 import ProjectsSelector from '~/organisms/ProjectsSelector.vue';

@@ -13,11 +13,11 @@
         </span>
       </div>
       <div class="RecordList_SummaryTag">
-        <img src="/img/icons/tag.svg" />
+        <SvgIcon class="RecordList_IconTag" name="tag" />
       </div>
       <div class="RecordList_SummaryTimeGroup">
         <span class="RecordList_SummaryTime">0:30:00</span>
-        <img src="/img/icons/triangle-gray.svg" />
+        <SvgIcon class="RecordList_IconStart" name="triangle" />
       </div>
     </div>
     <ul>
@@ -84,84 +84,86 @@ export default class RecordList extends Vue {
   }
 
   &_SummaryTitleGroup {
-      position: relative;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin-right: 16px;
-      overflow: hidden;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 16px;
+    overflow: hidden;
 
-      &::after {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: block;
-        width: 16px;
-        height: 100%;
-        background: linear-gradient(to left, #FFF, rgba(#FFF, 0));
-        content: '';
-      }
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: block;
+      width: 16px;
+      height: 100%;
+      background: linear-gradient(to left, #FFF, rgba(#FFF, 0));
+      content: '';
     }
+  }
 
-    &_SummaryTag {
-      flex: 0 1 auto;
-      margin-right: 36px;
+  &_SummaryTag {
+    flex: 0 1 auto;
+    margin-right: 36px;
+  }
 
-      > img {
-        width: 10px;
-      }
+  &_SummaryTimeGroup {
+    flex: 0 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &_SummaryTitle {
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    white-space: nowrap;
+    text-overflow: clip;
+  }
+
+  &_SummaryProject {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    white-space: nowrap;
+    text-overflow: clip;
+
+    &::before {
+      display: inline-block;
+      margin-right: 4px;
+      border-radius: 50%;
+      // border-colorを親(.RecordList_SummaryProject)から継承するため、ショートハンドプロパティは使いません
+      border-width: 3px;
+      border-style: solid;
+      border-color: inherit;
+      border: 3px solid inherit;
+      content: '';
     }
+  }
 
-    &_SummaryTimeGroup {
-      flex: 0 1 auto;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+  &_SummaryTime {
+    font-size: 1.2rem;
+    letter-spacing: 0.1rem;
+  }
 
-      > img {
-        align-self: flex-end;
-        width: 10px;
-        margin-right: 12px;
-      }
-    }
+  &_Record {
+    border-top: 1px solid #C5C6C8;
+  }
 
-    &_SummaryTitle {
-      font-size: 1.3rem;
-      letter-spacing: 0.1rem;
-      white-space: nowrap;
-      text-overflow: clip;
-    }
+  &_IconTag {
+    width: 10px;
+    fill: #B5BCC0;
+  }
 
-    &_SummaryProject {
-      display: flex;
-      align-items: center;
-      margin-top: auto;
-      font-size: 1.3rem;
-      letter-spacing: 0.1rem;
-      white-space: nowrap;
-      text-overflow: clip;
-
-      &::before {
-        display: inline-block;
-        margin-right: 4px;
-        border-radius: 50%;
-        // border-colorを親(.RecordList_SummaryProject)から継承するため、ショートハンドプロパティは使いません
-        border-width: 3px;
-        border-style: solid;
-        border-color: inherit;
-        border: 3px solid inherit;
-        content: '';
-      }
-    }
-
-    &_SummaryTime {
-      font-size: 1.2rem;
-      letter-spacing: 0.1rem;
-    }
-
-    &_Record {
-      border-top: 1px solid #C5C6C8;
-    }
+  &_IconStart {
+    align-self: flex-end;
+    width: 10px;
+    margin-right: 12px;
+    fill: #DCDCDD;
+  }
 }
 </style>
