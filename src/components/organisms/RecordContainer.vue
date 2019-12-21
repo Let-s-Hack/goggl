@@ -1,6 +1,7 @@
 <template>
   <div class="RecordContainer">
-    RecordContainer
+    <RecordGroup />
+    <RecordGroup />
     <RecordGroup />
   </div>
 </template>
