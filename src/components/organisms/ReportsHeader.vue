@@ -18,7 +18,6 @@ export default class Reportsheader extends Vue {
 
 <style lang="scss" scoped>
 .ReportsHeader {
-  position: fixed;
   display: flex;
   flex-direction: column;
   justify-content: center;
