@@ -1,9 +1,10 @@
 <template>
   <div class="RecordGroup">
-    RecordGroup
-    <RecordGroupHeader />
-    <Record />
-    <RecordList />
+    <RecordGroupHeader class="RecordGroup_Header" />
+    <ul>
+      <Record class="RecordGroup_Item" />
+      <RecordList class="RecordGroup_Item" />
+    </ul>
   </div>
 </template>
 
@@ -23,3 +24,34 @@ import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
 export default class RecordGroup extends Vue {
 }
 </script>
+
+<style lang="scss" scoped>
+.RecordGroup {
+  & + & {
+    .RecordGroup_Header {
+      top: -22px;
+      padding-top: 44px;
+    }
+  }
+
+  &_Header {
+    position: sticky;
+    top: 0;
+    z-index: $zIndex_RecordGroupHeader;
+    padding-top: 20px;
+    padding-bottom: 8px;
+    background: #F3F2F9;
+    border-bottom: 1px solid #C5C6C8;
+  }
+
+  &_Item {
+    & + & {
+      border-top: 1px solid #C5C6C8;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #C5C6C8;
+    }
+  }
+}
+</style>
