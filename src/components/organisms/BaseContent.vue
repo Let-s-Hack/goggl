@@ -1,6 +1,5 @@
 <template>
   <div class="BaseContent">
-    BaseContent
     <slot />
   </div>
 </template>
@@ -12,3 +11,11 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class BaseContent extends Vue {
 }
 </script>
+
+<style lang="scss" scoped>
+.BaseContent {
+  width: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+</style>

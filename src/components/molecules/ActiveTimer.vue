@@ -39,7 +39,6 @@ export default class ActiveTimer extends Vue {
   padding: 16px 48px 12px 44px;
   background: #FFF;
   border-radius: 8px 8px 0 0;
-  border-bottom: 1px solid #D8D8D8;
   box-shadow: 0 -2px 8px 0px rgba(#424147, 0.17);
   box-sizing: border-box;
   font-size: 1.4rem;

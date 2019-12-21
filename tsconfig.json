@@ -21,6 +21,9 @@
       ],
       "~/*": [
         "src/components/*"
+      ],
+      "~public/*": [
+        "public/*"
       ]
     },
     "lib": [
