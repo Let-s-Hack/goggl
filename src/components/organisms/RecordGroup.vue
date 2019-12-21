@@ -37,10 +37,10 @@ export default class RecordGroup extends Vue {
   &_Header {
     position: sticky;
     top: 0;
-    z-index: $zIndex_RecordGroupHeader;
+    z-index: $zIndex_recordGroupHeader;
     padding-top: 20px;
     padding-bottom: 8px;
-    background: #F3F2F9;
+    background: $color_timerBackground;
     border-bottom: 1px solid #C5C6C8;
   }
 
