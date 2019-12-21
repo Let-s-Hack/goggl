@@ -31,6 +31,7 @@ export default class RecordListItem extends Vue {
 <style lang="scss" scoped>
 .RecordListItem {
   $heightSize: 64px;
+  position: relative;
   display: flex;
   height: $heightSize;
   padding: 14px 16px 14px 76px;
@@ -38,13 +39,15 @@ export default class RecordListItem extends Vue {
   box-sizing: border-box;
 
   &:active {
-    background: linear-gradient(
-      to bottom,
-      #C5C6C8 0px,
-      #F9FAFC 1px,
-      #F9FAFC $heightSize - 2,
-      #C5C6C8 $heightSize - 1
-    );
+    background: #D9D9D9;
+
+    .RecordListItem_Left::after {
+      background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
+    }
+
+    .RecordListItem_IconStart {
+      fill: #BCBCBE;
+    }
   }
 
   &_Left {

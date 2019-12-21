@@ -45,6 +45,7 @@ export default class RecordList extends Vue {
 .RecordList {
   &_Summary {
     $heightSize: 64px;
+    position: relative;
     display: flex;
     height: $heightSize;
     padding: 14px 16px;
@@ -52,13 +53,19 @@ export default class RecordList extends Vue {
     box-sizing: border-box;
 
     &:active {
-      background: linear-gradient(
-        to bottom,
-        #C5C6C8 0px,
-        #FFF 1px,
-        #FFF $heightSize - 2,
-        #C5C6C8 $heightSize - 1
-      );
+      background: #D9D9D9;
+
+      .RecordList_SummaryCount {
+        background: #D9D9D9;
+      }
+
+      .RecordList_SummaryTitleGroup::after {
+        background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
+      }
+
+      .RecordList_IconStart {
+        fill: #BCBCBE;
+      }
     }
   }
 
