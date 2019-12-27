@@ -9,14 +9,14 @@
       ></canvas>
     </div>
     <ul class="ReportsPieChart_ProjectList">
-      <li v-for="(group, index) in allProjectGroup" :key="index" class="ReportsPieChart_Project">
+      <li v-for="(project, index) in allProjectGroup" :key="index" class="ReportsPieChart_Project">
         <p class="ReportsPieChart_ProjectName"
-          :style="{ borderColor: group.color, color: group.color }"
+          :style="{ borderColor: project.color, color: project.color }"
         >
-           {{ group.name }}
+           {{ project.name }}
         </p>
-        <p class="ReportsPieChart_Percent">{{ group.time.percent }}%</p>
-        <p class="ReportsPieChart_Time">{{ group.time.sum }}</p>
+        <p class="ReportsPieChart_Percent">{{ project.time.percent }}%</p>
+        <p class="ReportsPieChart_Time">{{ project.time.sum }}</p>
       </li>
     </ul>
   </div>
@@ -106,11 +106,11 @@ export default class ReportsPieChart extends Vue {
     let prevAngle = 0;
 
     forEach(this.allProjectGroup, (
-      group: { name: string, color: string, time: { percent: number } },
+      project: { name: string, color: string, time: { percent: number } },
     ) => {
       const startAngle: number = prevAngle;
-      const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(group.time.percent);
-      const groupDegree = endAngle - prevAngle;
+      const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(project.time.percent);
+      const groupDegree = endAngle - startAngle;
 
       this.resetTransform();
       this.ctx!.beginPath();
@@ -123,12 +123,12 @@ export default class ReportsPieChart extends Vue {
         false,
       );
       this.ctx!.lineTo(this.centerPosition, this.centerPosition);
-      this.ctx!.fillStyle = group.color;
+      this.ctx!.fillStyle = project.color;
       this.ctx!.fill();
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
-        this.drawDataLabel(endAngle, group.name, group.time.percent);
+        this.drawDataLabel(endAngle, project.name, project.time.percent);
       }
 
       prevAngle = endAngle;
