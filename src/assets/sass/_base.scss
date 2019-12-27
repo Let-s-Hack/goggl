@@ -1,10 +1,12 @@
 // 全体適用させたいスタイル
 
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP:400&display=swap');
+
 html {
   font-size: 62.5%;
 }
 
 body {
   color: #000;
-  font-family: "Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Verdana, Roboto, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'Noto Sans JP', 'Meiryo UI', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
 }

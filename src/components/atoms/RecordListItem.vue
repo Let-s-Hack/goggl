@@ -1,6 +1,7 @@
 <template>
   <li class="RecordListItem">
     <div class="RecordListItem_Left">
+      <!-- TODO: _isEmptyの出し分け -->
       <h4 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h4>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
       <span
@@ -38,13 +39,15 @@ export default class RecordListItem extends Vue {
   box-sizing: border-box;
 
   &:active {
-    background: linear-gradient(
-      to bottom,
-      #C5C6C8 0px,
-      #F9FAFC 1px,
-      #F9FAFC $heightSize - 2,
-      #C5C6C8 $heightSize - 1
-    );
+    background: #D9D9D9;
+
+    .RecordListItem_Left::after {
+      background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
+    }
+
+    .RecordListItem_IconStart {
+      fill: #BCBCBE;
+    }
   }
 
   &_Left {
@@ -85,6 +88,10 @@ export default class RecordListItem extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
+    &._isEmpty {
+      color: #C7C7C9;
+    }
   }
 
   &_Project {

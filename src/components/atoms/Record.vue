@@ -1,7 +1,8 @@
 <template>
   <li class="Record">
     <div class="Record_Left">
-      <h3 class="Record_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h3>
+      <!-- TODO: _isEmptyの出し分け -->
+      <h3 class="Record_Title _isEmpty">説明を追加</h3>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
       <span
         class="Record_Project"
@@ -38,13 +39,15 @@ export default class Record extends Vue {
   box-sizing: border-box;
 
   &:active {
-    background: linear-gradient(
-      to bottom,
-      #C5C6C8 0px,
-      #FFF 1px,
-      #FFF $heightSize - 2,
-      #C5C6C8 $heightSize - 1
-    );
+    background: #D9D9D9;
+
+    .Record_Left::after {
+      background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
+    }
+
+    .Record_IconStart {
+      fill: #BCBCBE;
+    }
   }
 
   &_Left {
@@ -85,6 +88,10 @@ export default class Record extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
+    &._isEmpty {
+      color: #C7C7C9;
+    }
   }
 
   &_Project {
