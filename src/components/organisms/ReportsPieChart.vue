@@ -33,6 +33,8 @@ const canvasFontFamily: string = (
   + '"Noto Sans JP", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif'
 );
 
+const minShowDataLabelDegree = 10;
+
 @Component
 export default class ReportsPieChart extends Vue {
   ctx?: CanvasRenderingContext2D;
@@ -99,7 +101,7 @@ export default class ReportsPieChart extends Vue {
     this.drawAllProjectGroup();
   }
 
-  drawAllProjectGroup(): void {
+  private drawAllProjectGroup(): void {
     if (typeof this.ctx === 'undefined') return;
     let prevAngle = 0;
 
@@ -109,7 +111,6 @@ export default class ReportsPieChart extends Vue {
       const startAngle: number = prevAngle;
       const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(group.time.percent);
       const groupDegree = endAngle - prevAngle;
-      const minDegree = 10;
 
       this.resetTransform();
       this.ctx!.beginPath();
@@ -126,7 +127,7 @@ export default class ReportsPieChart extends Vue {
       this.ctx!.fill();
 
       // 10°より角度が大きい場合はデータラベルを表示する
-      if (groupDegree > ReportsPieChart.percentToDegree(minDegree)) {
+      if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
         this.drawDataLabel(endAngle, group.name, group.time.percent);
       }
 
@@ -134,7 +135,7 @@ export default class ReportsPieChart extends Vue {
     });
   }
 
-  drawDataLabel(angle: number, projectName: string, percent: number): void {
+  private drawDataLabel(angle: number, projectName: string, percent: number): void {
     const radian = ReportsPieChart.degreeToRadian(angle);
     const isLessThanHalf = angle < 180;
 
