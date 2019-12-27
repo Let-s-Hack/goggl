@@ -48,34 +48,36 @@ export default class ReportsBarGraph extends Vue {
   }
 
   mounted() {
-    this.contentWidth = this.$el.clientWidth;
-    this.contentHeight = graphMaxHeight + graphScaleHeight;
+    this.contentWidth = this.$el.clientWidth * 2;
+    this.contentHeight = (graphMaxHeight + graphScaleHeight) * 2;
     this.maxScale = this.getMaxScale();
 
     const canvas = this.$refs.barGraphContent as HTMLCanvasElement;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    this.ctx.scale(2, 2);
   }
 
   updated() {
     this.maxScale = this.getMaxScale();
+    this.ctx!.scale(2, 2);
     this.drawVerticalScale();
     this.drawHorizontalScale();
     this.drawGraphItem();
   }
 
-  drawVerticalScale(): void {
+  private drawVerticalScale(): void {
     if (typeof this.ctx === 'undefined') return;
 
     const fontWidth: number = 24;
     forEach(this.getVerticalScale(), (scale: { [key: string]: number }) => {
       this.ctx!.fillStyle = '#C4C4C6';
       this.ctx!.font = '12px Helvetica Neue';
-      this.ctx!.fillText(`${scale.hour} h`, this.contentWidth - (margin + fontWidth), scale.top - 8, fontWidth);
+      this.ctx!.fillText(`${scale.hour} h`, this.contentWidth / 2 - (margin + fontWidth), scale.top - 8, fontWidth);
       this.drawLine(0, scale.top, this.contentWidth, scale.top, '#E5E5EA', 1);
     });
   }
 
-  drawHorizontalScale(): void {
+  private drawHorizontalScale(): void {
     if (typeof this.ctx === 'undefined') return;
     this.ctx!.beginPath();
 
@@ -94,7 +96,7 @@ export default class ReportsBarGraph extends Vue {
     });
   }
 
-  drawGraphItem(): void {
+  private drawGraphItem(): void {
     if (typeof this.ctx === 'undefined') return;
     this.ctx!.beginPath();
 
@@ -113,7 +115,7 @@ export default class ReportsBarGraph extends Vue {
     });
   }
 
-  drawLine(
+  private drawLine(
     startX: number,
     startY: number,
     endX: number,
@@ -128,7 +130,7 @@ export default class ReportsBarGraph extends Vue {
     this.ctx!.stroke();
   }
 
-  getMaxScale(): number {
+  private getMaxScale(): number {
     const graphValues: number[] = values(this.data);
     const maxValue: number | undefined = max(graphValues);
     const minValue: number = 2;
@@ -139,7 +141,7 @@ export default class ReportsBarGraph extends Vue {
     return (maxValue % 2 !== 0) ? maxValue + 1 : maxValue;
   }
 
-  getVerticalScale(): { [key: string]: number }[] {
+  private getVerticalScale(): { [key: string]: number }[] {
     const maxScaleTop: number = graphMaxHeight - graphItemMaxHeight;
 
     return [
@@ -158,7 +160,7 @@ export default class ReportsBarGraph extends Vue {
     ];
   }
 
-  getGraphItemHeight(value: number): number {
+  private getGraphItemHeight(value: number): number {
     return graphItemMaxHeight / this.maxScale * value;
   }
 }
@@ -167,7 +169,6 @@ export default class ReportsBarGraph extends Vue {
 <style lang="scss" scoped>
 .ReportsBarGraph {
   padding: 16px 0;
-  margin: 0px 16px;
 
   &_Title {
     margin-left: 12px;
@@ -176,7 +177,7 @@ export default class ReportsBarGraph extends Vue {
   }
 
   &_Content {
-    overflow: hidden;
+    width: 100%;
   }
 }
 </style>
