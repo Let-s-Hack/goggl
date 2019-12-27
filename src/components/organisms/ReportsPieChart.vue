@@ -1,22 +1,22 @@
 <template>
   <div class="ReportsPieChart">
-    <div ref="PieChartContainer" class="ReportsPieChart_Figre">
+    <div class="ReportsPieChart_Figure">
       <canvas
         ref="pieChart"
         :width="canvasSize"
         :height="canvasSize"
-        class="ReportsPieChart_Canvas"
+        class="ReportsPieChart_FigureInner"
       ></canvas>
     </div>
-    <ul class="ReportsPieChart_CategoryList">
-      <li v-for="(pie, index) in piePieces" :key="index" class="ReportsPieChart_Category">
+    <ul class="ReportsPieChart_ProjectList">
+      <li v-for="(piece, index) in pieceGroup" :key="index" class="ReportsPieChart_Project">
         <p class="ReportsPieChart_Title"
-          :style="{ borderColor: pie.color, color: pie.color }"
+          :style="{ borderColor: piece.color, color: piece.color }"
         >
-           {{pie.projectName}}
+           {{ piece.projectName }}
         </p>
-        <p class="ReportsPieChart_Percentage">{{pie.percentage}}%</p>
-        <p class="ReportsPieChart_Time">{{pie.duration}}</p>
+        <p class="ReportsPieChart_Percent">{{piece.percent}}%</p>
+        <p class="ReportsPieChart_Time">{{piece.time}}</p>
       </li>
     </ul>
   </div>
@@ -26,131 +26,139 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { forEach, get } from 'lodash';
 
+const canvasMargin: number = 108;
+
+const canvasFontFamily: string = (
+  '"Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", '
+  + '"Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif'
+);
+
 @Component
 export default class ReportsPieChart extends Vue {
-  pieChartMargin: number = 54 * 2;
-
-  canvasSize: number = (window.innerWidth - this.pieChartMargin) * 2;
-
   ctx?: CanvasRenderingContext2D;
 
-  centerPosition: number = this.canvasSize / 4;
+  canvasSize: number = 0;
 
-  radius: number = this.canvasSize / 4;
+  centerPosition: number = 0;
+
+  radius: number = 0;
 
   // 文字の描画半径
-  textRadius: number = this.radius - 8;
+  textRadius: number = 0;
 
-  canvasFontFamily: string = (
-    '"Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", '
-    + '"Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif'
-  );
-
-  // TODO: 仮データなので置き換える
-  piePieces: any = [
+  // TODO: 仮データなので置き換える、型をちゃんと設定する
+  pieceGroup: any = [
     {
       projectName: 'プロジェクトX',
-      percentage: 35,
+      percent: 35,
       color: '#3F46E3',
-      duration: '12:33:11',
+      time: '12:33:11',
     },
     {
       projectName: 'プロジェクトY',
-      percentage: 30,
+      percent: 30,
       color: '#3FE643',
-      duration: '2:22:11',
+      time: '2:22:11',
     },
     {
       projectName: 'プロジェクトZ',
-      percentage: 30,
+      percent: 30,
       color: '#F346E3',
-      duration: '12:33:11',
+      time: '12:33:11',
     },
     {
       projectName: 'プロジェクトA',
-      percentage: 5,
+      percent: 5,
       color: '#999',
-      duration: '12:33:11',
+      time: '12:33:11',
     },
   ];
 
+  beforeMount() {
+    this.canvasSize = (window.innerWidth - canvasMargin) * 2;
+    this.centerPosition = this.canvasSize / 4;
+    this.radius = this.canvasSize / 4;
+    this.textRadius = this.radius - 8;
+  }
+
   mounted() {
-    const canvas: HTMLCanvasElement = this.$refs.pieChart as HTMLCanvasElement;
+    const canvas = this.$refs.pieChart as HTMLCanvasElement;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     // Ratina対応をするため実際のサイズの２倍で作る（CSSで実際のサイズに縮める）
     this.ctx.scale(2, 2);
-    this.drawAllPiePieces();
-    this.drawAllPieText();
+    this.drawAllPiece();
+    this.drawAllDataLabel();
   }
 
-  drawAllPiePieces() {
+  // 必要な時のみ更新するようにする
+  update() {
+    this.ctx!.resetTransform();
+    this.ctx!.scale(2, 2);
+    this.drawAllPiece();
+    this.drawAllDataLabel();
+  }
+
+  drawAllPiece(): void {
+    if (typeof this.ctx === 'undefined') return;
     let beforeAngle = 0;
 
-    forEach(this.piePieces, (pie: { percentage: number, color: string }) => {
-      const firstAngle: number = beforeAngle;
-      const lastAngle: number = beforeAngle + ReportsPieChart.percentageToAngle(pie.percentage);
+    forEach(this.pieceGroup, (piece: { percent: number, color: string }) => {
+      const startAngle: number = beforeAngle;
+      const endAngle: number = beforeAngle + ReportsPieChart.percentToDegree(piece.percent);
 
-      this.drawPiePiece(firstAngle, lastAngle, pie.color);
-      beforeAngle = lastAngle;
+      this.ctx!.beginPath();
+      this.ctx!.arc(
+        this.centerPosition,
+        this.centerPosition,
+        this.radius,
+        ReportsPieChart.degreeToRadian(startAngle),
+        ReportsPieChart.degreeToRadian(endAngle),
+        false,
+      );
+      this.ctx!.lineTo(this.centerPosition, this.centerPosition);
+      this.ctx!.fillStyle = piece.color;
+      this.ctx!.fill();
+      beforeAngle = endAngle;
     });
   }
 
-  drawPiePiece(firstAngle: number, lastAngle: number, color: string) {
-    if (!this.ctx) return;
-
-    this.ctx.beginPath();
-    this.ctx.arc(
-      this.centerPosition,
-      this.centerPosition,
-      this.radius,
-      (firstAngle - 90) * Math.PI / 180,
-      (lastAngle - 90) * Math.PI / 180,
-      false,
-    );
-    this.ctx.lineTo(this.centerPosition, this.centerPosition);
-    this.ctx.fillStyle = color;
-    this.ctx.fill();
-  }
-
-  drawAllPieText() {
-    if (!this.ctx) return;
+  drawAllDataLabel(): void {
+    if (typeof this.ctx === 'undefined') return;
 
     let beforeAngle = 0;
 
-    forEach(this.piePieces, (pie: { projectName: string, percentage: number }) => {
-      const angle = beforeAngle + ReportsPieChart.percentageToAngle(pie.percentage);
+    forEach(this.pieceGroup, (piece: { projectName: string, percent: number }) => {
+      const angle = beforeAngle + ReportsPieChart.percentToDegree(piece.percent);
 
       // 10°以下の場合はテキストを表示しない
-      if (angle - beforeAngle <= 36) return;
+      if (angle - beforeAngle <= ReportsPieChart.percentToDegree(10)) return;
 
-      this.drawPieText(angle, pie.projectName, pie.percentage);
+      this.drawDataLabel(angle, piece.projectName, piece.percent);
       beforeAngle = angle;
     });
   }
 
-  drawPieText(angle: number, projectName: string, percentage: number) {
-    const radian = (angle - 90) * Math.PI / 180;
+  drawDataLabel(angle: number, projectName: string, percent: number): void {
+    const radian = ReportsPieChart.degreeToRadian(angle);
 
-    // transformをリセットして
     this.ctx!.resetTransform();
     this.ctx!.scale(2, 2);
     this.ctx!.beginPath();
     this.ctx!.fillStyle = '#FFF';
-    this.ctx!.font = `600 10px ${this.canvasFontFamily}`;
+    this.ctx!.font = `600 10px ${canvasFontFamily}`;
 
     if (angle < 180) {
-      // 角度が180°より小さい場合
       this.ctx!.textAlign = 'right';
       this.ctx!.translate(this.centerPosition, this.centerPosition);
       this.ctx!.translate(
         Math.cos(radian) * this.textRadius,
         Math.sin(radian) * this.textRadius,
       );
-      this.ctx!.rotate((angle - 90) * Math.PI / 180);
+      this.ctx!.rotate(radian);
       this.ctx!.translate(0, -10);
       this.ctx!.fillText(projectName, 0, 0);
-      this.ctx!.fillText(`${percentage}%`, 0, -16);
+      this.ctx!.fillText(`${percent}%`, 0, -16);
     } else {
       // 角度が180°以上の場合は文字を反転させる
       this.ctx!.textAlign = 'left';
@@ -159,34 +167,39 @@ export default class ReportsPieChart extends Vue {
         Math.cos(radian) * this.textRadius,
         Math.sin(radian) * this.textRadius,
       );
-      this.ctx!.rotate((angle + 180 - 90) * Math.PI / 180);
+      this.ctx!.rotate(ReportsPieChart.degreeToRadian(angle + 180));
       this.ctx!.translate(0, 34);
       this.ctx!.fillText(projectName, 0, -16);
-      this.ctx!.fillText(`${percentage}%`, 0, 0);
+      this.ctx!.fillText(`${percent}%`, 0, 0);
     }
   }
 
-  static percentageToAngle(percentage: number) {
-    return 360 * (percentage / 100);
+  static percentToDegree(percent: number): number {
+    return 360 * (percent / 100);
+  }
+
+  static degreeToRadian(degree: number): number {
+    // canvasの角度は90°から始まるため、-90°戻す
+    return (degree - 90) * Math.PI / 180;
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .ReportsPieChart {
-  &_Figre {
+  &_Figure {
     margin: 0 54px;
   }
 
-  &_Canvas {
+  &_FigureInner {
     width: 100%;
   }
 
-  &_CategoryList {
+  &_ProjectList {
     margin-top: 22px;
   }
 
-  &_Category {
+  &_Project {
     display: flex;
     line-height: 56px;
     padding: 0 16px;
@@ -231,7 +244,7 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  &_Percentage {
+  &_Percent {
     width: 56px;
     text-align: right;
     color: #8E8E95;
