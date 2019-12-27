@@ -31,21 +31,17 @@ export default class GlobalNav extends Vue {
 
   &_List {
     display: flex;
-    flex-direction: row;
     height: 100%;
-
   }
 
   &_Item {
     flex: 1 0 auto;
-    text-align: center;
 
     > a {
-      padding: 20px 0 0 0;
-      display: block;
-      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 100%;
-      box-sizing: border-box;
     }
   }
 
