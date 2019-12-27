@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { forEach, get } from 'lodash';
+import { forEach } from 'lodash';
 
 const canvasMargin: number = 108;
 
