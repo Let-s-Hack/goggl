@@ -1,22 +1,22 @@
 <template>
   <div class="ReportsPieChart">
-    <div class="ReportsPieChart_Figure">
+    <div class="ReportsPieChart_FigureContainer">
       <canvas
         ref="pieChart"
         :width="canvasSize"
         :height="canvasSize"
-        class="ReportsPieChart_FigureInner"
+        class="ReportsPieChart_Figure"
       ></canvas>
     </div>
     <ul class="ReportsPieChart_ProjectList">
-      <li v-for="(piece, index) in pieceGroup" :key="index" class="ReportsPieChart_Project">
-        <p class="ReportsPieChart_Title"
-          :style="{ borderColor: piece.color, color: piece.color }"
+      <li v-for="(group, index) in allProjectGroup" :key="index" class="ReportsPieChart_Project">
+        <p class="ReportsPieChart_ProjectName"
+          :style="{ borderColor: group.color, color: group.color }"
         >
-           {{ piece.projectName }}
+           {{ group.name }}
         </p>
-        <p class="ReportsPieChart_Percent">{{piece.percent}}%</p>
-        <p class="ReportsPieChart_Time">{{piece.time}}</p>
+        <p class="ReportsPieChart_Percent">{{ group.time.percent }}%</p>
+        <p class="ReportsPieChart_Time">{{ group.time.sum }}</p>
       </li>
     </ul>
   </div>
@@ -43,34 +43,39 @@ export default class ReportsPieChart extends Vue {
 
   radius: number = 0;
 
-  // 文字の描画半径
-  textRadius: number = 0;
-
   // TODO: 仮データなので置き換える、型をちゃんと設定する
-  pieceGroup: any = [
+  allProjectGroup: any = [
     {
-      projectName: 'プロジェクトX',
-      percent: 35,
+      name: 'プロジェクトX',
       color: '#3F46E3',
-      time: '12:33:11',
+      time: {
+        percent: 35,
+        sum: '12:33:11',
+      },
     },
     {
-      projectName: 'プロジェクトY',
-      percent: 30,
+      name: 'プロジェクトY',
       color: '#3FE643',
-      time: '2:22:11',
+      time: {
+        percent: 30,
+        sum: '2:22:11',
+      },
     },
     {
-      projectName: 'プロジェクトZ',
-      percent: 30,
+      name: 'プロジェクトZ',
       color: '#F346E3',
-      time: '12:33:11',
+      time: {
+        percent: 30,
+        sum: '12:33:11',
+      },
     },
     {
-      projectName: 'プロジェクトA',
-      percent: 5,
+      name: 'プロジェクトA',
       color: '#999',
-      time: '12:33:11',
+      time: {
+        percent: 5,
+        sum: '12:33:11',
+      },
     },
   ];
 
@@ -78,35 +83,35 @@ export default class ReportsPieChart extends Vue {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
     this.centerPosition = this.canvasSize / 4;
     this.radius = this.canvasSize / 4;
-    this.textRadius = this.radius - 8;
   }
 
   mounted() {
     const canvas = this.$refs.pieChart as HTMLCanvasElement;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    // Ratina対応をするため実際のサイズの２倍で作る（CSSで実際のサイズに縮める）
-    this.ctx.scale(2, 2);
-    this.drawAllPiece();
-    this.drawAllDataLabel();
+    this.resetTransform();
+    this.drawAllProjectGroup();
   }
 
   // TODO: 必要な時のみ更新するようにする
   update() {
-    this.ctx!.resetTransform();
-    this.ctx!.scale(2, 2);
-    this.drawAllPiece();
-    this.drawAllDataLabel();
+    this.resetTransform();
+    this.drawAllProjectGroup();
   }
 
-  drawAllPiece(): void {
+  drawAllProjectGroup(): void {
     if (typeof this.ctx === 'undefined') return;
-    let beforeAngle = 0;
+    let prevAngle = 0;
 
-    forEach(this.pieceGroup, (piece: { percent: number, color: string }) => {
-      const startAngle: number = beforeAngle;
-      const endAngle: number = beforeAngle + ReportsPieChart.percentToDegree(piece.percent);
+    forEach(this.allProjectGroup, (
+      group: { name: string, color: string, time: { percent: number } },
+    ) => {
+      const startAngle: number = prevAngle;
+      const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(group.time.percent);
+      const groupDegree = endAngle - prevAngle;
+      const minDegree = 10;
 
+      this.resetTransform();
       this.ctx!.beginPath();
       this.ctx!.arc(
         this.centerPosition,
@@ -117,25 +122,15 @@ export default class ReportsPieChart extends Vue {
         false,
       );
       this.ctx!.lineTo(this.centerPosition, this.centerPosition);
-      this.ctx!.fillStyle = piece.color;
+      this.ctx!.fillStyle = group.color;
       this.ctx!.fill();
-      beforeAngle = endAngle;
-    });
-  }
 
-  drawAllDataLabel(): void {
-    if (typeof this.ctx === 'undefined') return;
+      // 10°より角度が大きい場合はデータラベルを表示する
+      if (groupDegree > ReportsPieChart.percentToDegree(minDegree)) {
+        this.drawDataLabel(endAngle, group.name, group.time.percent);
+      }
 
-    let beforeAngle = 0;
-
-    forEach(this.pieceGroup, (piece: { projectName: string, percent: number }) => {
-      const angle = beforeAngle + ReportsPieChart.percentToDegree(piece.percent);
-
-      // 10°以下の場合はテキストを表示しない
-      if (angle - beforeAngle <= ReportsPieChart.percentToDegree(10)) return;
-
-      this.drawDataLabel(angle, piece.projectName, piece.percent);
-      beforeAngle = angle;
+      prevAngle = endAngle;
     });
   }
 
@@ -143,16 +138,15 @@ export default class ReportsPieChart extends Vue {
     const radian = ReportsPieChart.degreeToRadian(angle);
     const isLessThanHalf = angle < 180;
 
-    this.ctx!.resetTransform();
-    this.ctx!.scale(2, 2);
+    this.resetTransform();
     this.ctx!.beginPath();
     this.ctx!.fillStyle = '#FFF';
     this.ctx!.font = `600 10px ${canvasFontFamily}`;
     this.ctx!.textAlign = isLessThanHalf ? 'right' : 'left';
     this.ctx!.translate(this.centerPosition, this.centerPosition);
     this.ctx!.translate(
-      Math.cos(radian) * this.textRadius,
-      Math.sin(radian) * this.textRadius,
+      Math.cos(radian) * (this.radius - 8),
+      Math.sin(radian) * (this.radius - 8),
     );
 
     if (isLessThanHalf) {
@@ -169,11 +163,17 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  static percentToDegree(percent: number): number {
+  private resetTransform(): void {
+    this.ctx!.resetTransform();
+    // Ratina対応をするため実際のサイズの２倍で作る（CSSで実際のサイズに縮める）
+    this.ctx!.scale(2, 2);
+  }
+
+  private static percentToDegree(percent: number): number {
     return 360 * (percent / 100);
   }
 
-  static degreeToRadian(degree: number): number {
+  private static degreeToRadian(degree: number): number {
     // canvasの角度は90°から始まるため、-90°する
     return (degree - 90) * Math.PI / 180;
   }
@@ -182,11 +182,11 @@ export default class ReportsPieChart extends Vue {
 
 <style lang="scss" scoped>
 .ReportsPieChart {
-  &_Figure {
+  &_FigureContainer {
     margin: 0 54px;
   }
 
-  &_FigureInner {
+  &_Figure {
     width: 100%;
   }
 
@@ -207,7 +207,7 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  &_Title {
+  &_ProjectName {
     position: relative;
     flex: 1;
     display: inline-flex;
