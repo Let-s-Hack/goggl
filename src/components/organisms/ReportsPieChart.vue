@@ -30,7 +30,7 @@ const canvasMargin: number = 108;
 
 const canvasFontFamily: string = (
   '"Helvetica Neue", Helvetica, Arial, Verdana, Roboto, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", '
-  + '"Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif'
+  + '"Noto Sans JP", "Meiryo UI", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif'
 );
 
 @Component
