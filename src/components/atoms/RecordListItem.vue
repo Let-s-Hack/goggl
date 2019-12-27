@@ -31,7 +31,6 @@ export default class RecordListItem extends Vue {
 <style lang="scss" scoped>
 .RecordListItem {
   $heightSize: 64px;
-  position: relative;
   display: flex;
   height: $heightSize;
   padding: 14px 16px 14px 76px;

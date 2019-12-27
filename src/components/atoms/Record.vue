@@ -31,7 +31,6 @@ export default class Record extends Vue {
 <style lang="scss" scoped>
 .Record {
   $heightSize: 64px;
-  position: relative;
   display: flex;
   height: $heightSize;
   padding: 14px 16px;

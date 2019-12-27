@@ -45,7 +45,6 @@ export default class RecordList extends Vue {
 .RecordList {
   &_Summary {
     $heightSize: 64px;
-    position: relative;
     display: flex;
     height: $heightSize;
     padding: 14px 16px;

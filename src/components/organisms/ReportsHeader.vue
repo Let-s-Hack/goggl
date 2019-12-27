@@ -21,7 +21,6 @@ export default class Reportsheader extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  top: 0;
   width: 100%;
   height: 44px;
   padding: 8px 0;
