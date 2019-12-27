@@ -57,6 +57,7 @@ export default class ReportsBarGraph extends Vue {
   }
 
   updated() {
+    this.maxScale = this.getMaxScale();
     this.drawVerticalScale();
     this.drawHorizontalScale();
     this.drawGraphItem();
