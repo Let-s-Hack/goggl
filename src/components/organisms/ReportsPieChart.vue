@@ -173,7 +173,7 @@ export default class ReportsPieChart extends Vue {
   }
 
   static degreeToRadian(degree: number): number {
-    // canvasの角度は90°から始まるため、-90°戻す
+    // canvasの角度は90°から始まるため、-90°する
     return (degree - 90) * Math.PI / 180;
   }
 }
