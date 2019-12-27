@@ -91,7 +91,7 @@ export default class ReportsPieChart extends Vue {
     this.drawAllDataLabel();
   }
 
-  // 必要な時のみ更新するようにする
+  // TODO: 必要な時のみ更新するようにする
   update() {
     this.ctx!.resetTransform();
     this.ctx!.scale(2, 2);
@@ -141,32 +141,26 @@ export default class ReportsPieChart extends Vue {
 
   drawDataLabel(angle: number, projectName: string, percent: number): void {
     const radian = ReportsPieChart.degreeToRadian(angle);
+    const isLessThanHalf = angle < 180;
 
     this.ctx!.resetTransform();
     this.ctx!.scale(2, 2);
     this.ctx!.beginPath();
     this.ctx!.fillStyle = '#FFF';
     this.ctx!.font = `600 10px ${canvasFontFamily}`;
-
-    if (angle < 180) {
-      this.ctx!.textAlign = 'right';
-      this.ctx!.translate(this.centerPosition, this.centerPosition);
-      this.ctx!.translate(
-        Math.cos(radian) * this.textRadius,
-        Math.sin(radian) * this.textRadius,
-      );
+    this.ctx!.textAlign = isLessThanHalf ? 'right' : 'left';
+    this.ctx!.translate(this.centerPosition, this.centerPosition);
+    this.ctx!.translate(
+      Math.cos(radian) * this.textRadius,
+      Math.sin(radian) * this.textRadius,
+    );
+    if (isLessThanHalf) {
       this.ctx!.rotate(radian);
       this.ctx!.translate(0, -10);
       this.ctx!.fillText(projectName, 0, 0);
       this.ctx!.fillText(`${percent}%`, 0, -16);
     } else {
       // 角度が180°以上の場合は文字を反転させる
-      this.ctx!.textAlign = 'left';
-      this.ctx!.translate(this.centerPosition, this.centerPosition);
-      this.ctx!.translate(
-        Math.cos(radian) * this.textRadius,
-        Math.sin(radian) * this.textRadius,
-      );
       this.ctx!.rotate(ReportsPieChart.degreeToRadian(angle + 180));
       this.ctx!.translate(0, 34);
       this.ctx!.fillText(projectName, 0, -16);
