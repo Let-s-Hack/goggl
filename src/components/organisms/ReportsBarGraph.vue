@@ -4,14 +4,14 @@
     <canvas
       ref="barGraphContent"
       class="ReportsBarGraph_Content"
-      :width="contentWidth + 'px'"
-      :height="contentHeight + 'px'"
+      :width="`${contentWidth}px`"
+      :height="`${contentHeight}px`"
     ></canvas>
   </BaseCard>
 </template>
 
 <script lang="ts">
-import _ from 'lodash';
+import { forEach, max, values } from 'lodash';
 import moment, { Moment } from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import BaseCard from '~/atoms/BaseCard.vue';
@@ -29,7 +29,7 @@ const graphScaleHeight: number = 40;
   },
 })
 export default class ReportsBarGraph extends Vue {
-  ctx?: CanvasRenderingContext2D | null;
+  ctx?: CanvasRenderingContext2D;
 
   maxScale: number = 0;
 
@@ -53,7 +53,7 @@ export default class ReportsBarGraph extends Vue {
     this.maxScale = this.getMaxScale();
 
     const canvas = this.$refs.barGraphContent as HTMLCanvasElement;
-    this.ctx = canvas.getContext('2d');
+    this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
   }
 
   updated() {
@@ -63,52 +63,49 @@ export default class ReportsBarGraph extends Vue {
   }
 
   drawVerticalScale(): void {
-    const self = this;
-    if (self.ctx == null) return;
+    if (typeof this.ctx === 'undefined') return;
 
     const fontWidth: number = 24;
-    _.forEach(this.getVerticalScale(), (scale: {[key: string]: number}) => {
-      self.ctx!.fillStyle = '#C4C4C6';
-      self.ctx!.font = '12px Helvetica Neue';
-      self.ctx!.fillText(`${scale.hour} h`, self.contentWidth - (margin + fontWidth), scale.top - 8, fontWidth);
-      self.drawLine(0, scale.top, self.contentWidth, scale.top, '#E5E5EA', 1);
+    forEach(this.getVerticalScale(), (scale: { [key: string]: number }) => {
+      this.ctx!.fillStyle = '#C4C4C6';
+      this.ctx!.font = '12px Helvetica Neue';
+      this.ctx!.fillText(`${scale.hour} h`, this.contentWidth - (margin + fontWidth), scale.top - 8, fontWidth);
+      this.drawLine(0, scale.top, this.contentWidth, scale.top, '#E5E5EA', 1);
     });
   }
 
   drawHorizontalScale(): void {
-    const self = this;
-    if (self.ctx == null) return;
-    self.ctx!.beginPath();
+    if (typeof this.ctx === 'undefined') return;
+    this.ctx!.beginPath();
 
     let moveLeft: number = margin;
-    _.forEach(this.data, (count: number, date: string) => {
+    forEach(this.data, (count: number, date: string) => {
       const momentDate: Moment = moment(date);
       const weekday = dayOfWeek[momentDate.weekday()];
 
-      self.ctx!.fillStyle = '#C4C4C6';
-      self.ctx!.font = '300 13px Helvetica Neue';
-      self.ctx!.fillText(weekday, moveLeft + margin, graphMaxHeight + 20);
-      self.ctx!.font = '300 12px Helvetica Neue';
-      self.ctx!.fillText(momentDate.format('MM-DD'), moveLeft, graphMaxHeight + 36);
+      this.ctx!.fillStyle = '#C4C4C6';
+      this.ctx!.font = '300 13px Helvetica Neue';
+      this.ctx!.fillText(weekday, moveLeft + margin, graphMaxHeight + 20);
+      this.ctx!.font = '300 12px Helvetica Neue';
+      this.ctx!.fillText(momentDate.format('MM-DD'), moveLeft, graphMaxHeight + 36);
 
       moveLeft += itemWidth + margin;
     });
   }
 
   drawGraphItem(): void {
-    const self = this;
-    if (self.ctx == null) return;
-    self.ctx!.beginPath();
+    if (typeof this.ctx === 'undefined') return;
+    this.ctx!.beginPath();
 
     let moveLeft: number = margin;
-    _.forEach(self.data, (count: number, date: string) => {
-      const itemHeight = self.getGraphItemHeight(count);
+    forEach(this.data, (count: number, date: string) => {
+      const itemHeight = this.getGraphItemHeight(count);
       if (itemHeight === 0) {
         const top = graphMaxHeight - 1;
-        self.drawLine(moveLeft, top, moveLeft + itemWidth, top);
+        this.drawLine(moveLeft, top, moveLeft + itemWidth, top);
       } else {
-        self.ctx!.fillStyle = '#47C3FC';
-        self.ctx!.fillRect(moveLeft, graphMaxHeight, itemWidth, -itemHeight);
+        this.ctx!.fillStyle = '#47C3FC';
+        this.ctx!.fillRect(moveLeft, graphMaxHeight, itemWidth, -itemHeight);
       }
 
       moveLeft += itemWidth + margin;
@@ -131,17 +128,17 @@ export default class ReportsBarGraph extends Vue {
   }
 
   getMaxScale(): number {
-    const values: number[] = _.values(this.data);
-    const maxValue: number | undefined = _.max(values);
+    const graphValues: number[] = values(this.data);
+    const maxValue: number | undefined = max(graphValues);
     const minValue: number = 2;
-    if (maxValue === undefined || maxValue <= minValue) {
+    if (typeof maxValue === 'undefined' || maxValue <= minValue) {
       return minValue;
     }
 
     return (maxValue % 2 !== 0) ? maxValue + 1 : maxValue;
   }
 
-  getVerticalScale(): {[key: string]: number}[] {
+  getVerticalScale(): { [key: string]: number }[] {
     const maxScaleTop: number = graphMaxHeight - graphItemMaxHeight;
 
     return [
