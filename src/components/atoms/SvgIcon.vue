@@ -7,7 +7,7 @@ import { camelCase, forEach, upperFirst } from 'lodash';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
 const files: any = require.context('~public/img/icons/');
-const icons: {[key: string]: any } = {};
+const icons: { [key: string]: any } = {};
 
 forEach(files.keys(), (path: string) => {
   const fileName = path.match(/\.\/(.*).svg/);
