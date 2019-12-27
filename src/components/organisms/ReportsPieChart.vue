@@ -154,6 +154,7 @@ export default class ReportsPieChart extends Vue {
       Math.cos(radian) * this.textRadius,
       Math.sin(radian) * this.textRadius,
     );
+
     if (isLessThanHalf) {
       this.ctx!.rotate(radian);
       this.ctx!.translate(0, -10);
