@@ -120,7 +120,6 @@ export default class ReportsPieChart extends Vue {
         this.radius,
         ReportsPieChart.degreeToRadian(startAngle),
         ReportsPieChart.degreeToRadian(endAngle),
-        false,
       );
       this.ctx!.lineTo(this.centerPosition, this.centerPosition);
       this.ctx!.fillStyle = project.color;
