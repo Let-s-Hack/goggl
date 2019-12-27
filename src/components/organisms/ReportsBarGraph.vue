@@ -16,17 +16,12 @@ import moment, { Moment } from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import BaseCard from '~/atoms/BaseCard.vue';
 
-const DAY_OF_WEEK: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-
-const ITEM_WIDTH: number = 30;
-
-const MARGIN: number = 12;
-
-const GRAPH_ITEM_MAX_HEIGHT: number = 152;
-
-const GRAPH_MAX_HEIGHT: number = 192;
-
-const GRAPH_SCALE_HEIGHT: number = 40;
+const dayOfWeek: string[] = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+const itemWidth: number = 30;
+const margin: number = 12;
+const graphItemMaxHeight: number = 152;
+const graphMaxHeight: number = 192;
+const graphScaleHeight: number = 40;
 
 @Component({
   components: {
@@ -34,7 +29,6 @@ const GRAPH_SCALE_HEIGHT: number = 40;
   },
 })
 export default class ReportsBarGraph extends Vue {
-
   ctx?: CanvasRenderingContext2D | null;
 
   maxScale: number = 0;
@@ -55,7 +49,7 @@ export default class ReportsBarGraph extends Vue {
 
   mounted() {
     this.contentWidth = this.$el.clientWidth;
-    this.contentHeight = GRAPH_MAX_HEIGHT + GRAPH_SCALE_HEIGHT;
+    this.contentHeight = graphMaxHeight + graphScaleHeight;
     this.maxScale = this.getMaxScale();
 
     const canvas = this.$refs.barGraphContent as HTMLCanvasElement;
@@ -76,7 +70,7 @@ export default class ReportsBarGraph extends Vue {
     _.forEach(this.getVerticalScale(), (scale: {[key: string]: number}) => {
       self.ctx!.fillStyle = '#C4C4C6';
       self.ctx!.font = '12px Helvetica Neue';
-      self.ctx!.fillText(`${scale.hour} h`, self.contentWidth - (MARGIN + fontWidth), scale.top - 8, fontWidth);
+      self.ctx!.fillText(`${scale.hour} h`, self.contentWidth - (margin + fontWidth), scale.top - 8, fontWidth);
       self.drawLine(0, scale.top, self.contentWidth, scale.top, '#E5E5EA', 1);
     });
   }
@@ -86,18 +80,18 @@ export default class ReportsBarGraph extends Vue {
     if (self.ctx == null) return;
     self.ctx!.beginPath();
 
-    let moveLeft: number = MARGIN;
+    let moveLeft: number = margin;
     _.forEach(this.data, (count: number, date: string) => {
       const momentDate: Moment = moment(date);
-      const weekday = DAY_OF_WEEK[momentDate.weekday()];
+      const weekday = dayOfWeek[momentDate.weekday()];
 
       self.ctx!.fillStyle = '#C4C4C6';
       self.ctx!.font = '300 13px Helvetica Neue';
-      self.ctx!.fillText(weekday, moveLeft + MARGIN, GRAPH_MAX_HEIGHT + 20);
+      self.ctx!.fillText(weekday, moveLeft + margin, graphMaxHeight + 20);
       self.ctx!.font = '300 12px Helvetica Neue';
-      self.ctx!.fillText(momentDate.format('MM-DD'), moveLeft, GRAPH_MAX_HEIGHT + 36);
+      self.ctx!.fillText(momentDate.format('MM-DD'), moveLeft, graphMaxHeight + 36);
 
-      moveLeft += ITEM_WIDTH + MARGIN;
+      moveLeft += itemWidth + margin;
     });
   }
 
@@ -106,18 +100,18 @@ export default class ReportsBarGraph extends Vue {
     if (self.ctx == null) return;
     self.ctx!.beginPath();
 
-    let moveLeft: number = MARGIN;
+    let moveLeft: number = margin;
     _.forEach(self.data, (count: number, date: string) => {
       const itemHeight = self.getGraphItemHeight(count);
       if (itemHeight === 0) {
-        const top = GRAPH_MAX_HEIGHT - 1;
-        self.drawLine(moveLeft, top, moveLeft + ITEM_WIDTH, top);
+        const top = graphMaxHeight - 1;
+        self.drawLine(moveLeft, top, moveLeft + itemWidth, top);
       } else {
         self.ctx!.fillStyle = '#47C3FC';
-        self.ctx!.fillRect(moveLeft, GRAPH_MAX_HEIGHT, ITEM_WIDTH, -itemHeight);
+        self.ctx!.fillRect(moveLeft, graphMaxHeight, itemWidth, -itemHeight);
       }
 
-      moveLeft += ITEM_WIDTH + MARGIN;
+      moveLeft += itemWidth + margin;
     });
   }
 
@@ -148,7 +142,7 @@ export default class ReportsBarGraph extends Vue {
   }
 
   getVerticalScale(): {[key: string]: number}[] {
-    const maxScaleTop: number = GRAPH_MAX_HEIGHT - GRAPH_ITEM_MAX_HEIGHT;
+    const maxScaleTop: number = graphMaxHeight - graphItemMaxHeight;
 
     return [
       {
@@ -157,17 +151,17 @@ export default class ReportsBarGraph extends Vue {
       },
       {
         hour: this.maxScale / 2,
-        top: maxScaleTop + GRAPH_ITEM_MAX_HEIGHT / 2,
+        top: maxScaleTop + graphItemMaxHeight / 2,
       },
       {
         hour: 0,
-        top: GRAPH_MAX_HEIGHT - 1,
+        top: graphMaxHeight - 1,
       },
     ];
   }
 
   getGraphItemHeight(value: number): number {
-    return GRAPH_ITEM_MAX_HEIGHT / this.maxScale * value;
+    return graphItemMaxHeight / this.maxScale * value;
   }
 }
 </script>
