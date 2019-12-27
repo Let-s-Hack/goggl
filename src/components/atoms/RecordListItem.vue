@@ -1,6 +1,7 @@
 <template>
   <li class="RecordListItem">
     <div class="RecordListItem_Left">
+      <!-- TODO: _isEmptyの出し分け -->
       <h4 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h4>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
       <span
@@ -87,6 +88,10 @@ export default class RecordListItem extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
+    &._isEmpty {
+      color: #C7C7C9;
+    }
   }
 
   &_Project {

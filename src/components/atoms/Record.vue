@@ -1,7 +1,8 @@
 <template>
   <li class="Record">
     <div class="Record_Left">
-      <h3 class="Record_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h3>
+      <!-- TODO: _isEmptyの出し分け -->
+      <h3 class="Record_Title _isEmpty">説明を追加</h3>
       <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
       <span
         class="Record_Project"
@@ -87,6 +88,10 @@ export default class Record extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
+    &._isEmpty {
+      color: #C7C7C9;
+    }
   }
 
   &_Project {

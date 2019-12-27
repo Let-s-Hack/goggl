@@ -3,6 +3,7 @@
     <div class="RecordList_Summary">
       <p class="RecordList_SummaryCount _isActive">4</p>
       <div class="RecordList_SummaryTitleGroup">
+        <!-- TODO: _isEmptyの出し分け -->
         <h3 class="RecordList_SummaryTitle">タイトルタイトルタイトルタイトルタイトル</h3>
         <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
         <span
@@ -127,6 +128,10 @@ export default class RecordList extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
+    &._isEmpty {
+      color: #C7C7C9;
+    }
   }
 
   &_SummaryProject {
