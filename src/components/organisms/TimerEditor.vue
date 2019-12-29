@@ -248,21 +248,15 @@ export default class TimerEditor extends Vue {
     letter-spacing: 0.1rem;
     line-height: 40px;
 
-    &:active::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(#D1D1D6, 0.75);
-      border-radius: inherit;
-      content: '';
+    &:active {
+      color: rgba(#FFF, 0.3);
     }
   }
 
   &_ConfirmButton {
     position: relative;
-    width: 206px;
+    flex: 1;
+    margin-left: 24px;
     border-radius: 8px;
     background-color: #34C759;
     color: #FFF;
@@ -270,15 +264,8 @@ export default class TimerEditor extends Vue {
     letter-spacing: 0.1rem;
     line-height: 40px;
 
-    &:active::after {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(#34C759, 0.75);
-      border-radius: inherit;
-      content: '';
+    &:active {
+      color: rgba(#FFF, 0.3);
     }
   }
 }
