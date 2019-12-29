@@ -34,8 +34,20 @@
         </span>
       </li>
       <li class="TimerEditor_InputLargeGroup"></li>
-      <li class="TimerEditor_InputLargeGroup"></li>
-      <li class="TimerEditor_InputLargeGroup"></li>
+      <li class="TimerEditor_InputLargeGroup">
+        <SvgIcon class="TimerEditor_Icon" name="timer" />
+        <div class="TimerEditor_LabelGroup">
+          <span class="TimerEditor_LabelText">0:00:23</span>
+          <span class="TimerEditor_LabelSubText">Duration</span>
+        </div>
+      </li>
+      <li class="TimerEditor_InputLargeGroup">
+        <SvgIcon class="TimerEditor_Icon" name="calendar" />
+        <div class="TimerEditor_LabelGroup">
+          <span class="TimerEditor_LabelText">12/29</span>
+          <span class="TimerEditor_LabelSubText">Start date</span>
+        </div>
+      </li>
     </ul>
     <div class="TimerEditor_ButtonGroup">
       <button class="TimerEditor_DeleteButton">Delete</button>
@@ -70,10 +82,9 @@ export default class TimerEditor extends Vue {
 
   &_InputGroup {
     height: 48px;
-    flex: 1;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    justify-items: center;
     padding: $padding;
     box-sizing: border-box;
     font-size: 1.4rem;
@@ -145,6 +156,29 @@ export default class TimerEditor extends Vue {
     &::before {
       display: none;
     }
+  }
+
+  &_Icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 12px;
+    fill: #B5BCC0;
+  }
+
+  &_LabelGroup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &_LabelText {
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+  }
+
+  &_LabelSubText {
+    margin-top: 8px;
+    font-size: 1.2rem;
+    color: #8A8A8E;
   }
 
   &_AddIcon {
