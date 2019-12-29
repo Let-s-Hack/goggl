@@ -33,9 +33,9 @@
           <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
         </span>
       </li>
-      <li class="TimerEditor_InputGroup _existsIcon"></li>
-      <li class="TimerEditor_InputGroup _existsIcon"></li>
-      <li class="TimerEditor_InputGroup _existsIcon"></li>
+      <li class="TimerEditor_InputLargeGroup"></li>
+      <li class="TimerEditor_InputLargeGroup"></li>
+      <li class="TimerEditor_InputLargeGroup"></li>
     </ul>
     <div class="TimerEditor_ButtonGroup">
       <button class="TimerEditor_DeleteButton">Delete</button>
@@ -79,13 +79,14 @@ export default class TimerEditor extends Vue {
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
 
-    &._existsIcon {
-      height: 56px;
-    }
-
     &:not(:last-child) {
       border-bottom: 1px solid #EEE;
     }
+  }
+
+  &_InputLargeGroup{
+    @extend .TimerEditor_InputGroup;
+    height: 56px;
   }
 
   input {
