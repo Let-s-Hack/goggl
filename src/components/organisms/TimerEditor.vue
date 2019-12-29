@@ -245,6 +245,7 @@ export default class TimerEditor extends Vue {
     background-color: #D1D1D6;
     color: #FFF;
     font-size: 1.4rem;
+    font-weight: 300;
     letter-spacing: 0.1rem;
     line-height: 40px;
 
@@ -261,6 +262,7 @@ export default class TimerEditor extends Vue {
     background-color: #34C759;
     color: #FFF;
     font-size: 1.4rem;
+    font-weight: 300;
     letter-spacing: 0.1rem;
     line-height: 40px;
 
