@@ -88,7 +88,7 @@ export default class ReportsPieChart extends Vue {
     },
   ];
 
-  animationFrameId?: number;
+  animationFrameId: number = 0;
 
   beforeMount() {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
@@ -101,7 +101,7 @@ export default class ReportsPieChart extends Vue {
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
     if (this.isLoading) {
-      this.drawLoadingAnimation();
+      this.playLoadingAnimation();
     } else {
       this.drawAllProjectGroup();
     }
@@ -110,18 +110,19 @@ export default class ReportsPieChart extends Vue {
   // TODO: 必要な時のみ更新するようにする
   update() {
     if (this.isLoading) {
-      this.drawLoadingAnimation();
+      this.playLoadingAnimation();
     } else {
       this.drawAllProjectGroup();
     }
   }
 
   @Watch('isLoading')
-  private onChangeLoadingStatus() {
+  private onChangeLoadingStatus(): void {
     if (this.isLoading) {
-      this.drawLoadingAnimation();
-    } else if (typeof this.animationFrameId === 'number') {
+      this.playLoadingAnimation();
+    } else {
       cancelAnimationFrame(this.animationFrameId);
+      this.drawAllProjectGroup();
     }
   }
 
@@ -137,17 +138,7 @@ export default class ReportsPieChart extends Vue {
       const groupDegree = endAngle - startAngle;
 
       this.resetTransform();
-      this.ctx!.beginPath();
-      this.ctx!.arc(
-        this.centerPosition,
-        this.centerPosition,
-        this.radius,
-        ReportsPieChart.degreeToRadian(startAngle),
-        ReportsPieChart.degreeToRadian(endAngle),
-      );
-      this.ctx!.lineTo(this.centerPosition, this.centerPosition);
-      this.ctx!.fillStyle = project.color;
-      this.ctx!.fill();
+      this.drawCircleSector(startAngle, endAngle, project.color);
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
@@ -187,35 +178,29 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  private drawLoadingAnimation(): void {
-    if (typeof this.ctx === 'undefined') return;
-
-    this.resetTransform();
-    this.ctx.beginPath();
-    this.ctx.arc(
+  private drawCircleSector(startAngle: number, endAngle: number, color: string) {
+    this.ctx!.beginPath();
+    this.ctx!.arc(
       this.centerPosition,
       this.centerPosition,
       this.radius,
-      ReportsPieChart.degreeToRadian(0),
-      ReportsPieChart.degreeToRadian(360),
+      ReportsPieChart.degreeToRadian(startAngle),
+      ReportsPieChart.degreeToRadian(endAngle),
     );
-    this.ctx.fillStyle = '#AEAEB2';
-    this.ctx.fill();
+    this.ctx!.lineTo(this.centerPosition, this.centerPosition);
+    this.ctx!.fillStyle = color;
+    this.ctx!.fill();
+  }
+
+  private playLoadingAnimation(): void {
+    if (typeof this.ctx === 'undefined') return;
+
+    this.resetTransform();
+    this.drawCircleSector(0, 360, '#AEAEB2');
 
     let endAngle: number = 0;
     const loadingAnimation = (): void => {
-      this.ctx!.beginPath();
-      this.ctx!.arc(
-        this.centerPosition,
-        this.centerPosition,
-        this.radius,
-        ReportsPieChart.degreeToRadian(0),
-        ReportsPieChart.degreeToRadian(endAngle),
-      );
-      this.ctx!.lineTo(this.centerPosition, this.centerPosition);
-      this.ctx!.fillStyle = '#D2D2D8';
-      this.ctx!.fill();
-
+      this.drawCircleSector(0, endAngle, '#D2D2D8');
       endAngle += 1;
       this.animationFrameId = requestAnimationFrame(loadingAnimation);
     };
