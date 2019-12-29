@@ -1,5 +1,5 @@
 <template>
-  <BaseCard class="ReportsSummary">
+  <BaseCard :class="['ReportsSummary', { '_isLoading': isLoading }]">
     <div class="ReportsSummary_Total _isActive">
       <p class="ReportsSummary_Label">TOTAL</p>
       <p class="ReportsSummary_Count">59:15:47</p>
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 import BaseCard from '~/atoms/BaseCard.vue';
 
 @Component({
@@ -28,6 +28,7 @@ import BaseCard from '~/atoms/BaseCard.vue';
   },
 })
 export default class ReportsSummary extends Vue {
+  @Prop({ default: false }) isLoading?: boolean;
 }
 </script>
 
@@ -67,6 +68,10 @@ export default class ReportsSummary extends Vue {
     .ReportsSummary_Billable._isActive & {
       color: #00ABFC;
     }
+
+    .ReportsSummary._isLoading & {
+      color: #CECECE;
+    }
   }
 
   &_BarGraph {
@@ -96,6 +101,10 @@ export default class ReportsSummary extends Vue {
       .ReportsSummary_Total._isActive & {
         background-color: #E9FAEC;
       }
+
+      .ReportsSummary._isLoading & {
+        background-color: #DCE9F8;
+      }
     }
   }
 
@@ -106,6 +115,10 @@ export default class ReportsSummary extends Vue {
 
     .ReportsSummary_Billable._isActive & {
       border-color: #C3EBFD;
+    }
+
+    .ReportsSummary._isLoading & {
+      border-color: #ECF0F3;
     }
   }
 }
