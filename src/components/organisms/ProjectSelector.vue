@@ -93,8 +93,7 @@ export default class ProjectSelector extends Vue {
     display: flex;
     height: 48px;
     align-items: center;
-    padding: 15px;
-    box-sizing: border-box;
+    padding-left: 10px;
     border-bottom: 1px solid #C5C6C8;
   }
 
