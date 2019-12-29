@@ -23,7 +23,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Vue,
+  Prop,
+  Watch,
+} from 'vue-property-decorator';
 import { forEach } from 'lodash';
 
 const canvasMargin: number = 108;
@@ -37,6 +42,8 @@ const minShowDataLabelDegree = 10;
 
 @Component
 export default class ReportsPieChart extends Vue {
+  @Prop({ default: false }) isLoading?: boolean;
+
   ctx?: CanvasRenderingContext2D;
 
   canvasSize: number = 0;
@@ -81,6 +88,8 @@ export default class ReportsPieChart extends Vue {
     },
   ];
 
+  animationFrameId?: number;
+
   beforeMount() {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
     this.centerPosition = this.canvasSize / 4;
@@ -91,14 +100,29 @@ export default class ReportsPieChart extends Vue {
     const canvas = this.$refs.pieChart as HTMLCanvasElement;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    this.resetTransform();
-    this.drawAllProjectGroup();
+    if (this.isLoading) {
+      this.drawLoadingAnimation();
+    } else {
+      this.drawAllProjectGroup();
+    }
   }
 
   // TODO: 必要な時のみ更新するようにする
   update() {
-    this.resetTransform();
-    this.drawAllProjectGroup();
+    if (this.isLoading) {
+      this.drawLoadingAnimation();
+    } else {
+      this.drawAllProjectGroup();
+    }
+  }
+
+  @Watch('isLoading')
+  private onChangeLoadingStatus() {
+    if (this.isLoading) {
+      this.drawLoadingAnimation();
+    } else if (typeof this.animationFrameId === 'number') {
+      cancelAnimationFrame(this.animationFrameId);
+    }
   }
 
   private drawAllProjectGroup(): void {
@@ -161,6 +185,42 @@ export default class ReportsPieChart extends Vue {
       this.ctx!.fillText(projectName, 0, -16);
       this.ctx!.fillText(`${percent}%`, 0, 0);
     }
+  }
+
+  private drawLoadingAnimation(): void {
+    if (typeof this.ctx === 'undefined') return;
+
+    this.resetTransform();
+    this.ctx.beginPath();
+    this.ctx.arc(
+      this.centerPosition,
+      this.centerPosition,
+      this.radius,
+      ReportsPieChart.degreeToRadian(0),
+      ReportsPieChart.degreeToRadian(360),
+    );
+    this.ctx.fillStyle = '#AEAEB2';
+    this.ctx.fill();
+
+    let angle: number = 0;
+    const loadingAnimation = (): void => {
+      this.ctx!.beginPath();
+      this.ctx!.arc(
+        this.centerPosition,
+        this.centerPosition,
+        this.radius,
+        ReportsPieChart.degreeToRadian(0),
+        ReportsPieChart.degreeToRadian(angle),
+      );
+      this.ctx!.lineTo(this.centerPosition, this.centerPosition);
+      this.ctx!.fillStyle = '#D2D2D8';
+      this.ctx!.fill();
+
+      angle += 1;
+      this.animationFrameId = requestAnimationFrame(loadingAnimation);
+    };
+
+    this.animationFrameId = requestAnimationFrame(loadingAnimation);
   }
 
   private resetTransform(): void {
