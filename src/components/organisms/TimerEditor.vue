@@ -11,7 +11,18 @@
         <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
         <input type="text" class="TimerEditor_Description _isEmpty" value="Add description"/>
       </li>
-      <li class="TimerEditor_InputGroup"></li>
+      <li class="TimerEditor_InputGroup">
+        <!-- TODO: 選択済み時の出し分け -->
+        <!-- <span
+          class="TimerEditor_Project"
+          :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
+        >
+          テスト
+        </span> -->
+        <span class="TimerEditor_ProjectEmpty">
+          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
+        </span>
+      </li>
       <li class="TimerEditor_InputGroup"></li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
@@ -63,13 +74,13 @@ export default class TimerEditor extends Vue {
       height: 56px;
     }
 
-    &:not(:last-child)  {
-      border-bottom: 1px solid #C6C6C8;
+    &:not(:last-child) {
+      border-bottom: 1px solid #EEE;
     }
   }
 
   input {
-    caret-color: #34C759;
+    caret-color: #6FC53A;
   }
 
   &_Description {
@@ -79,6 +90,44 @@ export default class TimerEditor extends Vue {
     &._isEmpty {
       color: #CECECE;
     }
+  }
+
+  &_Project {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    white-space: nowrap;
+    text-overflow: clip;
+
+    &::before {
+      display: inline-block;
+      margin-right: 4px;
+      border-radius: 50%;
+      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
+      border-width: 3px;
+      border-style: solid;
+      border-color: inherit;
+      border: 3px solid inherit;
+      content: '';
+    }
+
+    &Empty {
+      @extend .TimerEditor_Project;
+      color: #8A8A8D;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &_AddIcon {
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    fill: #6FC53A;
   }
 
   &_ButtonGroup {
