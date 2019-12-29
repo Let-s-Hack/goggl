@@ -19,11 +19,20 @@
         >
           テスト
         </span> -->
-        <span class="TimerEditor_ProjectEmpty">
+        <span class="TimerEditor_EmptyItem">
           <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
         </span>
       </li>
-      <li class="TimerEditor_InputGroup"></li>
+      <li class="TimerEditor_InputGroup">
+        <!-- TODO: 選択済み時の出し分け -->
+        <!-- <ul>
+          <li class="TimerEditor_Tag">設計</li>
+          <li class="TimerEditor_Tag">実装</li>
+        </ul> -->
+        <span class="TimerEditor_EmptyItem">
+          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
+        </span>
+      </li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
@@ -112,14 +121,28 @@ export default class TimerEditor extends Vue {
       border: 3px solid inherit;
       content: '';
     }
+  }
 
-    &Empty {
-      @extend .TimerEditor_Project;
-      color: #8A8A8D;
+  &_Tag {
+    display: inline-block;
+    margin-top: auto;
+    padding: 6px;
+    color: #A7A7AA;
+    font-size: 1.2rem;
+    border: 1px solid #DCDCDD;
+    border-radius: 8px;
+  }
 
-      &::before {
-        display: none;
-      }
+  &_Tag + &_Tag {
+    margin-left: 6px;
+  }
+
+  &_EmptyItem {
+    @extend .TimerEditor_Project;
+    color: #8A8A8D;
+
+    &::before {
+      display: none;
     }
   }
 
