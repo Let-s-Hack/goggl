@@ -202,7 +202,7 @@ export default class ReportsPieChart extends Vue {
     this.ctx.fillStyle = '#AEAEB2';
     this.ctx.fill();
 
-    let angle: number = 0;
+    let endAngle: number = 0;
     const loadingAnimation = (): void => {
       this.ctx!.beginPath();
       this.ctx!.arc(
@@ -210,13 +210,13 @@ export default class ReportsPieChart extends Vue {
         this.centerPosition,
         this.radius,
         ReportsPieChart.degreeToRadian(0),
-        ReportsPieChart.degreeToRadian(angle),
+        ReportsPieChart.degreeToRadian(endAngle),
       );
       this.ctx!.lineTo(this.centerPosition, this.centerPosition);
       this.ctx!.fillStyle = '#D2D2D8';
       this.ctx!.fill();
 
-      angle += 1;
+      endAngle += 1;
       this.animationFrameId = requestAnimationFrame(loadingAnimation);
     };
 
