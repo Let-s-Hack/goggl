@@ -1,6 +1,6 @@
 <template>
   <BottomSheet class="TimerEditor">
-    <BottomSheetHeader>
+    <BottomSheetHeader class="TimerEditor_Header">
       <template v-slot:icon>
         <SvgIcon class="TimerEditor_CloseIcon" name="close" />
       </template>
@@ -9,31 +9,54 @@
     <ul>
       <li class="TimerEditor_InputGroup">
         <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-        <input type="text" class="TimerEditor_Description _isEmpty" value="Add description"/>
+        <input type="text" class="TimerEditor_Description" value="goggl | 静的コーディング"/>
+        <!--
+        <input
+          type="text"
+          class="TimerEditor_Description _isEmpty"
+          value="Add description"
+        />
+        -->
       </li>
       <li class="TimerEditor_InputGroup">
         <!-- TODO: 選択済み時の出し分け -->
-        <!-- <span
+        <span
           class="TimerEditor_Project"
           :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
         >
           テスト
-        </span> -->
-        <span class="TimerEditor_EmptyItem">
-          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
         </span>
+        <!-- <span class="TimerEditor_EmptyItem">
+          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
+        </span> -->
       </li>
       <li class="TimerEditor_InputGroup">
         <!-- TODO: 選択済み時の出し分け -->
-        <!-- <ul>
+        <ul>
           <li class="TimerEditor_Tag">設計</li>
           <li class="TimerEditor_Tag">実装</li>
-        </ul> -->
-        <span class="TimerEditor_EmptyItem">
+        </ul>
+        <!-- <span class="TimerEditor_EmptyItem">
           <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
-        </span>
+        </span> -->
       </li>
-      <li class="TimerEditor_InputLargeGroup"></li>
+      <li class="TimerEditor_TimeGroup">
+        <div class="TimerEditor_TimeItem">
+          <SvgIcon class="TimerEditor_Icon" name="time" />
+          <div class="TimerEditor_LabelGroup">
+            <span class="TimerEditor_LabelText">05:06 PM</span>
+            <span class="TimerEditor_LabelSubText">Start</span>
+          </div>
+        </div>
+        <div class="TimerEditor_TimeItem">
+          <div class="TimerEditor_LabelGroup">
+            <span class="TimerEditor_LabelText">09:06 PM</span>
+            <!-- TODO: 出し分け -->
+            <!-- <span class="TimerEditor_LabelText _isStop">Stop</span> -->
+            <span class="TimerEditor_LabelSubText">End</span>
+          </div>
+        </div>
+      </li>
       <li class="TimerEditor_InputLargeGroup">
         <SvgIcon class="TimerEditor_Icon" name="timer" />
         <div class="TimerEditor_LabelGroup">
@@ -76,6 +99,10 @@ export default class TimerEditor extends Vue {
   height: 430px;
   $padding: 15px;
 
+  &_Header {
+    margin-bottom: 15px;
+  }
+
   &_CloseIcon {
     fill: #8A8A8E;
   }
@@ -98,6 +125,24 @@ export default class TimerEditor extends Vue {
   &_InputLargeGroup{
     @extend .TimerEditor_InputGroup;
     height: 56px;
+  }
+
+  &_TimeGroup {
+    @extend .TimerEditor_InputLargeGroup;
+    padding: 0;
+  }
+
+  &_TimeItem {
+    display: inherit;
+    flex: 50%;
+    height: 100%;
+    padding: $padding;
+    box-sizing: border-box;
+    align-items: center;
+
+    & + & {
+      border-left: 1px solid #EEE;
+    }
   }
 
   input {
@@ -173,6 +218,10 @@ export default class TimerEditor extends Vue {
   &_LabelText {
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
+
+    &._isStop {
+      color: #69E085;
+    }
   }
 
   &_LabelSubText {
