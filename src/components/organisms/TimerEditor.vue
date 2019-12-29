@@ -40,7 +40,7 @@
           <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
         </span> -->
       </li>
-      <li class="TimerEditor_TimeGroup">
+      <li class="TimerEditor_InputGroup _time">
         <div class="TimerEditor_TimeItem">
           <SvgIcon class="TimerEditor_Icon" name="time" />
           <div class="TimerEditor_LabelGroup">
@@ -57,14 +57,14 @@
           </div>
         </div>
       </li>
-      <li class="TimerEditor_InputLargeGroup">
+      <li class="TimerEditor_InputGroup _large">
         <SvgIcon class="TimerEditor_Icon" name="timer" />
         <div class="TimerEditor_LabelGroup">
           <span class="TimerEditor_LabelText">0:00:23</span>
           <span class="TimerEditor_LabelSubText">Duration</span>
         </div>
       </li>
-      <li class="TimerEditor_InputLargeGroup">
+      <li class="TimerEditor_InputGroup _large">
         <SvgIcon class="TimerEditor_Icon" name="calendar" />
         <div class="TimerEditor_LabelGroup">
           <span class="TimerEditor_LabelText">12/29</span>
@@ -72,7 +72,7 @@
         </div>
       </li>
     </ul>
-    <div class="TimerEditor_ButtonGroup">
+    <div class="TimerEditor_ButtonGroup _large">
       <button class="TimerEditor_DeleteButton">Delete</button>
       <button class="TimerEditor_ConfirmButton">Confirm changes</button>
     </div>
@@ -97,7 +97,7 @@ export default class TimerEditor extends Vue {
 <style lang="scss" scoped>
 .TimerEditor {
   height: 430px;
-  $padding: 15px;
+  $padding: 16px;
 
   &_Header {
     margin-bottom: 15px;
@@ -112,23 +112,21 @@ export default class TimerEditor extends Vue {
     display: flex;
     align-items: center;
     justify-items: center;
-    padding: $padding;
+    padding: 0 $padding;
     box-sizing: border-box;
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
 
-    &:not(:last-child) {
-      border-bottom: 1px solid #EEE;
+    & + & {
+      border-top: 1px solid #EEE;
     }
   }
 
-  &_InputLargeGroup{
-    @extend .TimerEditor_InputGroup;
+  &_InputGroup._large {
     height: 56px;
   }
 
-  &_TimeGroup {
-    @extend .TimerEditor_InputLargeGroup;
+  &_InputGroup._time {
     padding: 0;
   }
 
@@ -136,7 +134,7 @@ export default class TimerEditor extends Vue {
     display: inherit;
     flex: 50%;
     height: 100%;
-    padding: $padding;
+    padding: 0 $padding;
     box-sizing: border-box;
     align-items: center;
 
@@ -145,13 +143,11 @@ export default class TimerEditor extends Vue {
     }
   }
 
-  input {
-    caret-color: #6FC53A;
-  }
-
   &_Description {
     width: 100%;
     height: 100%;
+    font-size: 1.4rem;
+    caret-color: #6FC53A;
 
     &._isEmpty {
       color: #CECECE;
@@ -161,7 +157,6 @@ export default class TimerEditor extends Vue {
   &_Project {
     display: flex;
     align-items: center;
-    margin-top: auto;
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     white-space: nowrap;
@@ -225,7 +220,7 @@ export default class TimerEditor extends Vue {
   }
 
   &_LabelSubText {
-    margin-top: 8px;
+    margin-top: 6px;
     font-size: 1.2rem;
     color: #8A8A8E;
   }
@@ -233,25 +228,25 @@ export default class TimerEditor extends Vue {
   &_AddIcon {
     width: 10px;
     height: 10px;
-    margin-right: 4px;
+    margin-right: 6px;
     fill: #6FC53A;
   }
 
   &_ButtonGroup {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 10px $padding 16px $padding;
   }
 
   &_DeleteButton {
     position: relative;
     width: 110px;
-    height: 40px;
     border-radius: 8px;
     background-color: #D1D1D6;
     color: #FFF;
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
+    line-height: 40px;
 
     &:active::after {
       position: absolute;
@@ -268,12 +263,12 @@ export default class TimerEditor extends Vue {
   &_ConfirmButton {
     position: relative;
     width: 206px;
-    height: 40px;
     border-radius: 8px;
     background-color: #34C759;
     color: #FFF;
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
+    line-height: 40px;
 
     &:active::after {
       position: absolute;
