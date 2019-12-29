@@ -7,7 +7,10 @@
       <template v-slot:title>Edit</template>
     </BottomSheetHeader>
     <ul>
-      <li class="TimerEditor_InputGroup"></li>
+      <li class="TimerEditor_InputGroup">
+        <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
+        <input type="text" class="TimerEditor_Description _isEmpty" value="Add description"/>
+      </li>
       <li class="TimerEditor_InputGroup"></li>
       <li class="TimerEditor_InputGroup"></li>
       <li class="TimerEditor_InputGroup _existsIcon"></li>
@@ -62,6 +65,19 @@ export default class TimerEditor extends Vue {
 
     &:not(:last-child)  {
       border-bottom: 1px solid #C6C6C8;
+    }
+  }
+
+  input {
+    caret-color: #34C759;
+  }
+
+  &_Description {
+    width: 100%;
+    height: 100%;
+
+    &._isEmpty {
+      color: #CECECE;
     }
   }
 
