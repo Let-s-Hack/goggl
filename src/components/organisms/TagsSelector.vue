@@ -7,6 +7,37 @@
       <template v-slot:title>Projects</template>
       <template v-slot:action>Save</template>
     </BottomSheetHeader>
+    <div class="TagsSelector_ListItem">
+      <SvgIcon class="TagsSelector_SearchIcon" name="search" />
+      <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
+    </div>
+    <ul>
+      <li class="TagsSelector_ListItem">
+        <span class="TagsSelector_Tag">設計</span>
+        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+        <!-- <span class="TagsSelector_Unselected"></span> -->
+      </li>
+      <li class="TagsSelector_ListItem">
+        <span class="TagsSelector_Tag">MTG</span>
+        <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+        <span class="TagsSelector_Unselected"></span>
+      </li>
+      <li class="TagsSelector_ListItem">
+        <span class="TagsSelector_Tag">実装</span>
+        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+        <!-- <span class="TagsSelector_Unselected"></span> -->
+      </li>
+      <li class="TagsSelector_ListItem">
+        <span class="TagsSelector_Tag">UIデザイン</span>
+        <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+        <span class="TagsSelector_Unselected"></span>
+      </li>
+      <li class="TagsSelector_ListItem">
+        <span class="TagsSelector_Tag">コードレビュー</span>
+        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+        <!-- <span class="TagsSelector_Unselected"></span> -->
+      </li>
+    </ul>
   </BottomSheet>
 </template>
 
@@ -35,6 +66,52 @@ export default class TagsSelector extends Vue {
 
   &_CloseIcon {
     fill: #8A8A8E;
+  }
+
+  &_ListItem {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    padding-left: 10px;
+    border-bottom: 1px solid #C5C6C8;
+  }
+
+  &_SearchIcon {
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+    fill: #C3C4C6;
+  }
+
+  &_Input {
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    caret-color: #6FC53A;
+
+    &::placeholder {
+      color: #C3C4C6;
+    }
+  }
+
+  &_Tag {
+    font-size: 1.2rem;
+  }
+
+  &_Unselected {
+    position: absolute;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #B5BCC0;
+    border-radius: 50%;
+  }
+
+  &_Selected {
+    position: absolute;
+    right: 16px;
+    width: 16px;
+    height: 16px;
+    fill: #4CD964;
   }
 }
 </style>
