@@ -1,7 +1,7 @@
 <template>
   <BottomSheet class="TimerCreator">
     TimerCreator
-    <ProjectsSelector />
+    <ProjectSelector />
     <TagsSelector />
     <DurationSelector />
     <StartDateSelector />
@@ -14,7 +14,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
-import ProjectsSelector from '~/organisms/ProjectsSelector.vue';
+import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 import DurationSelector from '~/organisms/DurationSelector.vue';
 import StartDateSelector from '~/organisms/StartDateSelector.vue';
@@ -23,7 +23,7 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   components: {
     BottomSheet,
     DiscardButtonGroup,
-    ProjectsSelector,
+    ProjectSelector,
     TagsSelector,
     DurationSelector,
     StartDateSelector,
