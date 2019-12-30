@@ -26,12 +26,12 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import ReportsSummary from '~/molecules/ReportsSummary.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
 import ReportsBarGraph from '~/organisms/ReportsBarGraph.vue';
 import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsPieChart from '~/organisms/ReportsPieChart.vue';
-import ReportsSummary from '~/molecules/ReportsSummary.vue';
 
 @Component({
   components: {
