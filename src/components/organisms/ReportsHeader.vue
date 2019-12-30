@@ -11,8 +11,8 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
-export default class Reportsheader extends Vue {
-  @Prop({ default: true }) isLoading?: boolean;
+export default class ReportsHeader extends Vue {
+  @Prop({ default: false }) isLoading?: boolean;
 }
 </script>
 
