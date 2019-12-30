@@ -166,7 +166,7 @@ export default class TimerEditor extends Vue {
       display: inline-block;
       margin-right: 4px;
       border-radius: 50%;
-      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
+      // border-colorを親から継承するため、ショートハンドプロパティは使いません
       border-width: 3px;
       border-style: solid;
       border-color: inherit;
