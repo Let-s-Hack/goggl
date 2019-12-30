@@ -23,7 +23,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Vue,
+  Prop,
+  Watch,
+} from 'vue-property-decorator';
 import { forEach } from 'lodash';
 
 const canvasMargin: number = 108;
@@ -37,6 +42,8 @@ const minShowDataLabelDegree = 10;
 
 @Component
 export default class ReportsPieChart extends Vue {
+  @Prop({ default: false }) isLoading?: boolean;
+
   ctx?: CanvasRenderingContext2D;
 
   canvasSize: number = 0;
@@ -81,6 +88,8 @@ export default class ReportsPieChart extends Vue {
     },
   ];
 
+  animationFrameId: number = 0;
+
   beforeMount() {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
     this.centerPosition = this.canvasSize / 4;
@@ -91,14 +100,30 @@ export default class ReportsPieChart extends Vue {
     const canvas = this.$refs.pieChart as HTMLCanvasElement;
     this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
-    this.resetTransform();
-    this.drawAllProjectGroup();
+    if (this.isLoading) {
+      this.playLoadingAnimation();
+    } else {
+      this.drawAllProjectGroup();
+    }
   }
 
   // TODO: 必要な時のみ更新するようにする
   update() {
-    this.resetTransform();
-    this.drawAllProjectGroup();
+    if (this.isLoading) {
+      this.playLoadingAnimation();
+    } else {
+      this.drawAllProjectGroup();
+    }
+  }
+
+  @Watch('isLoading')
+  private onChangeLoadingStatus(): void {
+    if (this.isLoading) {
+      this.playLoadingAnimation();
+    } else {
+      cancelAnimationFrame(this.animationFrameId);
+      this.drawAllProjectGroup();
+    }
   }
 
   private drawAllProjectGroup(): void {
@@ -113,17 +138,7 @@ export default class ReportsPieChart extends Vue {
       const groupDegree = endAngle - startAngle;
 
       this.resetTransform();
-      this.ctx!.beginPath();
-      this.ctx!.arc(
-        this.centerPosition,
-        this.centerPosition,
-        this.radius,
-        ReportsPieChart.degreeToRadian(startAngle),
-        ReportsPieChart.degreeToRadian(endAngle),
-      );
-      this.ctx!.lineTo(this.centerPosition, this.centerPosition);
-      this.ctx!.fillStyle = project.color;
-      this.ctx!.fill();
+      this.drawCircleSector(startAngle, endAngle, project.color);
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
@@ -161,6 +176,36 @@ export default class ReportsPieChart extends Vue {
       this.ctx!.fillText(projectName, 0, -16);
       this.ctx!.fillText(`${percent}%`, 0, 0);
     }
+  }
+
+  private drawCircleSector(startAngle: number, endAngle: number, color: string) {
+    this.ctx!.beginPath();
+    this.ctx!.arc(
+      this.centerPosition,
+      this.centerPosition,
+      this.radius,
+      ReportsPieChart.degreeToRadian(startAngle),
+      ReportsPieChart.degreeToRadian(endAngle),
+    );
+    this.ctx!.lineTo(this.centerPosition, this.centerPosition);
+    this.ctx!.fillStyle = color;
+    this.ctx!.fill();
+  }
+
+  private playLoadingAnimation(): void {
+    if (typeof this.ctx === 'undefined') return;
+
+    this.resetTransform();
+    this.drawCircleSector(0, 360, '#AEAEB2');
+
+    const loadingAnimation = (endAngle: number): void => {
+      if (endAngle > 360) return;
+
+      this.drawCircleSector(0, endAngle, '#D2D2D8');
+      this.animationFrameId = requestAnimationFrame(loadingAnimation.bind(null, endAngle + 1));
+    };
+
+    this.animationFrameId = requestAnimationFrame(loadingAnimation.bind(null, 0));
   }
 
   private resetTransform(): void {
