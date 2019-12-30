@@ -30,7 +30,7 @@ const graphScaleHeight: number = 40;
   },
 })
 export default class ReportsBarGraph extends Vue {
-  @Prop({ default: true }) isLoading?: boolean;
+  @Prop({ default: false }) isLoading?: boolean;
 
   ctx?: CanvasRenderingContext2D;
 
