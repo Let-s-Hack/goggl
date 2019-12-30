@@ -59,8 +59,8 @@ export default class ReportsBarGraph extends Vue {
   }
 
   updated() {
+    this.ctx!.scale(2, 2);
     if (this.isLoading) {
-      this.ctx!.scale(2, 2);
       this.drawVerticalScale(loadingMaxScale);
       this.drawLodingHorizontalScale();
     } else {
@@ -69,7 +69,6 @@ export default class ReportsBarGraph extends Vue {
   }
 
   private drawGraph(): void {
-    this.ctx!.scale(2, 2);
     this.maxScale = this.getMaxScale();
     this.drawVerticalScale(this.maxScale);
     this.drawHorizontalScale();
