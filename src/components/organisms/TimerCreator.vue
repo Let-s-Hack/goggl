@@ -9,47 +9,51 @@
         <span class="TimerCreator_HeaderTime">0:32:10</span>
       </p>
     </div>
-    <div class="TimerCreator_Input">
-      <input type="text">
+    <div class="TimerCreator_Content">
+      <div class="TimerCreator_Input">
+        <input type="text">
+      </div>
+      <!-- TODO: Search Projects をクリックしたときにプロジェクト選択プルダウンを出す -->
+      <!-- TODO: Search Tags をクリックしたときにタグ選択プルダウンを出す -->
+      <!-- <ul class="TimerCreator_SearchList">
+        <li class="TimerCreator_SearchListItem">
+          <strong>@</strong>Search Projects
+        </li>
+        <li class="TimerCreator_SearchListItem">
+          <strong>#</strong>Search Tags
+        </li>
+      </ul> -->
     </div>
-    <!-- TODO: Search Projects をクリックしたときにプロジェクト選択プルダウンを出す -->
-    <!-- TODO: Search Tags をクリックしたときにタグ選択プルダウンを出す -->
-    <!-- <ul class="TimerCreator_SearchList">
-      <li class="TimerCreator_SearchListItem">
-        <strong>@</strong>Search Projects
-      </li>
-      <li class="TimerCreator_SearchListItem">
-        <strong>#</strong>Search Tags
-      </li>
-    </ul> -->
-    <!-- TODO: アイコンのアクティブクラスの出し分け -->
-    <ul class="TimerCreator_ActionList">
-      <li>
-        <button class="TimerCreator_ActionButton _isActive">
-          <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
-        </button>
-      </li>
-      <li>
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
-        </button>
-      </li>
-      <li>
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
-        </button>
-      </li>
-      <li>
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
-        </button>
-      </li>
-    </ul>
-    <ProjectSelector />
-    <TagsSelector />
-    <DurationSelector />
-    <StartDateSelector />
-    <DiscardButtonGroup />
+    <!-- TODO: ボタンのアクティブクラスの出し分け -->
+    <nav class="TimerCreator_Nav">
+      <ul class="TimerCreator_ActionList">
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton _isActive">
+            <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
+          </button>
+        </li>
+      </ul>
+    </nav>
   </BottomSheet>
 </template>
 
@@ -80,6 +84,10 @@ export default class TimerCreator extends Vue {
 
 <style lang="scss" scoped>
 .TimerCreator {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &_Header {
     position: relative;
     display: flex;
@@ -128,6 +136,11 @@ export default class TimerCreator extends Vue {
     letter-spacing: 0.07rem;
   }
 
+  &_Content {
+    flex: 1;
+    overflow-y: auto;
+  }
+
   &_SearchList {
     margin-top: 64px;
   }
@@ -154,11 +167,34 @@ export default class TimerCreator extends Vue {
     }
   }
 
+  &_Nav {
+    border-top: 1px solid #C6C6C8;
+    background: #FFF;
+  }
+
   &_ActionList {
     display: flex;
     line-height: 48px;
-    border-top: 1px solid #C6C6C8;
     padding-left: 2px;
+  }
+
+  &_ActionListItem:last-child {
+    margin-left: auto;
+
+    .TimerCreator_ActionButton {
+      position: relative;
+      padding: 0 12px;
+
+      &:active::before {
+        position: absolute;
+        display: block;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(#000, 0.47);
+        content: '';
+      }
+    }
   }
 
   &_ActionButton {
@@ -166,7 +202,7 @@ export default class TimerCreator extends Vue {
     padding: 0 14px;
 
     &:active {
-      > .TimerCreator_ActionIcon {
+      > .TimerCreator_ActionIcon:not(._checkCircle) {
         fill: #606467;
       }
     }
@@ -201,6 +237,11 @@ export default class TimerCreator extends Vue {
 
     &._time {
       width: 14px;
+    }
+
+    &._checkCircle {
+      width: 28px;
+      fill: #4CD964;
     }
   }
 }
