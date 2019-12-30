@@ -72,8 +72,9 @@ export default class TagsSelector extends Vue {
     display: flex;
     height: 48px;
     align-items: center;
-    padding-left: 10px;
+    padding-left: 16px;
     border-bottom: 1px solid #C5C6C8;
+    overflow: hidden;
   }
 
   &_SearchIcon {
@@ -95,6 +96,7 @@ export default class TagsSelector extends Vue {
 
   &_Tag {
     font-size: 1.2rem;
+    white-space: nowrap;
   }
 
   &_Unselected {
