@@ -1,6 +1,6 @@
 <template>
   <div class="Reports">
-    <ReportsHeader class="Reports_Header" />
+    <ReportsHeader />
     <BaseContent class="Reports_Content">
       <div class="Reports_CardContainer">
         <ReportsSummary class="Reports_Card" />
@@ -20,7 +20,7 @@
         </div>
       </template>
     </BaseContent>
-    <GlobalNav class="Reports_Nav" />
+    <GlobalNav />
   </div>
 </template>
 
@@ -52,11 +52,6 @@ export default class Reports extends Vue {
   display: flex;
   flex-direction: column;
   height: 100%;
-
-  &_Header {
-    top: 0;
-    width: 100%;
-  }
 
   &_Content {
     flex: 1;
@@ -107,11 +102,6 @@ export default class Reports extends Vue {
     text-align: center;
     line-height: normal;
     letter-spacing: 0.1rem;
-  }
-
-  &_Nav {
-    bottom: 0;
-    width: 100%;
   }
 }
 </style>
