@@ -8,20 +8,20 @@
 </template>
 
 <script>
-import ReportsSummary from '~/molecules/ReportsSummary.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
-import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsBarGraph from '~/organisms/ReportsBarGraph.vue';
+import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsPieChart from '~/organisms/ReportsPieChart.vue';
+import ReportsSummary from '~/molecules/ReportsSummary.vue';
 
 export default {
   name: 'reports',
   components: {
-    ReportsSummary,
     BaseContent,
-    ReportsHeader,
     ReportsBarGraph,
+    ReportsHeader,
     ReportsPieChart,
+    ReportsSummary,
   },
 };
 </script>
