@@ -1,7 +1,7 @@
 <template>
   <BottomSheet class="ProjectSelector">
     <BottomSheetHeader class="ProjectSelector_Header">
-    <template v-slot:icon>
+      <template v-slot:icon>
         <SvgIcon class="ProjectSelector_CloseIcon" name="close" />
       </template>
       <template v-slot:title>Projects</template>
@@ -91,22 +91,23 @@ export default class ProjectSelector extends Vue {
     display: flex;
     height: 48px;
     align-items: center;
-    padding-left: 10px;
+    padding: 0 10px;
     border-bottom: 1px solid #C5C6C8;
   }
 
   &_ListItem {
     @extend .ProjectSelector_Container;
+    overflow: hidden;
 
     &:active {
       background-color: #D9D9D9;
 
-      .ProjectSelector_Project::before {
-        border-color: #D9D9D9;
-      }
-
       .ProjectSelector_Project {
-        background-color: #D9D9D9 !important;
+        box-shadow: 0 0 0 24px #D9D9D9 inset;
+
+        &::before {
+          border-color: #D9D9D9;
+        }
       }
     }
   }
@@ -119,6 +120,7 @@ export default class ProjectSelector extends Vue {
   }
 
   &_Input {
+    width: 100%;
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     caret-color: #6FC53A;
