@@ -1,18 +1,18 @@
 <template>
   <div class="ReportsHeader">
     <div class="ReportsHeader_Inner">
-      <!-- TODO: ローディング時の出し分け -->
-      <SvgIcon class="ReportsHeader_Spinner" name="spinner" />
-      <p class="ReportsHeader_Title">This week</p>
+      <SvgIcon v-if="isLoading" class="ReportsHeader_Spinner" name="spinner" />
+      <p v-else class="ReportsHeader_Title">This week</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component
 export default class Reportsheader extends Vue {
+  @Prop({ default: true }) isLoading?: boolean;
 }
 </script>
 
@@ -34,13 +34,7 @@ export default class Reportsheader extends Vue {
   }
 
   &_Spinner {
-    position: absolute;
-    left: -10px;
-    top: 0;
-    bottom: 0;
     width: 20px;
-    margin: auto;
-    transform: translateX(-100%);
     fill: #BABABA;
   }
 
