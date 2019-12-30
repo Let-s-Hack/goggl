@@ -3,6 +3,7 @@
     <div class="Calendar_HeaderContainer">
       <div class="Calendar_Header">
         <span class="Calendar_Total">0:00:00</span>
+        <!-- TODO: 動的 -->
         <span class="Calendar_Date">Sunday, Dec 29</span>
         <SvgIcon class="Calendar_Setting" name="setting" />
       </div>
@@ -15,6 +16,7 @@
           {{ dayWeek }}
         </li>
       </ul>
+      <!-- TODO: 動的 -->
       <ul class="Calendar_DayList">
         <li class="Calendar_Day">23</li>
         <li class="Calendar_Day">24</li>
