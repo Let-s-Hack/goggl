@@ -1,17 +1,27 @@
 <template>
   <div class="Calendar">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="Calendar_Header"></div>
+    <BaseContent class="Calendar_Content">
+    </BaseContent>
+    <GlobalNav class="Calendar_Nav">
+    </GlobalNav>
   </div>
 </template>
 
 <script>
-import HelloWorld from '~/HelloWorld.vue';
+import BaseContent from '~/organisms/BaseContent.vue';
+import GlobalNav from '~/organisms/GlobalNav.vue';
 
 export default {
   name: 'calendar',
   components: {
-    HelloWorld,
+    BaseContent,
+    GlobalNav,
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.Calendar {
+}
+</style>
