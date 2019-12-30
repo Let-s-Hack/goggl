@@ -138,7 +138,7 @@ export default class ReportsPieChart extends Vue {
       const groupDegree = endAngle - startAngle;
 
       this.resetTransform();
-      this.drawProjectGroup(startAngle, endAngle, project.color);
+      this.drawCircleSector(startAngle, endAngle, project.color);
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
@@ -178,7 +178,7 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  private drawProjectGroup(startAngle: number, endAngle: number, color: string) {
+  private drawCircleSector(startAngle: number, endAngle: number, color: string) {
     this.ctx!.beginPath();
     this.ctx!.arc(
       this.centerPosition,
@@ -196,18 +196,16 @@ export default class ReportsPieChart extends Vue {
     if (typeof this.ctx === 'undefined') return;
 
     this.resetTransform();
-    this.drawProjectGroup(0, 360, '#AEAEB2');
+    this.drawCircleSector(0, 360, '#AEAEB2');
 
-    let endAngle: number = 0;
-    const loadingAnimation = (): void => {
+    const loadingAnimation = (endAngle: number): void => {
       if (endAngle > 360) return;
 
-      this.drawProjectGroup(0, endAngle, '#D2D2D8');
-      endAngle += 1;
-      this.animationFrameId = requestAnimationFrame(loadingAnimation);
+      this.drawCircleSector(0, endAngle, '#D2D2D8');
+      this.animationFrameId = requestAnimationFrame(loadingAnimation.bind(null, endAngle + 1));
     };
 
-    this.animationFrameId = requestAnimationFrame(loadingAnimation);
+    this.animationFrameId = requestAnimationFrame(loadingAnimation.bind(null, 0));
   }
 
   private resetTransform(): void {
