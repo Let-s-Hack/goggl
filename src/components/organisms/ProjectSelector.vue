@@ -61,9 +61,7 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 export default class ProjectSelector extends Vue {
   ProjectSelector = ProjectSelector;
 
-  private static getBackGroundColor(hex?: string): string {
-    if (typeof hex === 'undefined') return '#000';
-
+  private static getBackGroundColor(hex: string): string {
     const pattern: RegExp = /^#([A-Z0-9]{1,2})([A-Z0-9]{1,2})([A-Z0-9]{1,2})$/;
     const matches: string[]|null = hex.match(pattern);
     if (hex.length % 3 !== 1 || matches === null) return '#000';
