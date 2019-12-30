@@ -49,18 +49,20 @@ export default class Reports extends Vue {
 
 <style lang="scss" scoped>
 .Reports {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
   &_Header {
-    position: fixed;
     top: 0;
     width: 100%;
-    z-index: $zIndex_header;
   }
 
   &_Content {
-    position: absolute;
-    top: 0;
-    margin-top: 44px;
-    margin-bottom: 50px;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
   }
 
   &_CardContainer {
@@ -86,29 +88,28 @@ export default class Reports extends Vue {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
 
-    &Icon {
-      width: 85px;
-      height: 85px;
-    }
+  &_NoReportsIcon {
+    width: 85px;
+    height: 85px;
+  }
 
-    &Heading {
-      margin-top: 16px;
-      font-size: 1.8rem;
-    }
+  &_NoReportsHeading {
+    margin-top: 16px;
+    font-size: 1.8rem;
+  }
 
-    &Text {
-      margin-top: 16px;
-      font-size: 1.3rem;
-      color: #B5BCC0;
-      text-align: center;
-      line-height: normal;
-      letter-spacing: 0.1rem;
-    }
+  &_NoReportsText {
+    margin-top: 16px;
+    font-size: 1.3rem;
+    color: #B5BCC0;
+    text-align: center;
+    line-height: normal;
+    letter-spacing: 0.1rem;
   }
 
   &_Nav {
-    position: fixed;
     bottom: 0;
     width: 100%;
   }
