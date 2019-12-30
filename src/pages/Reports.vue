@@ -6,7 +6,8 @@
         <ReportsSummary class="Reports_Card" />
         <ReportsBarGraph class="Reports_Card" />
       </div>
-      <template v-if="true">
+      <!-- TODO: 出し分け -->
+      <template v-if="false">
         <ReportsPieChart class="Reports_PieChart"/>
       </template>
       <template v-else>
@@ -14,7 +15,7 @@
           <SvgIcon class="Reports_NoReportsIcon" name="no-reports" />
           <p class="Reports_NoReportsHeading">Nothing here</p>
           <span class="Reports_NoReportsText">
-            You have no time entries for the selected time period.
+            You have no time entries for<br>the selected time period.
           </span>
         </div>
       </template>
@@ -79,14 +80,30 @@ export default class Reports extends Vue {
     margin-top: 32px;
   }
 
-  &_Reports_NoReports {
+  &_NoReports {
+    height: 310px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     &Icon {
+      width: 85px;
+      height: 85px;
+    }
 
+    &Heading {
+      margin-top: 16px;
+      font-size: 1.8rem;
     }
 
     &Text {
-
+      margin-top: 16px;
+      font-size: 1.3rem;
+      color: #B5BCC0;
+      text-align: center;
+      line-height: normal;
+      letter-spacing: 0.1rem;
     }
   }
 
