@@ -4,16 +4,16 @@
       <button class="TimerCreator_HeaderBackButton">
         <SvgIcon name="close" class="TimerCreator_CloseIcon" />
       </button>
-      <p class="TimerCreator_HeaderTimeGroup">
+      <div class="TimerCreator_HeaderTimeGroup">
         <SvgIcon name="timer" class="TimerCreator_TimerIcon" />
         <span class="TimerCreator_HeaderTime">0:32:10</span>
-      </p>
+      </div>
     </div>
     <div class="TimerCreator_Content">
       <!-- TODO: 選択されたProject, Tagを表示 -->
       <div class="TimerCreator_SelectedGroup">
         <span
-          :style="{ borderColor: '#EA468D' ,color: '#EA468D', background: '#EA468D' }"
+          :style="{ borderColor: '#EA468D', color: '#EA468D', background: '#EA468D' }"
           class="TimerCreator_SelectedProject"
         >goggl</span>
         <span class="TimerCreator_SelectedTag">設計</span>
@@ -169,7 +169,7 @@ export default class TimerCreator extends Vue {
       display: inline-block;
       margin-right: 6px;
       border-radius: 50%;
-      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
+      // border-colorを親から継承するため、ショートハンドプロパティは使いません
       border-width: 3px;
       border-style: solid;
       border-color: inherit;
@@ -272,11 +272,7 @@ export default class TimerCreator extends Vue {
       width: 12px;
     }
 
-    &._calendar {
-      width: 14px;
-    }
-
-    &._time {
+    &._calendar, &._time {
       width: 14px;
     }
 
