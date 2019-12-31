@@ -1,15 +1,20 @@
 <template>
   <nav class="GlobalNav">
     <ul class="GlobalNav_List">
-      <!-- TODO: 選択中は遷移させない -->
       <li class="GlobalNav_Item">
-        <a href="/timer"><SvgIcon class="GlobalNav_Icon _isActive" name="time" /></a>
+        <router-link :to="{ path: 'timer' }" exact-active-class="_isActive">
+          <SvgIcon class="GlobalNav_Icon" name="time" />
+        </router-link>
       </li>
       <li class="GlobalNav_Item">
-        <a href="/reports"><SvgIcon class="GlobalNav_Icon" name="graph" /></a>
+        <router-link :to="{ path: 'reports' }" exact-active-class="_isActive">
+          <SvgIcon class="GlobalNav_Icon" name="graph" />
+        </router-link>
       </li>
       <li class="GlobalNav_Item">
-        <a href="/calendar"><SvgIcon class="GlobalNav_Icon" name="calendar" /></a>
+        <router-link :to="{ path: 'calendar' }" exact-active-class="_isActive">
+          <SvgIcon class="GlobalNav_Icon" name="calendar" />
+        </router-link>
       </li>
     </ul>
   </nav>
@@ -50,7 +55,7 @@ export default class GlobalNav extends Vue {
     height: 20px;
     fill: #999;
 
-    &._isActive {
+    a._isActive > & {
       fill: #06AAF5;
     }
   }
