@@ -1,7 +1,7 @@
 <template>
   <div class="Reports">
     <ReportsHeader :is-loading="isLoading" />
-    <BaseContent class="Reports_Content">
+    <BaseContent :class="['Reports_Content', { '_isLoading': isLoading }]">
       <div class="Reports_CardContainer">
         <ReportsSummary :is-loading="isLoading" class="Reports_Card" />
         <ReportsBarGraph :is-loading="isLoading" class="Reports_Card" />
@@ -67,6 +67,10 @@ export default class Reports extends Vue {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     -webkit-transform: translateZ(0);
+
+    &._isLoading {
+      overflow: hidden;
+    }
   }
 
   &_CardContainer {

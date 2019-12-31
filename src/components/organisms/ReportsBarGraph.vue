@@ -73,6 +73,7 @@ export default class ReportsBarGraph extends Vue {
       this.drawVerticalScale(loadingMaxScale);
       this.drawLodingHorizontalScale();
     } else {
+      this.refleshContent();
       this.drawGraph();
     }
   }
@@ -83,6 +84,7 @@ export default class ReportsBarGraph extends Vue {
       this.drawVerticalScale(loadingMaxScale);
       this.drawLodingHorizontalScale();
     } else {
+      this.refleshContent();
       this.drawGraph();
     }
   }
@@ -190,6 +192,10 @@ export default class ReportsBarGraph extends Vue {
 
   private getGraphItemHeight(value: number): number {
     return graphItemMaxHeight / this.maxScale * value;
+  }
+
+  private refleshContent(): void {
+    this.ctx!.clearRect(0, 0, this.contentWidth, this.contentHeight);
   }
 }
 </script>
