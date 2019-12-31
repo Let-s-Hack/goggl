@@ -64,7 +64,6 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheet from '~/atoms/BottomSheet.vue';
-import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
@@ -74,7 +73,6 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
 @Component({
   components: {
     BottomSheet,
-    BottomSheetHeader,
     DiscardButtonGroup,
     ProjectSelector,
     TagsSelector,
