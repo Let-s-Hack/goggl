@@ -49,6 +49,7 @@ export default class GlobalNav extends Vue {
       align-items: center;
       justify-content: center;
       height: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 
