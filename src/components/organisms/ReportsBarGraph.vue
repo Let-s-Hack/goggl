@@ -11,9 +11,18 @@
 </template>
 
 <script lang="ts">
-import { forEach, max, values } from 'lodash';
+import {
+  forEach,
+  max,
+  values,
+} from 'lodash';
 import moment, { Moment } from 'moment';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+  Watch,
+} from 'vue-property-decorator';
 import BaseCard from '~/atoms/BaseCard.vue';
 
 const loadingMaxScale = 10;
@@ -60,6 +69,16 @@ export default class ReportsBarGraph extends Vue {
 
   updated() {
     this.ctx!.scale(2, 2);
+    if (this.isLoading) {
+      this.drawVerticalScale(loadingMaxScale);
+      this.drawLodingHorizontalScale();
+    } else {
+      this.drawGraph();
+    }
+  }
+
+  @Watch('isLoading')
+  private onChangeLoadingStatus(): void {
     if (this.isLoading) {
       this.drawVerticalScale(loadingMaxScale);
       this.drawLodingHorizontalScale();
