@@ -40,27 +40,27 @@
         </li>
         <li class="TimerCreator_SelectorListItem">
           <span
-            class="TimerCreator_Project"
             :style="{ '--var-project-color': '#EA468D' }"
+            class="TimerCreator_Project"
           >ITR MP</span>
         </li>
         <li class="TimerCreator_SelectorListItem">
           <span
-            class="TimerCreator_Project"
             :style="{ '--var-project-color': '#3750B5' }"
+            class="TimerCreator_Project"
           >LTP</span>
         </li>
         <li class="TimerCreator_SelectorListItem">
           <span
-            class="TimerCreator_Project"
             :style="{ '--var-project-color': '#06AAF5' }"
+            class="TimerCreator_Project"
           >LTSF</span>
         </li>
         <li class="TimerCreator_SelectorListItem">
           <!-- TODO: 選択時のみ背景色を設定 -->
           <span
-            class="TimerCreator_Project"
             :style="{ '--var-project-color': '#4BC800' }"
+            class="TimerCreator_Project"
           >LTSF LINE</span>
         </li>
       </ul>
