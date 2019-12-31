@@ -55,7 +55,7 @@ export default class GlobalNav extends Vue {
     height: 20px;
     fill: #999;
 
-    a._isActive & {
+    a._isActive > & {
       fill: #06AAF5;
     }
   }
