@@ -23,14 +23,63 @@
         <span class="TimerCreator_SelectedTag">実装</span>
         <span>&lrm;</span>
       </div>
-      <!-- TODO: Search Projects をクリックしたときにプロジェクト選択プルダウンを出す -->
-      <!-- TODO: Search Tags をクリックしたときにタグ選択プルダウンを出す -->
+      <!-- TODO: Search Projects をクリックしたときにSearchListを消してプロジェクト選択プルダウンを出す -->
+      <!-- TODO: Search Tags をクリックしたときにSearchListを消してタグ選択プルダウンを出す -->
       <ul class="TimerCreator_SearchList">
         <li class="TimerCreator_SearchListItem">
           <strong>@</strong>Search Projects
         </li>
         <li class="TimerCreator_SearchListItem">
           <strong>#</strong>Search Tags
+        </li>
+      </ul>
+      <!-- TODO: 初期描画では表示しない -->
+      <ul>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Project">No Project</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span
+            class="TimerCreator_Project"
+            :style="{ '--var-project-color': '#EA468D' }"
+          >ITR MP</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span
+            class="TimerCreator_Project"
+            :style="{ '--var-project-color': '#3750B5' }"
+          >LTP</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span
+            class="TimerCreator_Project"
+            :style="{ '--var-project-color': '#06AAF5' }"
+          >LTSF</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <!-- TODO: 選択時のみ背景色を設定 -->
+          <span
+            class="TimerCreator_Project"
+            :style="{ '--var-project-color': '#4BC800' }"
+          >LTSF LINE</span>
+        </li>
+      </ul>
+      <!-- TODO: 初期描画では表示しない -->
+      <ul>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Tag">設計</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Tag">MTG</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Tag">実装</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Tag">UIデザイン</span>
+        </li>
+        <li class="TimerCreator_SelectorListItem">
+          <span class="TimerCreator_Tag">コードレビュー</span>
         </li>
       </ul>
     </div>
@@ -174,7 +223,7 @@ export default class TimerCreator extends Vue {
     letter-spacing: 0.1rem;
     color: var(--var-project-color);
     background: var(--var-project-color);
-    box-shadow: 0 0 0 12px rgba(#FFF, 0.8) inset;
+    box-shadow: 0 0 0 1.2rem rgba(#FFF, 0.8) inset;
 
     &::before {
       display: inline-block;
@@ -216,6 +265,51 @@ export default class TimerCreator extends Vue {
       font-weight: 500;
       color: #B5BCC0;
     }
+  }
+
+  &_SelectorListItem {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid #C5C6C8;
+    overflow: hidden;
+
+    &:active {
+      background-color: #D9D9D9;
+
+      .TimerCreator_Project {
+        box-shadow: 0 0 0 24px #D9D9D9 inset;
+
+        &::before {
+          border-color: #D9D9D9;
+        }
+      }
+    }
+  }
+
+  &_Project {
+    display: flex;
+    align-items: center;
+    color: #B2BCC1;
+    font-size: 1.3rem;
+    letter-spacing: 0.1rem;
+    white-space: nowrap;
+    border-radius: 8px;
+    color: var(--var-project-color);
+
+    &::before {
+      display: inline-block;
+      margin-right: 6px;
+      border-radius: 50%;
+      border: 3px solid var(--var-project-color);
+      content: '';
+    }
+  }
+
+  &_Tag {
+    font-size: 1.2rem;
+    white-space: nowrap;
   }
 
   &_Nav {
