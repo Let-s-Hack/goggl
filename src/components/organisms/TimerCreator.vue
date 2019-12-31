@@ -10,109 +10,54 @@
       </p>
     </div>
     <div class="TimerCreator_Content">
-      <!-- TODO: 入力に応じてProjects, Tagsをサジェスト、選択したものを追加、削除 -->
-      <div
-        contenteditable="true"
-        class="TimerCreator_Input"
-      >
+      <!-- TODO: 選択されたProject, Tagを表示 -->
+      <div class="TimerCreator_SelectedGroup">
         <span
-          :style="{ '--var-project-color': '#EA468D' }"
+          :style="{ borderColor: '#EA468D' ,color: '#EA468D', background: '#EA468D' }"
           class="TimerCreator_SelectedProject"
         >goggl</span>
         <span class="TimerCreator_SelectedTag">設計</span>
         <span class="TimerCreator_SelectedTag">実装</span>
-        <span>&lrm;</span>
       </div>
-      <!-- TODO: Search Projects をクリックしたときにSearchListを消してプロジェクト選択プルダウンを出す -->
-      <!-- TODO: Search Tags をクリックしたときにSearchListを消してタグ選択プルダウンを出す -->
       <ul class="TimerCreator_SearchList">
+        <!-- TODO: クリックしたときに ProjectSelector を表示する -->
         <li class="TimerCreator_SearchListItem">
           <strong>@</strong>Search Projects
         </li>
+        <!-- TODO: クリックしたときに TagsSelector を表示する -->
         <li class="TimerCreator_SearchListItem">
           <strong>#</strong>Search Tags
         </li>
       </ul>
-      <!-- TODO: 初期描画では表示しない -->
-      <ul>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Project">No Project</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span
-            :style="{ '--var-project-color': '#EA468D' }"
-            class="TimerCreator_Project"
-          >ITR MP</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span
-            :style="{ '--var-project-color': '#3750B5' }"
-            class="TimerCreator_Project"
-          >LTP</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span
-            :style="{ '--var-project-color': '#06AAF5' }"
-            class="TimerCreator_Project"
-          >LTSF</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <!-- TODO: 選択時のみ背景色を設定 -->
-          <span
-            :style="{ '--var-project-color': '#4BC800' }"
-            class="TimerCreator_Project"
-          >LTSF LINE</span>
-        </li>
-      </ul>
-      <!-- TODO: 初期描画では表示しない -->
-      <ul>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Tag">設計</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Tag">MTG</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Tag">実装</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Tag">UIデザイン</span>
-        </li>
-        <li class="TimerCreator_SelectorListItem">
-          <span class="TimerCreator_Tag">コードレビュー</span>
-        </li>
-      </ul>
     </div>
     <!-- TODO: ボタンのアクティブクラスの出し分け -->
-    <nav class="TimerCreator_Nav">
-      <ul class="TimerCreator_ActionList">
-        <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton _isActive">
-            <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
-          </button>
-        </li>
-        <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
-            <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
-          </button>
-        </li>
-        <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
-            <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
-          </button>
-        </li>
-        <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
-            <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
-          </button>
-        </li>
-        <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
-            <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <ul class="TimerCreator_ActionList">
+      <li class="TimerCreator_ActionListItem">
+        <button class="TimerCreator_ActionButton _isActive">
+          <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
+        </button>
+      </li>
+      <li class="TimerCreator_ActionListItem">
+        <button class="TimerCreator_ActionButton">
+          <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
+        </button>
+      </li>
+      <li class="TimerCreator_ActionListItem">
+        <button class="TimerCreator_ActionButton">
+          <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
+        </button>
+      </li>
+      <li class="TimerCreator_ActionListItem">
+        <button class="TimerCreator_ActionButton">
+          <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
+        </button>
+      </li>
+      <li class="TimerCreator_ActionListItem">
+        <button class="TimerCreator_ActionButton">
+          <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
+        </button>
+      </li>
+    </ul>
   </BottomSheet>
 </template>
 
@@ -200,7 +145,7 @@ export default class TimerCreator extends Vue {
     overflow-y: auto;
   }
 
-  &_Input {
+  &_SelectedGroup {
     height: 64px;
     line-height: 24px;
     margin-top: 8px;
@@ -208,10 +153,7 @@ export default class TimerCreator extends Vue {
     box-sizing: border-box;
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
-    caret-color: #6FC53A;
     overflow-y: auto;
-    -webkit-user-select: text;
-    user-select: text;
   }
 
   &_SelectedProject {
@@ -223,15 +165,17 @@ export default class TimerCreator extends Vue {
     border-radius: 8px;
     font-size: 1.1rem;
     letter-spacing: 0.1rem;
-    color: var(--var-project-color);
-    background: var(--var-project-color);
     box-shadow: 0 0 0 1.2rem rgba(#FFF, 0.8) inset;
 
     &::before {
       display: inline-block;
       margin-right: 6px;
       border-radius: 50%;
-      border: 3px solid var(--var-project-color);
+      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
+      border-width: 3px;
+      border-style: solid;
+      border-color: inherit;
+      border: 3px solid inherit;
       content: '';
     }
   }
@@ -269,60 +213,12 @@ export default class TimerCreator extends Vue {
     }
   }
 
-  &_SelectorListItem {
-    display: flex;
-    height: 48px;
-    align-items: center;
-    padding: 0 16px;
-    border-bottom: 1px solid #C5C6C8;
-    overflow: hidden;
-
-    &:active {
-      background-color: #D9D9D9;
-
-      .TimerCreator_Project {
-        box-shadow: 0 0 0 24px #D9D9D9 inset;
-
-        &::before {
-          border-color: #D9D9D9;
-        }
-      }
-    }
-  }
-
-  &_Project {
-    display: flex;
-    align-items: center;
-    color: #B2BCC1;
-    font-size: 1.3rem;
-    letter-spacing: 0.1rem;
-    white-space: nowrap;
-    border-radius: 8px;
-    color: var(--var-project-color);
-
-    &::before {
-      display: inline-block;
-      margin-right: 6px;
-      border-radius: 50%;
-      border: 3px solid var(--var-project-color);
-      content: '';
-    }
-  }
-
-  &_Tag {
-    font-size: 1.2rem;
-    white-space: nowrap;
-  }
-
-  &_Nav {
-    border-top: 1px solid #C6C6C8;
-    background: #FFF;
-  }
-
   &_ActionList {
     display: flex;
     line-height: 48px;
     padding-left: 2px;
+    border-top: 1px solid #C6C6C8;
+    background: #FFF;
   }
 
   &_ActionListItem:last-child {
