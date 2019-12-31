@@ -1,14 +1,14 @@
 <template>
   <div class="Reports">
-    <ReportsHeader />
+    <ReportsHeader :is-loading="isLoading" />
     <BaseContent class="Reports_Content">
       <div class="Reports_CardContainer">
-        <ReportsSummary class="Reports_Card" />
-        <ReportsBarGraph class="Reports_Card" />
+        <ReportsSummary :is-loading="isLoading" class="Reports_Card" />
+        <ReportsBarGraph :is-loading="isLoading" class="Reports_Card" />
       </div>
       <!-- TODO: 出し分け -->
-      <template v-if="false">
-        <ReportsPieChart class="Reports_PieChart"/>
+      <template v-if="true">
+        <ReportsPieChart :is-loading="isLoading" class="Reports_PieChart"/>
       </template>
       <template v-else>
         <div class="Reports_NoReports">
@@ -33,6 +33,8 @@ import ReportsBarGraph from '~/organisms/ReportsBarGraph.vue';
 import ReportsHeader from '~/organisms/ReportsHeader.vue';
 import ReportsPieChart from '~/organisms/ReportsPieChart.vue';
 
+const loadingTime: number = 3000;
+
 @Component({
   components: {
     BaseContent,
@@ -44,6 +46,13 @@ import ReportsPieChart from '~/organisms/ReportsPieChart.vue';
   },
 })
 export default class Reports extends Vue {
+  isLoading: boolean = true;
+
+  created() {
+    if (this.isLoading) {
+      setTimeout(() => { this.isLoading = false; }, loadingTime);
+    }
+  }
 }
 </script>
 
