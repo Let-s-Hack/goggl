@@ -210,6 +210,8 @@ export default class TimerCreator extends Vue {
     letter-spacing: 0.1rem;
     caret-color: #6FC53A;
     overflow-y: auto;
+    -webkit-user-select: text;
+    user-select: text;
   }
 
   &_SelectedProject {
