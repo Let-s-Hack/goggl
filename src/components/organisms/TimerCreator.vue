@@ -10,19 +10,29 @@
       </p>
     </div>
     <div class="TimerCreator_Content">
-      <div class="TimerCreator_Input">
-        <input type="text">
+      <!-- TODO: 入力に応じてProjects, Tagsをサジェスト、選択したものを追加、削除 -->
+      <div
+        contenteditable="true"
+        class="TimerCreator_Input"
+      >
+        <span
+          :style="{ '--var-project-color': '#EA468D' }"
+          class="TimerCreator_SelectedProject"
+        >goggl</span>
+        <span class="TimerCreator_SelectedTag">設計</span>
+        <span class="TimerCreator_SelectedTag">実装</span>
+        <span>&lrm;</span>
       </div>
       <!-- TODO: Search Projects をクリックしたときにプロジェクト選択プルダウンを出す -->
       <!-- TODO: Search Tags をクリックしたときにタグ選択プルダウンを出す -->
-      <!-- <ul class="TimerCreator_SearchList">
+      <ul class="TimerCreator_SearchList">
         <li class="TimerCreator_SearchListItem">
           <strong>@</strong>Search Projects
         </li>
         <li class="TimerCreator_SearchListItem">
           <strong>#</strong>Search Tags
         </li>
-      </ul> -->
+      </ul>
     </div>
     <!-- TODO: ボタンのアクティブクラスの出し分け -->
     <nav class="TimerCreator_Nav">
@@ -141,8 +151,49 @@ export default class TimerCreator extends Vue {
     overflow-y: auto;
   }
 
-  &_SearchList {
-    margin-top: 64px;
+  &_Input {
+    height: 64px;
+    line-height: 24px;
+    margin-top: 8px;
+    padding: 0 16px 0 24px;
+    box-sizing: border-box;
+    font-size: 1.4rem;
+    letter-spacing: 0.1rem;
+    caret-color: #6FC53A;
+    overflow-y: auto;
+  }
+
+  &_SelectedProject {
+    position: relative;
+    display: inline-block;
+    margin: 0 8px 4px 0;
+    padding: 0 6px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    letter-spacing: 0.1rem;
+    color: var(--var-project-color);
+    background: var(--var-project-color);
+    box-shadow: 0 0 0 12px rgba(#FFF, 0.8) inset;
+
+    &::before {
+      display: inline-block;
+      margin-right: 6px;
+      border-radius: 50%;
+      border: 3px solid var(--var-project-color);
+      content: '';
+    }
+  }
+
+  &_SelectedTag {
+    display: inline-block;
+    margin: 0 8px 4px 0;
+    padding: 0 6px;
+    box-sizing: border-box;
+    color: #A7A7AA;
+    font-size: 1.1rem;
+    border: 1px solid #DCDCDD;
+    border-radius: 8px;
   }
 
   &_SearchListItem {
