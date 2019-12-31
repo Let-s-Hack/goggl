@@ -31,6 +31,8 @@ export default class GlobalNav extends Vue {
 <style lang="scss" scoped>
 .GlobalNav {
   height: 50px;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   border-top: 1px solid #B2B2B2;
   background-color: #FFF;
 
@@ -47,6 +49,7 @@ export default class GlobalNav extends Vue {
       align-items: center;
       justify-content: center;
       height: 100%;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 
