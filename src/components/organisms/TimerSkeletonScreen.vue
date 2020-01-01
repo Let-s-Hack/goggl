@@ -58,6 +58,11 @@ export default class TimerSkeletonScreen extends Vue {
     height: 64px;
     padding: 0 16px;
     border-bottom: 1px solid #EEEEEE;
+    background: #FFF;
+
+    &:first-child {
+      border-top: 1px solid #EEEEEE;
+    }
   }
 
   &_UpperLine {

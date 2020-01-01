@@ -1,44 +1,91 @@
 <template>
   <div class="Timer">
-    <GlobalHeader />
-    <BaseContent>
-      <LoadingBar />
-      <TimerSkeletonScreen />
-      <RecordContainer />
-      <TimerStartButton />
-      <ActiveTimer />
+    <GlobalHeader class="Timer_Header" />
+    <BaseContent class="Timer_Content">
+      <!-- TODO: スケルトンスクリーンを３秒間表示 -->
+      <template v-if="false">
+        <TimerSkeletonScreen />
+      </template>
+      <template v-else>
+        <!-- TODO: 同期中のみ表示 -->
+        <LoadingBar class="Timer_LoadingBar" />
+        <RecordContainer class="Timer_RecordContainer" />
+        <TimerStartButton v-if="false" class="Timer_TimerStartButton" />
+        <ActiveTimer v-else class="Timer_ActiveTimer" />
+      </template>
     </BaseContent>
     <GlobalNav />
-    <TimerCreator />
-    <TimerEditor />
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
-import RecordContainer from '~/organisms/RecordContainer.vue';
-import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
+import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
-import TimerCreator from '~/organisms/TimerCreator.vue';
-import TimerEditor from '~/organisms/TimerEditor.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
+import RecordContainer from '~/organisms/RecordContainer.vue';
 
-export default {
-  name: 'timer',
+@Component({
   components: {
     LoadingBar,
     TimerStartButton,
     ActiveTimer,
-    RecordContainer,
-    GlobalHeader,
     BaseContent,
+    GlobalHeader,
     GlobalNav,
-    TimerCreator,
-    TimerEditor,
     TimerSkeletonScreen,
+    RecordContainer,
   },
-};
+})
+export default class Timer extends Vue {
+}
 </script>
+
+<style lang="scss" scoped>
+.Timer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &_Content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background: #F3F2F9;
+  }
+
+  &_RecordContainer {
+    flex: 1;
+    padding-bottom: 72px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-transform: translateZ(0);
+  }
+
+  &_LoadingBar {
+    position: absolute;
+    top: 0;
+    z-index: $zIndex_loadingBar;
+    width: 100%;
+  }
+
+  &_TimerStartButton {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    z-index: $zIndex_timerStartButton;
+  }
+
+  &_ActiveTimer {
+    position: absolute;
+    bottom: 0;
+    z-index: $zIndex_activeTimer;
+    width: 100%;
+  }
+}
+</style>
