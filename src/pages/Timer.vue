@@ -2,8 +2,7 @@
   <div class="Timer">
     <GlobalHeader class="Timer_Header" />
     <BaseContent class="Timer_Content">
-      <!-- TODO: スケルトンスクリーンを３秒間表示 -->
-      <template v-if="false">
+      <template v-if="isLoading">
         <TimerSkeletonScreen />
       </template>
       <template v-else>
@@ -29,6 +28,8 @@ import GlobalNav from '~/organisms/GlobalNav.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
 import RecordContainer from '~/organisms/RecordContainer.vue';
 
+const loadingTime: number = 3000;
+
 @Component({
   components: {
     LoadingBar,
@@ -42,6 +43,13 @@ import RecordContainer from '~/organisms/RecordContainer.vue';
   },
 })
 export default class Timer extends Vue {
+  isLoading: boolean = true;
+
+  created() {
+    if (this.isLoading) {
+      setTimeout(() => { this.isLoading = false; }, loadingTime);
+    }
+  }
 }
 </script>
 
