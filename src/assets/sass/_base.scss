@@ -4,6 +4,9 @@
 
 html {
   font-size: 62.5%;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
