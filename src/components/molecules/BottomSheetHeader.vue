@@ -38,12 +38,13 @@ export default class BottomSheetHeader extends Vue {
     left: 0;
     width: 10px;
     height: 12px;
-    margin: auto 0 auto 16px;
+    margin: auto -14px auto 2px;
+    padding: 14px;
+    box-sizing: content-box;
 
-    > img {
+    > svg {
       width: 100%;
       height: 100%;
-      object-fit: contain;
     }
   }
 

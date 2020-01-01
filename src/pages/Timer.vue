@@ -19,26 +19,26 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import LoadingBar from '~/atoms/LoadingBar.vue';
+import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
 import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
-import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
-import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import RecordContainer from '~/organisms/RecordContainer.vue';
 
 const loadingTime: number = 3000;
 
 @Component({
   components: {
+    LoadingBar,
+    TimerStartButton,
     ActiveTimer,
     BaseContent,
     GlobalHeader,
     GlobalNav,
-    LoadingBar,
     TimerSkeletonScreen,
-    TimerStartButton,
     RecordContainer,
   },
 })
