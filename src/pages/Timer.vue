@@ -9,8 +9,12 @@
       <ActiveTimer />
     </BaseContent>
     <GlobalNav />
+    <!-- TODO: modalコンポーネントとして表示させる [ここから] -->
+    <!-- 参考: https://jp.vuejs.org/v2/examples/modal.html -->
     <TimerCreator />
     <TimerEditor />
+    <StartDateSelector />
+    <!-- TODO: modalコンポーネントとして表示させる [ここまで] -->
   </div>
 </template>
 
@@ -24,6 +28,7 @@ import BaseContent from '~/organisms/BaseContent.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
 import TimerCreator from '~/organisms/TimerCreator.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
+import StartDateSelector from '~/organisms/StartDateSelector.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
 
 export default {
@@ -38,6 +43,7 @@ export default {
     GlobalNav,
     TimerCreator,
     TimerEditor,
+    StartDateSelector,
     TimerSkeletonScreen,
   },
 };
