@@ -9,7 +9,7 @@ jobs:
           name: npm install
           command: npm i
       - run:
-          ame: build
+          name: build
           command: npm run build
       - run:
           name: deploy to Firebase
