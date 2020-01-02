@@ -15,17 +15,17 @@ interface IComponentNames {
 }
 
 export interface IBottomSheetBehaviorState {
-  status: IComponentNames,
+  componentState: IComponentNames,
 }
 
 @Module({
-  name: 'bottomSheetBehavior',
+  name: 'BottomSheetBehavior',
   namespaced: true,
   dynamic: true,
   store,
 })
 class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorState {
-  status: IComponentNames = {
+  componentState: IComponentNames = {
     timerCreator: false,
     timerEditor: false,
     projectSelector: false,
@@ -33,12 +33,12 @@ class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorStat
   };
 
   @Mutation
-  public toggle(name: string) {
-    this.status[name] = !this.status[name];
+  public toggle(componentName: string) {
+    this.componentState[componentName] = !this.componentState[componentName];
   }
 
   get isShow() {
-    return (name: string) => this.status[name];
+    return (componentName: string) => this.componentState[componentName];
   }
 }
 
