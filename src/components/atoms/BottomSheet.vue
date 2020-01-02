@@ -14,11 +14,8 @@ export default class BottomSheet extends Vue {
 
 <style lang="scss" scoped>
 .BottomSheet {
-  /*
-   * 他のコンポーネントに影響を及ぼすので静的コーディングの段階ではコメントアウト
-   */
-  // position: fixed;
-  // bottom: 0;
+  position: fixed;
+  bottom: 0;
   width: 100vw;
   border-radius: 8px;
   background: #FFF;
