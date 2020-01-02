@@ -1,91 +1,95 @@
 <template>
-  <BottomSheet class="TimerEditor">
-    <BottomSheetHeader class="TimerEditor_Header">
-      <template v-slot:icon>
-        <SvgIcon class="TimerEditor_CloseIcon" name="close" />
-      </template>
-      <template v-slot:title>Edit</template>
-    </BottomSheetHeader>
-    <ul>
-      <li class="TimerEditor_InputGroup">
-        <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-        <input type="text" class="TimerEditor_Description" value="goggl | 静的コーディング"/>
-        <!--
-        <input
-          type="text"
-          class="TimerEditor_Description _isEmpty"
-          value="Add description"
-        />
-        -->
-      </li>
-      <li class="TimerEditor_InputGroup">
-        <!-- TODO: 選択済み時の出し分け -->
-        <span
-          class="TimerEditor_Project"
-          :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-        >
-          テスト
-        </span>
-        <!-- <span class="TimerEditor_EmptyItem">
-          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
-        </span> -->
-      </li>
-      <li class="TimerEditor_InputGroup">
-        <!-- TODO: 選択済み時の出し分け -->
-        <ul>
-          <li class="TimerEditor_Tag">設計</li>
-          <li class="TimerEditor_Tag">実装</li>
-        </ul>
-        <!-- <span class="TimerEditor_EmptyItem">
-          <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
-        </span> -->
-      </li>
-      <li class="TimerEditor_InputGroup _time">
-        <div class="TimerEditor_TimeItem">
-          <SvgIcon class="TimerEditor_Icon" name="time" />
-          <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">05:06 PM</span>
-            <span class="TimerEditor_LabelSubText">Start</span>
+  <BackgroundOverlay class="TimerEditor">
+    <BottomSheet class="TimerEditor_Inner">
+      <BottomSheetHeader class="TimerEditor_Header">
+        <template v-slot:icon>
+          <SvgIcon class="TimerEditor_CloseIcon" name="close" />
+        </template>
+        <template v-slot:title>Edit</template>
+      </BottomSheetHeader>
+      <ul>
+        <li class="TimerEditor_InputGroup">
+          <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
+          <input type="text" class="TimerEditor_Description" value="goggl | 静的コーディング"/>
+          <!--
+          <input
+            type="text"
+            class="TimerEditor_Description _isEmpty"
+            value="Add description"
+          />
+          -->
+        </li>
+        <li class="TimerEditor_InputGroup">
+          <!-- TODO: 選択済み時の出し分け -->
+          <span
+            class="TimerEditor_Project"
+            :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
+          >
+            テスト
+          </span>
+          <!-- <span class="TimerEditor_EmptyItem">
+            <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
+          </span> -->
+        </li>
+        <li class="TimerEditor_InputGroup">
+          <!-- TODO: 選択済み時の出し分け -->
+          <ul>
+            <li class="TimerEditor_Tag">設計</li>
+            <li class="TimerEditor_Tag">実装</li>
+          </ul>
+          <!-- <span class="TimerEditor_EmptyItem">
+            <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
+          </span> -->
+        </li>
+        <li class="TimerEditor_InputGroup _time">
+          <div class="TimerEditor_TimeItem">
+            <SvgIcon class="TimerEditor_Icon" name="time" />
+            <div class="TimerEditor_LabelGroup">
+              <span class="TimerEditor_LabelText">05:06 PM</span>
+              <span class="TimerEditor_LabelSubText">Start</span>
+            </div>
           </div>
-        </div>
-        <div class="TimerEditor_TimeItem">
-          <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">09:06 PM</span>
-            <!-- TODO: 出し分け -->
-            <!-- <span class="TimerEditor_LabelText _isStop">Stop</span> -->
-            <span class="TimerEditor_LabelSubText">End</span>
+          <div class="TimerEditor_TimeItem">
+            <div class="TimerEditor_LabelGroup">
+              <span class="TimerEditor_LabelText">09:06 PM</span>
+              <!-- TODO: 出し分け -->
+              <!-- <span class="TimerEditor_LabelText _isStop">Stop</span> -->
+              <span class="TimerEditor_LabelSubText">End</span>
+            </div>
           </div>
-        </div>
-      </li>
-      <li class="TimerEditor_InputGroup _large">
-        <SvgIcon class="TimerEditor_Icon" name="timer" />
-        <div class="TimerEditor_LabelGroup">
-          <span class="TimerEditor_LabelText">0:00:23</span>
-          <span class="TimerEditor_LabelSubText">Duration</span>
-        </div>
-      </li>
-      <li class="TimerEditor_InputGroup _large">
-        <SvgIcon class="TimerEditor_Icon" name="calendar" />
-        <div class="TimerEditor_LabelGroup">
-          <span class="TimerEditor_LabelText">12/29</span>
-          <span class="TimerEditor_LabelSubText">Start date</span>
-        </div>
-      </li>
-    </ul>
-    <div class="TimerEditor_ButtonGroup _large">
-      <button class="TimerEditor_DeleteButton">Delete</button>
-      <button class="TimerEditor_ConfirmButton">Confirm changes</button>
-    </div>
-  </BottomSheet>
+        </li>
+        <li class="TimerEditor_InputGroup _large">
+          <SvgIcon class="TimerEditor_Icon" name="timer" />
+          <div class="TimerEditor_LabelGroup">
+            <span class="TimerEditor_LabelText">0:00:23</span>
+            <span class="TimerEditor_LabelSubText">Duration</span>
+          </div>
+        </li>
+        <li class="TimerEditor_InputGroup _large">
+          <SvgIcon class="TimerEditor_Icon" name="calendar" />
+          <div class="TimerEditor_LabelGroup">
+            <span class="TimerEditor_LabelText">12/29</span>
+            <span class="TimerEditor_LabelSubText">Start date</span>
+          </div>
+        </li>
+      </ul>
+      <div class="TimerEditor_ButtonGroup _large">
+        <button class="TimerEditor_DeleteButton">Delete</button>
+        <button class="TimerEditor_ConfirmButton">Confirm changes</button>
+      </div>
+    </BottomSheet>
+  </BackgroundOverlay>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 
 @Component({
   components: {
+    BackgroundOverlay,
     BottomSheet,
     BottomSheetHeader,
   },
@@ -96,8 +100,11 @@ export default class TimerEditor extends Vue {
 
 <style lang="scss" scoped>
 .TimerEditor {
-  height: 430px;
   $padding: 16px;
+
+  &_Inner {
+    height: 430px;
+  }
 
   &_Header {
     margin-bottom: 15px;

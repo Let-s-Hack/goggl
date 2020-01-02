@@ -1,53 +1,57 @@
 <template>
-  <BottomSheet class="TagsSelector">
-    <BottomSheetHeader class="TagsSelector_Header">
-      <template v-slot:icon>
-        <SvgIcon class="TagsSelector_CloseIcon" name="close" />
-      </template>
-      <template v-slot:title>Projects</template>
-      <template v-slot:action>Save</template>
-    </BottomSheetHeader>
-    <div class="TagsSelector_ListItem">
-      <SvgIcon class="TagsSelector_SearchIcon" name="search" />
-      <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
-    </div>
-    <ul>
-      <li class="TagsSelector_ListItem">
-        <span class="TagsSelector_Tag">設計</span>
-        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
-        <!-- <span class="TagsSelector_Unselected"></span> -->
-      </li>
-      <li class="TagsSelector_ListItem">
-        <span class="TagsSelector_Tag">MTG</span>
-        <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
-        <span class="TagsSelector_Unselected"></span>
-      </li>
-      <li class="TagsSelector_ListItem">
-        <span class="TagsSelector_Tag">実装</span>
-        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
-        <!-- <span class="TagsSelector_Unselected"></span> -->
-      </li>
-      <li class="TagsSelector_ListItem">
-        <span class="TagsSelector_Tag">UIデザイン</span>
-        <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
-        <span class="TagsSelector_Unselected"></span>
-      </li>
-      <li class="TagsSelector_ListItem">
-        <span class="TagsSelector_Tag">コードレビュー</span>
-        <SvgIcon class="TagsSelector_Selected" name="check-circle" />
-        <!-- <span class="TagsSelector_Unselected"></span> -->
-      </li>
-    </ul>
-  </BottomSheet>
+  <BackgroundOverlay class="TagsSelector">
+    <BottomSheet class="TagsSelector_Inner">
+      <BottomSheetHeader class="TagsSelector_Header">
+        <template v-slot:icon>
+          <SvgIcon class="TagsSelector_CloseIcon" name="close" />
+        </template>
+        <template v-slot:title>Tags</template>
+        <template v-slot:action>Save</template>
+      </BottomSheetHeader>
+      <div class="TagsSelector_ListItem">
+        <SvgIcon class="TagsSelector_SearchIcon" name="search" />
+        <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
+      </div>
+      <ul>
+        <li class="TagsSelector_ListItem">
+          <span class="TagsSelector_Tag">設計</span>
+          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <!-- <span class="TagsSelector_Unselected"></span> -->
+        </li>
+        <li class="TagsSelector_ListItem">
+          <span class="TagsSelector_Tag">MTG</span>
+          <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+          <span class="TagsSelector_Unselected"></span>
+        </li>
+        <li class="TagsSelector_ListItem">
+          <span class="TagsSelector_Tag">実装</span>
+          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <!-- <span class="TagsSelector_Unselected"></span> -->
+        </li>
+        <li class="TagsSelector_ListItem">
+          <span class="TagsSelector_Tag">UIデザイン</span>
+          <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+          <span class="TagsSelector_Unselected"></span>
+        </li>
+        <li class="TagsSelector_ListItem">
+          <span class="TagsSelector_Tag">コードレビュー</span>
+          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <!-- <span class="TagsSelector_Unselected"></span> -->
+        </li>
+      </ul>
+    </BottomSheet>
+  </BackgroundOverlay>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 
 @Component({
   components: {
+    BackgroundOverlay,
     BottomSheet,
     BottomSheetHeader,
   },
@@ -58,7 +62,9 @@ export default class TagsSelector extends Vue {
 
 <style lang="scss" scoped>
 .TagsSelector {
-  height: 100vh;
+  &_Inner {
+    height: 100vh;
+  }
 
   &_Header {
     margin-bottom: 15px;
