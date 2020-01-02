@@ -1,68 +1,71 @@
 <template>
-  <BottomSheet class="TimerCreator">
-    <div class="TimerCreator_Header">
-      <button class="TimerCreator_HeaderBackButton">
-        <SvgIcon name="close" class="TimerCreator_CloseIcon" />
-      </button>
-      <div class="TimerCreator_HeaderTimeGroup">
-        <SvgIcon name="timer" class="TimerCreator_TimerIcon" />
-        <span class="TimerCreator_HeaderTime">0:32:10</span>
+  <BackgroundOverlay class="TimerCreator">
+    <BottomSheet class="TimerCreator_Inner">
+      <div class="TimerCreator_Header">
+        <button class="TimerCreator_HeaderBackButton">
+          <SvgIcon name="close" class="TimerCreator_CloseIcon" />
+        </button>
+        <div class="TimerCreator_HeaderTimeGroup">
+          <SvgIcon name="timer" class="TimerCreator_TimerIcon" />
+          <span class="TimerCreator_HeaderTime">0:32:10</span>
+        </div>
       </div>
-    </div>
-    <div class="TimerCreator_Content">
-      <!-- TODO: 選択されたProject, Tagを表示 -->
-      <div class="TimerCreator_SelectedGroup">
-        <span
-          :style="{ borderColor: '#EA468D', color: '#EA468D', background: '#EA468D' }"
-          class="TimerCreator_SelectedProject"
-        >goggl</span>
-        <span class="TimerCreator_SelectedTag">設計</span>
-        <span class="TimerCreator_SelectedTag">実装</span>
+      <div class="TimerCreator_Content">
+        <!-- TODO: 選択されたProject, Tagを表示 -->
+        <div class="TimerCreator_SelectedGroup">
+          <span
+            :style="{ borderColor: '#EA468D', color: '#EA468D', background: '#EA468D' }"
+            class="TimerCreator_SelectedProject"
+          >goggl</span>
+          <span class="TimerCreator_SelectedTag">設計</span>
+          <span class="TimerCreator_SelectedTag">実装</span>
+        </div>
+        <ul class="TimerCreator_SearchList">
+          <!-- TODO: クリックしたときに ProjectSelector を表示する -->
+          <li class="TimerCreator_SearchListItem">
+            <strong>@</strong>Search Projects
+          </li>
+          <!-- TODO: クリックしたときに TagsSelector を表示する -->
+          <li class="TimerCreator_SearchListItem">
+            <strong>#</strong>Search Tags
+          </li>
+        </ul>
       </div>
-      <ul class="TimerCreator_SearchList">
-        <!-- TODO: クリックしたときに ProjectSelector を表示する -->
-        <li class="TimerCreator_SearchListItem">
-          <strong>@</strong>Search Projects
+      <!-- TODO: ボタンのアクティブクラスの出し分け -->
+      <ul class="TimerCreator_ActionList">
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton _isActive">
+            <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
+          </button>
         </li>
-        <!-- TODO: クリックしたときに TagsSelector を表示する -->
-        <li class="TimerCreator_SearchListItem">
-          <strong>#</strong>Search Tags
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
+          </button>
+        </li>
+        <li class="TimerCreator_ActionListItem">
+          <button class="TimerCreator_ActionButton">
+            <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
+          </button>
         </li>
       </ul>
-    </div>
-    <!-- TODO: ボタンのアクティブクラスの出し分け -->
-    <ul class="TimerCreator_ActionList">
-      <li class="TimerCreator_ActionListItem">
-        <button class="TimerCreator_ActionButton _isActive">
-          <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
-        </button>
-      </li>
-      <li class="TimerCreator_ActionListItem">
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
-        </button>
-      </li>
-      <li class="TimerCreator_ActionListItem">
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
-        </button>
-      </li>
-      <li class="TimerCreator_ActionListItem">
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
-        </button>
-      </li>
-      <li class="TimerCreator_ActionListItem">
-        <button class="TimerCreator_ActionButton">
-          <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
-        </button>
-      </li>
-    </ul>
-  </BottomSheet>
+    </BottomSheet>
+  </BackgroundOverlay>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
@@ -72,6 +75,7 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
 
 @Component({
   components: {
+    BackgroundOverlay,
     BottomSheet,
     DiscardButtonGroup,
     ProjectSelector,
@@ -86,9 +90,11 @@ export default class TimerCreator extends Vue {
 
 <style lang="scss" scoped>
 .TimerCreator {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  &_Inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   &_Header {
     position: relative;

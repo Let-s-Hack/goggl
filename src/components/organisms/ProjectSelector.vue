@@ -1,59 +1,63 @@
 <template>
-  <BottomSheet class="ProjectSelector">
-    <BottomSheetHeader class="ProjectSelector_Header">
-      <template v-slot:icon>
-        <SvgIcon class="ProjectSelector_CloseIcon" name="close" />
-      </template>
-      <template v-slot:title>Projects</template>
-    </BottomSheetHeader>
-    <div class="ProjectSelector_Container">
-      <SvgIcon class="ProjectSelector_SearchIcon" name="search" />
-      <input type="text" class="ProjectSelector_Input" placeholder="Add/filter project">
-    </div>
-    <ul>
-      <li class="ProjectSelector_ListItem">
-        <span class="ProjectSelector_Project">No Project</span>
-      </li>
-      <li class="ProjectSelector_ListItem">
-        <span
-          class="ProjectSelector_Project"
-          :style="{ borderColor: '#EA468D', color: '#EA468D' }"
-        >ITR MP</span>
-      </li>
-      <li class="ProjectSelector_ListItem">
-        <span
-          class="ProjectSelector_Project"
-          :style="{ borderColor: '#3750B5', color: '#3750B5' }"
-        >LTP</span>
-      </li>
-      <li class="ProjectSelector_ListItem">
-        <span
-          class="ProjectSelector_Project"
-          :style="{ borderColor: '#06AAF5', color: '#06AAF5' }"
-        >LTSF</span>
-      </li>
-      <li class="ProjectSelector_ListItem">
-        <!-- TODO: 選択時のみ背景色を設定 -->
-        <span
-          class="ProjectSelector_Project"
-          :style="{
-            borderColor: '#4BC800',
-            color: '#4BC800',
-            backgroundColor: ProjectSelector.getBackGroundColor('#4BC800')
-          }"
-        >LTSF LINE</span>
-      </li>
-    </ul>
-  </BottomSheet>
+  <BackgroundOverlay class="ProjectSelector">
+    <BottomSheet class="ProjectSelector_Inner">
+      <BottomSheetHeader class="ProjectSelector_Header">
+        <template v-slot:icon>
+          <SvgIcon class="ProjectSelector_CloseIcon" name="close" />
+        </template>
+        <template v-slot:title>Projects</template>
+      </BottomSheetHeader>
+      <div class="ProjectSelector_Container">
+        <SvgIcon class="ProjectSelector_SearchIcon" name="search" />
+        <input type="text" class="ProjectSelector_Input" placeholder="Add/filter project">
+      </div>
+      <ul>
+        <li class="ProjectSelector_ListItem">
+          <span class="ProjectSelector_Project">No Project</span>
+        </li>
+        <li class="ProjectSelector_ListItem">
+          <span
+            class="ProjectSelector_Project"
+            :style="{ borderColor: '#EA468D', color: '#EA468D' }"
+          >ITR MP</span>
+        </li>
+        <li class="ProjectSelector_ListItem">
+          <span
+            class="ProjectSelector_Project"
+            :style="{ borderColor: '#3750B5', color: '#3750B5' }"
+          >LTP</span>
+        </li>
+        <li class="ProjectSelector_ListItem">
+          <span
+            class="ProjectSelector_Project"
+            :style="{ borderColor: '#06AAF5', color: '#06AAF5' }"
+          >LTSF</span>
+        </li>
+        <li class="ProjectSelector_ListItem">
+          <!-- TODO: 選択時のみ背景色を設定 -->
+          <span
+            class="ProjectSelector_Project"
+            :style="{
+              borderColor: '#4BC800',
+              color: '#4BC800',
+              backgroundColor: ProjectSelector.getBackGroundColor('#4BC800')
+            }"
+          >LTSF LINE</span>
+        </li>
+      </ul>
+    </BottomSheet>
+  </BackgroundOverlay>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 
 @Component({
   components: {
+    BackgroundOverlay,
     BottomSheet,
     BottomSheetHeader,
   },
@@ -77,7 +81,9 @@ export default class ProjectSelector extends Vue {
 
 <style lang="scss" scoped>
 .ProjectSelector {
-  height: 100vh;
+  &_Inner {
+    height: 100vh;
+  }
 
   &_Header {
     margin-bottom: 15px;

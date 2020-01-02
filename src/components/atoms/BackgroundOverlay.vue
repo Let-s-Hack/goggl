@@ -14,16 +14,12 @@ export default class BackgroundOverlay extends Vue {
 
 <style lang="scss" scoped>
 .BackgroundOverlay {
-  /*
-   * 静的コーディングの段階では他のコンポーネントの制作に
-   * 影響を及ぼすので、一部プロパティをコメントアウトしています
-   */
-  // position: fixed;
+  position: fixed;
   z-index: $zIndex_backgroundOverlay;
   top: 0;
   left: 0;
   width: 100vw;
-  // height: 100vh;
+  height: 100vh;
   background: rgba(#D4D4D9, 0.87);
 }
 </style>

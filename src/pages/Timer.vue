@@ -14,6 +14,11 @@
       </template>
     </BaseContent>
     <GlobalNav />
+    <!-- TODO: 表示切り替え -->
+    <TimerCreator v-if="false" />
+    <TimerEditor v-if="false" />
+    <ProjectSelector v-if="false" />
+    <TagsSelector v-if="false" />
   </div>
 </template>
 
@@ -25,6 +30,10 @@ import ActiveTimer from '~/molecules/ActiveTimer.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
 import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
+import ProjectSelector from '~/organisms/ProjectSelector.vue';
+import TagsSelector from '~/organisms/TagsSelector.vue';
+import TimerCreator from '~/organisms/TimerCreator.vue';
+import TimerEditor from '~/organisms/TimerEditor.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
 import RecordContainer from '~/organisms/RecordContainer.vue';
 
@@ -38,6 +47,10 @@ const loadingTime: number = 3000;
     BaseContent,
     GlobalHeader,
     GlobalNav,
+    ProjectSelector,
+    TagsSelector,
+    TimerCreator,
+    TimerEditor,
     TimerSkeletonScreen,
     RecordContainer,
   },
