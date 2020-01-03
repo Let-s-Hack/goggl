@@ -1,5 +1,8 @@
 <template>
-  <li class="Record">
+  <li
+    @click.stop.prevent="bottomSheet.show('timerEditor')"
+    class="Record"
+  >
     <div class="Record_Left">
       <!-- TODO: _isEmptyの出し分け -->
       <h3 class="Record_Title _isEmpty">説明を追加</h3>
@@ -23,9 +26,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 
 @Component
 export default class Record extends Vue {
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 

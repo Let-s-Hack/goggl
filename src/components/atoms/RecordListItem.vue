@@ -1,5 +1,8 @@
 <template>
-  <li class="RecordListItem">
+  <li
+    @click.stop.prevent="bottomSheet.show('timerEditor')"
+    class="RecordListItem"
+  >
     <div class="RecordListItem_Left">
       <!-- TODO: _isEmptyの出し分け -->
       <h4 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h4>
@@ -23,9 +26,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 
 @Component
 export default class RecordListItem extends Vue {
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 
