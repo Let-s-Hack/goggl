@@ -16,7 +16,7 @@
     <GlobalNav />
     <!-- TODO: 表示切り替え -->
     <TimerCreator v-if="false" />
-    <TimerEditor v-if="false" />
+    <TimerEditor v-if="bottomSheet.isShown('timerEditor')" />
     <ProjectSelector v-if="false" />
     <TagsSelector v-if="false" />
   </div>
@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
@@ -56,6 +57,8 @@ const loadingTime: number = 3000;
   },
 })
 export default class Timer extends Vue {
+  bottomSheet = bottomSheetBehavior;
+
   isLoading: boolean = true;
 
   created() {

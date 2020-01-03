@@ -1,12 +1,18 @@
 <template>
   <div class="BottomSheetHeader">
-    <button class="BottomSheetHeader_BackButton">
+    <button
+      @click.stop.prevent="backButtonCallback()"
+      class="BottomSheetHeader_BackButton"
+    >
       <slot name="icon" />
     </button>
     <p class="BottomSheetHeader_Title">
       <slot name="title" />
     </p>
-    <button class="BottomSheetHeader_ActionButton">
+    <button
+      @click.stop.prevent="actionButtonCallback()"
+      class="BottomSheetHeader_ActionButton"
+    >
       <slot name="action" />
     </button>
     <p class="BottomSheetHeader_Text">
@@ -16,10 +22,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 
 @Component
 export default class BottomSheetHeader extends Vue {
+  @Prop({ required: true }) backButtonCallback!: Function;
+
+  @Prop({ required: false }) actionButtonCallback?: Function;
 }
 </script>
 
