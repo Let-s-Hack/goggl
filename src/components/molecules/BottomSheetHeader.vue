@@ -1,7 +1,7 @@
 <template>
   <div class="BottomSheetHeader">
     <button
-      @click.stop="backBtnCallback()"
+      @click.stop.prevent="backButtonCallback()"
       class="BottomSheetHeader_BackButton"
     >
       <slot name="icon" />
@@ -10,7 +10,7 @@
       <slot name="title" />
     </p>
     <button
-      @click.stop="actionBtnCallback()"
+      @click.stop.prevent="actionButtonCallback()"
       class="BottomSheetHeader_ActionButton"
     >
       <slot name="action" />
@@ -30,9 +30,9 @@ import {
 
 @Component
 export default class BottomSheetHeader extends Vue {
-  @Prop() backBtnCallback?: Function;
+  @Prop() backButtonCallback?: Function;
 
-  @Prop() actionBtnCallback?: Function;
+  @Prop() actionButtonCallback?: Function;
 }
 </script>
 

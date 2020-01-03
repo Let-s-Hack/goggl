@@ -2,7 +2,7 @@
   <BackgroundOverlay class="TimerEditor">
     <BottomSheet class="TimerEditor_Inner">
       <BottomSheetHeader
-        :back-btn-callback="() => bottomSheet.hide('timerEditor')"
+        :back-button-callback="() => bottomSheet.hide('timerEditor')"
         class="TimerEditor_Header"
       >
         <template v-slot:icon>
