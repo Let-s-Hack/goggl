@@ -1,5 +1,6 @@
 <template>
-  <BackgroundOverlay class="TagsSelector">
+  <div class="TagsSelector">
+    <BackgroundOverlay />
     <BottomSheet class="TagsSelector_Inner">
       <BottomSheetHeader class="TagsSelector_Header">
         <template v-slot:icon>
@@ -40,7 +41,7 @@
         </li>
       </ul>
     </BottomSheet>
-  </BackgroundOverlay>
+  </div>
 </template>
 
 <script lang="ts">

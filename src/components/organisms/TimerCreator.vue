@@ -1,5 +1,6 @@
 <template>
-  <BackgroundOverlay class="TimerCreator">
+  <div class="TimerCreator">
+    <BackgroundOverlay />
     <BottomSheet class="TimerCreator_Inner">
       <div class="TimerCreator_Header">
         <button class="TimerCreator_HeaderBackButton">
@@ -60,14 +61,13 @@
         </li>
       </ul>
     </BottomSheet>
-  </BackgroundOverlay>
+  </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
-import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 import DurationSelector from '~/organisms/DurationSelector.vue';
@@ -77,7 +77,6 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   components: {
     BackgroundOverlay,
     BottomSheet,
-    DiscardButtonGroup,
     ProjectSelector,
     TagsSelector,
     DurationSelector,
