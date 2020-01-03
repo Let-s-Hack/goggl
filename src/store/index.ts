@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { IBottomSheetBehaviorState } from '@/store/modules/BottomSheetBehavior';
+import { IBottomSheetBehaviorState } from './types';
 
 Vue.use(Vuex);
 
