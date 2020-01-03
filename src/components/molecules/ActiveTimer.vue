@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="bottomSheet.show('timerEditor')"
+    @click.stop.prevent="bottomSheet.show('timerEditor')"
     class="ActiveTimer"
   >
     <div class="ActiveTimer_Time">1:43:35</div>
