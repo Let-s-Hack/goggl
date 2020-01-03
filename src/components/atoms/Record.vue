@@ -26,11 +26,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 
 @Component
 export default class Record extends Vue {
-  bottomSheet = bottomSheetBehavior;
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 

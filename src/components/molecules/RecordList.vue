@@ -34,7 +34,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import RecordListItem from '~/atoms/RecordListItem.vue';
 
 @Component({
@@ -43,7 +43,7 @@ import RecordListItem from '~/atoms/RecordListItem.vue';
   },
 })
 export default class RecordList extends Vue {
-  bottomSheet = bottomSheetBehavior;
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 
