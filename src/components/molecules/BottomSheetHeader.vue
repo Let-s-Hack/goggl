@@ -30,9 +30,9 @@ import {
 
 @Component
 export default class BottomSheetHeader extends Vue {
-  @Prop() backButtonCallback?: Function;
+  @Prop({ required: true }) backButtonCallback!: Function;
 
-  @Prop() actionButtonCallback?: Function;
+  @Prop({ required: false }) actionButtonCallback?: Function;
 }
 </script>
 
