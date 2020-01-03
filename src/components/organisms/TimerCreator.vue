@@ -71,7 +71,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import DiscardButtonGroup from '~/molecules/DiscardButtonGroup.vue';
@@ -92,7 +92,7 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   },
 })
 export default class TimerCreator extends Vue {
-  bottomSheet = bottomSheetBehavior;
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 
