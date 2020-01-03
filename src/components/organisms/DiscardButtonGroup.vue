@@ -5,9 +5,7 @@
       <ApplyButton
         sub-text="Would you like to discard this time entry?"
         class="DiscardButtonGroup_Button"
-      >
-        Discard
-      </ApplyButton>
+      >Discard</ApplyButton>
       <CancelButton class="DiscardButtonGroup_Button">Continue Editing</CancelButton>
     </div>
   </div>
@@ -33,7 +31,7 @@ export default class DiscardButtonGroup extends Vue {
 <style lang="scss" scoped>
 .DiscardButtonGroup {
   &_BackgroundOverlay {
-    background: rgba(#000, 0.2);
+    background-color: rgba(#000, 0.2);
   }
 
   &_Inner {

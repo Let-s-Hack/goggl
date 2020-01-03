@@ -28,7 +28,7 @@ export default class DeleteButtonGroup extends Vue {
 <style lang="scss" scoped>
 .DeleteButtonGroup {
   &_BackgroundOverlay {
-    background: rgba(#000, 0.2);
+    background-color: rgba(#000, 0.2);
   }
 
   &_Inner {
