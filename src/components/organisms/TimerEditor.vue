@@ -89,7 +89,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
+import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -102,7 +102,7 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class TimerEditor extends Vue {
-  bottomSheet = bottomSheetBehavior;
+  bottomSheet = BottomSheetBehavior;
 }
 </script>
 

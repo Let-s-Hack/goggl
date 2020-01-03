@@ -39,4 +39,6 @@ class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorStat
   }
 }
 
-export const bottomSheetBehavior = getModule(BottomSheetBehavior);
+const bottomSheetBehavior = getModule(BottomSheetBehavior);
+
+export default bottomSheetBehavior;
