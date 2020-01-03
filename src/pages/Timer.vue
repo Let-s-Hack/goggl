@@ -9,13 +9,17 @@
         <!-- TODO: 同期中のみ表示 -->
         <LoadingBar class="Timer_LoadingBar" />
         <RecordContainer class="Timer_RecordContainer" />
-        <TimerStartButton v-if="false" class="Timer_TimerStartButton" />
+        <TimerStartButton
+          v-if="true"
+          :click-callback="() => bottomSheet.show('timerCreator')"
+          class="Timer_TimerStartButton"
+        />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
       </template>
     </BaseContent>
     <GlobalNav />
     <!-- TODO: 表示切り替え -->
-    <TimerCreator v-if="false" />
+    <TimerCreator v-if="bottomSheet.isShown('timerCreator')" />
     <TimerEditor v-if="false" />
     <ProjectSelector v-if="false" />
     <TagsSelector v-if="false" />
@@ -24,6 +28,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { bottomSheetBehavior } from '@/store/modules/BottomSheetBehavior';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
@@ -56,6 +61,8 @@ const loadingTime: number = 3000;
   },
 })
 export default class Timer extends Vue {
+  bottomSheet = bottomSheetBehavior;
+
   isLoading: boolean = true;
 
   created() {

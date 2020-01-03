@@ -1,14 +1,22 @@
 <template>
-  <button class="TimerStartButton">
+  <button
+    @click.stop.prevent="clickCallback()"
+    class="TimerStartButton"
+  >
     <SvgIcon class="TimerStartButton_IconStart" name="triangle" />
   </button>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 
 @Component
 export default class TimerStartButton extends Vue {
+  @Prop({ required: true }) clickCallback!: Function;
 }
 </script>
 
