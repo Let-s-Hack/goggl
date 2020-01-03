@@ -1,5 +1,6 @@
 <template>
-  <BackgroundOverlay class="TimerEditor">
+  <div class="TimerEditor">
+    <BackgroundOverlay />
     <BottomSheet class="TimerEditor_Inner">
       <BottomSheetHeader
         :back-button-callback="() => bottomSheet.hide('timerEditor')"
@@ -84,7 +85,7 @@
         >Confirm changes</button>
       </div>
     </BottomSheet>
-  </BackgroundOverlay>
+  </div>
 </template>
 
 <script lang="ts">

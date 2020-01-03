@@ -1,7 +1,5 @@
 <template>
-  <div class="BackgroundOverlay">
-    <slot />
-  </div>
+  <div class="BackgroundOverlay"></div>
 </template>
 
 <script lang="ts">

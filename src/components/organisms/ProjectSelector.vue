@@ -1,5 +1,6 @@
 <template>
-  <BackgroundOverlay class="ProjectSelector">
+  <div class="ProjectSelector">
+    <BackgroundOverlay />
     <BottomSheet class="ProjectSelector_Inner">
       <BottomSheetHeader class="ProjectSelector_Header">
         <template v-slot:icon>
@@ -46,7 +47,7 @@
         </li>
       </ul>
     </BottomSheet>
-  </BackgroundOverlay>
+  </div>
 </template>
 
 <script lang="ts">

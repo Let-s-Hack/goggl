@@ -16,6 +16,7 @@ export default class BottomSheet extends Vue {
 .BottomSheet {
   position: fixed;
   bottom: 0;
+  z-index: $zIndex_bottomSheet;
   width: 100vw;
   border-radius: 8px;
   background: #FFF;
