@@ -20,9 +20,9 @@
     <GlobalNav />
     <!-- TODO: 表示切り替え -->
     <TimerCreator v-if="bottomSheet.isShown('timerCreator')" />
-    <TimerEditor v-else-if="bottomSheet.isShown('timerEditor')" />
-    <ProjectSelector v-else-if="false" />
-    <TagsSelector v-else-if="false" />
+    <TimerEditor v-if="bottomSheet.isShown('timerEditor')" />
+    <ProjectSelector v-if="false" />
+    <TagsSelector v-if="false" />
   </div>
 </template>
 
