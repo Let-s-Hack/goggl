@@ -9,23 +9,23 @@ import {
   ILoaderState,
 } from '@/store/types';
 import store from '@/store';
-  
+
 @Module({
-  name: 'Loading',
+  name: 'Loader',
   namespaced: true,
   dynamic: true,
   store,
 })
 class Loader extends VuexModule implements ILoaderState {
   status: ILoadingState = {
-    timer: false,
-    reports: false,
+    timer: true,
+    reports: true,
     loadingBar: false,
   };
 
   @Mutation
   public activate(name: string) {
-    this.status[name] = false;
+    this.status[name] = true;
   }
 
   @Mutation
@@ -41,4 +41,3 @@ class Loader extends VuexModule implements ILoaderState {
 const loader = getModule(Loader);
 
 export default loader;
-  
