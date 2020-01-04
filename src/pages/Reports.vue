@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import Loader from '@/store/modules/Loader';
 import ReportsSummary from '~/molecules/ReportsSummary.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
@@ -46,11 +47,14 @@ const loadingTime: number = 3000;
   },
 })
 export default class Reports extends Vue {
-  isLoading: boolean = true;
+  isLoading: boolean = Loader.isLoading('reports');
 
   created() {
     if (this.isLoading) {
-      setTimeout(() => { this.isLoading = false; }, loadingTime);
+      setTimeout(() => {
+        this.isLoading = false;
+        Loader.deactivate('reports');
+      }, loadingTime);
     }
   }
 }
