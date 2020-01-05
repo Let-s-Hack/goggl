@@ -18,5 +18,5 @@ export interface ILoadingState {
 }
 
 export interface ILoaderState {
-  status: ILoadingState,
+  loadingState: ILoadingState,
 }
