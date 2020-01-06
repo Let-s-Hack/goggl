@@ -6,8 +6,7 @@
         <TimerSkeletonScreen />
       </template>
       <template v-else>
-        <!-- TODO: 同期中のみ表示 -->
-        <LoadingBar class="Timer_LoadingBar" />
+        <LoadingBar v-if="loader.isLoading('loadingBar')" class="Timer_LoadingBar" />
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="true"
@@ -31,6 +30,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
+import Loader from '@/store/modules/Loader';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
@@ -69,11 +69,16 @@ const loadingTime: number = 3000;
 export default class Timer extends Vue {
   bottomSheet = BottomSheetBehavior;
 
-  isLoading: boolean = true;
+  loader = Loader;
+
+  isLoading: boolean = Loader.isLoading('timer');
 
   created() {
     if (this.isLoading) {
-      setTimeout(() => { this.isLoading = false; }, loadingTime);
+      setTimeout(() => {
+        this.isLoading = false;
+        Loader.deactivate('timer');
+      }, loadingTime);
     }
   }
 }
