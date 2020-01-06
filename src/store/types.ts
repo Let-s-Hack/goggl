@@ -20,3 +20,15 @@ export interface ILoadingState {
 export interface ILoaderState {
   loadingState: ILoadingState,
 }
+
+export interface IActiveTimeState {
+  startDatetime: string,
+  endDatetime: string,
+  projectId: string,
+  tags: number[],
+  [key: string]: string | number[],
+}
+
+export interface IActiveTimerState {
+  activeTimeState: IActiveTimeState,
+}
