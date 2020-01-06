@@ -9,8 +9,8 @@
         <LoadingBar v-if="loader.isLoading('loadingBar')" class="Timer_LoadingBar" />
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
-          v-if="true"
-          :click-callback="() => bottomSheet.show('timerCreator')"
+          v-if="!activeTimerModule.isActive"
+          :click-callback="Timer.clickTimerStartButton"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
@@ -28,9 +28,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import moment from 'moment';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import Loader from '@/store/modules/Loader';
+import ActiveTimerModule from '@/store/modules/ActiveTimer';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
@@ -67,11 +69,15 @@ const loadingTime: number = 3000;
   },
 })
 export default class Timer extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private Timer = Timer;
 
-  loader = Loader;
+  private bottomSheet = BottomSheetBehavior;
 
-  isLoading: boolean = Loader.isLoading('timer');
+  private loader = Loader;
+
+  private activeTimerModule = ActiveTimerModule;
+
+  private isLoading: boolean = Loader.isLoading('timer');
 
   created() {
     if (this.isLoading) {
@@ -80,6 +86,13 @@ export default class Timer extends Vue {
         Loader.deactivate('timer');
       }, loadingTime);
     }
+  }
+
+  private static clickTimerStartButton(): void {
+    const nowDatetime: string = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    BottomSheetBehavior.show('timerCreator');
+    ActiveTimerModule.setStartDatetime(nowDatetime);
   }
 }
 </script>
