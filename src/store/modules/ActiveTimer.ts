@@ -40,7 +40,7 @@ class ActiveTimer extends VuexModule implements IActiveTimerState {
   // TODO: 終了時刻、プロジェクト、タグ設定のミューテーションを書く
 
   @Action
-  public recordTimer() {
+  public record() {
     // TODO: 記録する処理を書く
     this.context.commit('resetAll');
   }
