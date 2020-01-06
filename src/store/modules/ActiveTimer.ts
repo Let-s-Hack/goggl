@@ -50,6 +50,6 @@ class ActiveTimer extends VuexModule implements IActiveTimerState {
   }
 }
 
-const activeTimerModule = getModule(ActiveTimer);
+const ActiveTimerModule = getModule(ActiveTimer);
 
-export default activeTimerModule;
+export default ActiveTimerModule;
