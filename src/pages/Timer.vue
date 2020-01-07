@@ -9,7 +9,7 @@
         <LoadingBar v-if="loader.isLoading('loadingBar')" class="Timer_LoadingBar" />
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
-          v-if="!timerModule.isActive"
+          v-if="!timeRecorder.isActive"
           :click-callback="timer.startRecording"
           class="Timer_TimerStartButton"
         />
@@ -32,7 +32,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import Loader from '@/store/modules/Loader';
-import TimerModule from '@/store/modules/Timer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
@@ -75,7 +75,7 @@ export default class Timer extends Vue {
 
   private loader = Loader;
 
-  private timerModule = TimerModule;
+  private timeRecorder = TimeRecorder;
 
   private isLoading: boolean = Loader.isLoading('timer');
 
@@ -92,7 +92,7 @@ export default class Timer extends Vue {
     const now: string = moment().format('YYYY-MM-DD HH:mm:ss');
 
     BottomSheetBehavior.show('timerCreator');
-    TimerModule.setStartDatetime(now);
+    TimeRecorder.setStartDatetime(now);
   }
 }
 </script>

@@ -6,25 +6,25 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  ITimeState,
   ITimerState,
+  ITimeRecorderState,
 } from '@/store/types';
 import store from '@/store';
 
-const initialState: ITimeState = {
+const initialState: ITimerState = {
   startDatetime: null,
   projectId: null,
   tags: [],
 };
 
 @Module({
-  name: 'Timer',
+  name: 'TimeRecorder',
   namespaced: true,
   dynamic: true,
   store,
 })
-class Timer extends VuexModule implements ITimerState {
-  public timerState: ITimeState = { ...initialState };
+class TimeRecorder extends VuexModule implements ITimeRecorderState {
+  public timerState: ITimerState = { ...initialState };
 
   @Mutation
   public setStartDatetime(datetime: string): void {
@@ -49,6 +49,6 @@ class Timer extends VuexModule implements ITimerState {
   }
 }
 
-const timer = getModule(Timer);
+const timeRecorder = getModule(TimeRecorder);
 
-export default timer;
+export default timeRecorder;
