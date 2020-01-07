@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import {
   IPageLayerState,
   ILoaderState,
-  ITimerState,
+  ITimeRecorderState,
 } from './types';
 
 Vue.use(Vuex);
@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export interface IRootState {
   pageLayer: IPageLayerState,
   loader: ILoaderState,
-  timer: ITimerState,
+  timeRecorder: ITimeRecorderState,
 }
 
 export default new Vuex.Store<IRootState>({});

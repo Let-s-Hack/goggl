@@ -14,13 +14,13 @@ export interface ILoaderState {
   loadingState: ILoadingState,
 }
 
-export interface ITimeState {
+export interface ITimerState {
   startDatetime: string | null,
   projectId: string | null,
   tags: number[],
   [key: string]: string | number[] | null,
 }
 
-export interface ITimerState {
-  timerState: ITimeState,
+export interface ITimeRecorderState {
+  timerState: ITimerState,
 }

@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import TimerModule from '@/store/modules/Timer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
 @Component({
@@ -27,7 +27,7 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
-  private timerModule = TimerModule;
+  private timeRecorder = TimeRecorder;
 }
 </script>
 
