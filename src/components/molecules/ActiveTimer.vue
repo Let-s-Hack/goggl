@@ -31,9 +31,9 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private bottomSheet = BottomSheetBehavior;
 
-  timerModule = TimerModule;
+  private timerModule = TimerModule;
 }
 </script>
 
