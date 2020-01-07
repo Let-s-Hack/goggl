@@ -10,7 +10,7 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timerModule.isActive"
-          :click-callback="Timer.clickTimerStartButton"
+          :click-callback="Timer.startRecording"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
@@ -88,11 +88,11 @@ export default class Timer extends Vue {
     }
   }
 
-  private static clickTimerStartButton(): void {
-    const nowDatetime: string = moment().format('YYYY-MM-DD HH:mm:ss');
+  private static startRecording(): void {
+    const now: string = moment().format('YYYY-MM-DD HH:mm:ss');
 
     BottomSheetBehavior.show('timerCreator');
-    TimerModule.setStartDatetime(nowDatetime);
+    TimerModule.setStartDatetime(now);
   }
 }
 </script>
