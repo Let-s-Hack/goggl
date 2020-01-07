@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export interface IRootState {
   bottomSheetBehavior: IBottomSheetBehaviorState,
   loader: ILoaderState,
-  activeTimer: ITimerState,
+  timer: ITimerState,
 }
 
 export default new Vuex.Store<IRootState>({});
