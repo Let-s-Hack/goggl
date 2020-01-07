@@ -2,14 +2,20 @@
   <div class="DeleteButtonGroup">
     <BackgroundOverlay class="DeleteButtonGroup_BackgroundOverlay" />
     <div class="DeleteButtonGroup_Inner">
-      <ApplyButton class="DeleteButtonGroup_Button">Delete</ApplyButton>
-      <CancelButton class="DeleteButtonGroup_Button">Cancel</CancelButton>
+      <ApplyButton
+        class="DeleteButtonGroup_Button"
+      >Delete</ApplyButton>
+      <CancelButton
+        @click.native="pageLayer.pop()"
+        class="DeleteButtonGroup_Button"
+      >Cancel</CancelButton>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import ApplyButton from '~/atoms/ApplyButton.vue';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import CancelButton from '~/atoms/CancelButton.vue';
@@ -22,6 +28,7 @@ import CancelButton from '~/atoms/CancelButton.vue';
   },
 })
 export default class DeleteButtonGroup extends Vue {
+  private pageLayer = PageLayer;
 }
 </script>
 
@@ -34,7 +41,7 @@ export default class DeleteButtonGroup extends Vue {
   &_Inner {
     position: fixed;
     bottom: 0;
-    z-index: $zIndex_buttonGroup;
+    z-index: $zIndex_pageLayer;
     width: 100%;
     padding: 0 8px 8px 8px;
     box-sizing: border-box;

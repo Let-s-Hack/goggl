@@ -1,8 +1,5 @@
 <template>
-  <div
-    @click.stop.prevent="bottomSheet.show('timerEditor')"
-    class="ActiveTimer"
-  >
+  <div class="ActiveTimer">
     <div class="ActiveTimer_Time">1:43:35</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
@@ -13,7 +10,7 @@
       >goggl</span>
     </div>
     <TimerStopButton
-      :click-callback="() => timeRecorder.record()"
+      @click.stop.native="timeRecorder.record()"
       class="ActiveTimer_Button"
     />
   </div>
@@ -21,7 +18,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
@@ -31,8 +27,6 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
-  private bottomSheet = BottomSheetBehavior;
-
   private timeRecorder = TimeRecorder;
 }
 </script>

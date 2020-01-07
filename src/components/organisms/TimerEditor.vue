@@ -3,7 +3,7 @@
     <BackgroundOverlay />
     <BottomSheet class="TimerEditor_Inner">
       <BottomSheetHeader
-        :back-button-callback="() => bottomSheet.hide('timerEditor')"
+        :back-button-callback="() => pageLayer.pop()"
         class="TimerEditor_Header"
       >
         <template v-slot:icon>
@@ -78,9 +78,12 @@
         </li>
       </ul>
       <div class="TimerEditor_ButtonGroup _large">
-        <button class="TimerEditor_DeleteButton">Delete</button>
         <button
-          @click="bottomSheet.hide('timerEditor')"
+          @click="showDeleteButtonGroup()"
+          class="TimerEditor_DeleteButton"
+        >Delete</button>
+        <button
+          @click="pageLayer.pop()"
           class="TimerEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
@@ -90,10 +93,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
+import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
+import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 
 @Component({
   components: {
@@ -103,7 +107,11 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class TimerEditor extends Vue {
-  private bottomSheet = BottomSheetBehavior;
+  private pageLayer = PageLayer;
+
+  private showDeleteButtonGroup(): void {
+    this.pageLayer.push(DeleteButtonGroup);
+  }
 }
 </script>
 
