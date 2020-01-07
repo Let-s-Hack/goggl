@@ -2,10 +2,7 @@
   <div class="TimerEditor">
     <BackgroundOverlay />
     <BottomSheet class="TimerEditor_Inner">
-      <BottomSheetHeader
-        :back-button-callback="() => bottomSheet.hide('timerEditor')"
-        class="TimerEditor_Header"
-      >
+      <BottomSheetHeader class="TimerEditor_Header">
         <template v-slot:icon>
           <SvgIcon class="TimerEditor_CloseIcon" name="close" />
         </template>
@@ -79,10 +76,7 @@
       </ul>
       <div class="TimerEditor_ButtonGroup _large">
         <button class="TimerEditor_DeleteButton">Delete</button>
-        <button
-          @click="bottomSheet.hide('timerEditor')"
-          class="TimerEditor_ConfirmButton"
-        >Confirm changes</button>
+        <button class="TimerEditor_ConfirmButton">Confirm changes</button>
       </div>
     </BottomSheet>
   </div>
@@ -90,7 +84,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -103,7 +96,6 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class TimerEditor extends Vue {
-  private bottomSheet = BottomSheetBehavior;
 }
 </script>
 

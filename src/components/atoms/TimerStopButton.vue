@@ -1,16 +1,12 @@
 <template>
-  <button
-    @click.stop.prevent="clickCallback()"
-    class="TimerStopButton"
-  ></button>
+  <button class="TimerStopButton"></button>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 
 @Component
 export default class TimerStopButton extends Vue {
-  @Prop({ required: true }) clickCallback!: Function;
 }
 </script>
 

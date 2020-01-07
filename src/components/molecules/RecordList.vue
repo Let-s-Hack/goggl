@@ -1,8 +1,5 @@
 <template>
-  <li
-    @click.stop.prevent="bottomSheet.show('timerEditor')"
-    class="RecordList"
-  >
+  <li class="RecordList">
     <div class="RecordList_Summary">
       <p class="RecordList_SummaryCount _isActive">4</p>
       <div class="RecordList_SummaryTitleGroup">
@@ -34,7 +31,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import RecordListItem from '~/atoms/RecordListItem.vue';
 
 @Component({
@@ -43,7 +39,6 @@ import RecordListItem from '~/atoms/RecordListItem.vue';
   },
 })
 export default class RecordList extends Vue {
-  private bottomSheet = BottomSheetBehavior;
 }
 </script>
 

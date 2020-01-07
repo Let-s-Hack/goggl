@@ -10,7 +10,7 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timerModule.isActive"
-          :click-callback="startRecording()"
+          :click-callback="() => startRecording()"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
