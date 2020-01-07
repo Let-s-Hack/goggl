@@ -6,26 +6,25 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  IActiveTimeState,
-  IActiveTimerState,
+  ITimeState,
+  ITimerState,
 } from '@/store/types';
 import store from '@/store';
 
-const initialState: IActiveTimeState = {
-  startDatetime: '',
-  endDatetime: '',
-  projectId: '',
+const initialState: ITimeState = {
+  startDatetime: null,
+  projectId: null,
   tags: [],
 };
 
 @Module({
-  name: 'ActiveTimer',
+  name: 'Timer',
   namespaced: true,
   dynamic: true,
   store,
 })
-class ActiveTimer extends VuexModule implements IActiveTimerState {
-  public activeTimeState: IActiveTimeState = { ...initialState };
+class Timer extends VuexModule implements ITimerState {
+  public activeTimeState: ITimeState = { ...initialState };
 
   @Mutation
   public setStartDatetime(datetime: string): void {
@@ -33,23 +32,23 @@ class ActiveTimer extends VuexModule implements IActiveTimerState {
   }
 
   @Mutation
-  public resetAll(): void {
+  public reset(): void {
     this.activeTimeState = { ...initialState };
   }
 
-  // TODO: 終了時刻、プロジェクト、タグ設定のミューテーションを書く
+  // TODO: プロジェクト、タグ設定のミューテーションを書く
 
   @Action
   public record(): void {
     // TODO: 記録する処理を書く
-    this.context.commit('resetAll');
+    this.context.commit('reset');
   }
 
   public get isActive(): boolean {
-    return this.activeTimeState.startDatetime !== initialState.startDatetime;
+    return this.activeTimeState.startDatetime !== null;
   }
 }
 
-const ActiveTimerModule = getModule(ActiveTimer);
+const timer = getModule(Timer);
 
-export default ActiveTimerModule;
+export default timer;

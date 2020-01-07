@@ -21,14 +21,13 @@ export interface ILoaderState {
   loadingState: ILoadingState,
 }
 
-export interface IActiveTimeState {
-  startDatetime: string,
-  endDatetime: string,
-  projectId: string,
+export interface ITimeState {
+  startDatetime: string | null,
+  projectId: string | null,
   tags: number[],
-  [key: string]: string | number[],
+  [key: string]: string | number[] | null,
 }
 
-export interface IActiveTimerState {
-  activeTimeState: IActiveTimeState,
+export interface ITimerState {
+  activeTimeState: ITimeState,
 }
