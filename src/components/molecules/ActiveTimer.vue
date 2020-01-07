@@ -13,7 +13,7 @@
       >goggl</span>
     </div>
     <TimerStopButton
-      :click-callback="() => activeTimerModule.record()"
+      :click-callback="() => timerModule.record()"
       class="ActiveTimer_Button"
     />
   </div>
@@ -22,7 +22,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
-import ActiveTimerModule from '@/store/modules/ActiveTimer';
+import TimerModule from '@/store/modules/Timer';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
 @Component({
@@ -33,7 +33,7 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
 export default class ActiveTimer extends Vue {
   bottomSheet = BottomSheetBehavior;
 
-  activeTimerModule = ActiveTimerModule;
+  timerModule = TimerModule;
 }
 </script>
 
