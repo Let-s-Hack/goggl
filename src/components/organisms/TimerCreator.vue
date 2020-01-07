@@ -91,7 +91,7 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   },
 })
 export default class TimerCreator extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private bottomSheet = BottomSheetBehavior;
 }
 </script>
 

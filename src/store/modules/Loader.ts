@@ -4,10 +4,7 @@ import {
   Mutation,
   getModule,
 } from 'vuex-module-decorators';
-import {
-  ILoadingState,
-  ILoaderState,
-} from '@/store/types';
+import { ILoadingState, ILoaderState } from '@/store/types';
 import store from '@/store';
 
 @Module({
@@ -17,7 +14,7 @@ import store from '@/store';
   store,
 })
 class Loader extends VuexModule implements ILoaderState {
-  loadingState: ILoadingState = {
+  public loadingState: ILoadingState = {
     timer: true,
     reports: true,
     loadingBar: false,
@@ -33,7 +30,7 @@ class Loader extends VuexModule implements ILoaderState {
     this.loadingState[name] = false;
   }
 
-  get isLoading() {
+  public get isLoading() {
     return (name: string) => this.loadingState[name];
   }
 }

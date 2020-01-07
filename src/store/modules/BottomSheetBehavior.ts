@@ -4,10 +4,7 @@ import {
   Mutation,
   getModule,
 } from 'vuex-module-decorators';
-import {
-  IBottomSheetState,
-  IBottomSheetBehaviorState,
-} from '@/store/types';
+import { IBottomSheetState, IBottomSheetBehaviorState } from '@/store/types';
 import store from '@/store';
 
 @Module({
@@ -17,7 +14,7 @@ import store from '@/store';
   store,
 })
 class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorState {
-  componentState: IBottomSheetState = {
+  public componentState: IBottomSheetState = {
     timerCreator: false,
     timerEditor: false,
     projectSelector: false,
@@ -34,7 +31,7 @@ class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorStat
     this.componentState[componentName] = false;
   }
 
-  get isShown() {
+  public get isShown() {
     return (componentName: string) => this.componentState[componentName];
   }
 }

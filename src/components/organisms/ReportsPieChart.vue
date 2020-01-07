@@ -44,16 +44,16 @@ const minShowDataLabelDegree = 10;
 export default class ReportsPieChart extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
 
-  ctx?: CanvasRenderingContext2D;
+  private ctx?: CanvasRenderingContext2D;
 
-  canvasSize: number = 0;
+  private canvasSize: number = 0;
 
-  centerPosition: number = 0;
+  private centerPosition: number = 0;
 
-  radius: number = 0;
+  private radius: number = 0;
 
   // TODO: 仮データなので置き換える、型をちゃんと設定する
-  allProjectGroup: any = [
+  private allProjectGroup: any = [
     {
       name: 'プロジェクトX',
       color: '#3F46E3',
@@ -88,7 +88,7 @@ export default class ReportsPieChart extends Vue {
     },
   ];
 
-  animationFrameId: number = 0;
+  private animationFrameId: number = 0;
 
   beforeMount() {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
