@@ -18,27 +18,27 @@
         </li>
         <li class="ProjectSelector_ListItem">
           <span
-            class="ProjectSelector_Project"
             :style="{ borderColor: '#EA468D', color: '#EA468D' }"
+            class="ProjectSelector_Project"
           >ITR MP</span>
         </li>
         <li class="ProjectSelector_ListItem">
           <span
-            class="ProjectSelector_Project"
             :style="{ borderColor: '#3750B5', color: '#3750B5' }"
+            class="ProjectSelector_Project"
           >LTP</span>
         </li>
         <li class="ProjectSelector_ListItem">
           <span
-            class="ProjectSelector_Project"
             :style="{ borderColor: '#06AAF5', color: '#06AAF5' }"
+            class="ProjectSelector_Project"
           >LTSF</span>
         </li>
         <li class="ProjectSelector_ListItem">
           <!-- TODO: 選択時のみ背景色を設定 -->
           <span
-            class="ProjectSelector_Project"
             :style="{ borderColor: '#4BC800', color: '#4BC800', background: '#4BC800' }"
+            class="ProjectSelector_Project"
           >LTSF LINE</span>
         </li>
       </ul>
