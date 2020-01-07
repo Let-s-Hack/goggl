@@ -4,7 +4,10 @@ import {
   Mutation,
   getModule,
 } from 'vuex-module-decorators';
-import { IBottomSheetState, IBottomSheetBehaviorState } from '@/store/types';
+import {
+  IBottomSheetState,
+  IBottomSheetBehaviorState,
+} from '@/store/types';
 import store from '@/store';
 
 @Module({

@@ -4,7 +4,10 @@ import {
   Mutation,
   getModule,
 } from 'vuex-module-decorators';
-import { ILoadingState, ILoaderState } from '@/store/types';
+import {
+  ILoadingState,
+  ILoaderState,
+} from '@/store/types';
 import store from '@/store';
 
 @Module({

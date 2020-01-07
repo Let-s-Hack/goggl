@@ -5,7 +5,10 @@ import {
   Action,
   getModule,
 } from 'vuex-module-decorators';
-import { ITimeState, ITimerState } from '@/store/types';
+import {
+  ITimeState,
+  ITimerState,
+} from '@/store/types';
 import store from '@/store';
 
 const initialState: ITimeState = {
