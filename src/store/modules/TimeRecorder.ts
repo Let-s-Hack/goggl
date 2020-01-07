@@ -6,12 +6,12 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  ITimeRecordState,
+  ITimerState,
   ITimeRecorderState,
 } from '@/store/types';
 import store from '@/store';
 
-const initialState: ITimeRecordState = {
+const initialState: ITimerState = {
   startDatetime: null,
   projectId: null,
   tags: [],
@@ -24,16 +24,16 @@ const initialState: ITimeRecordState = {
   store,
 })
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
-  public timeRecordState: ITimeRecordState = { ...initialState };
+  public timerState: ITimerState = { ...initialState };
 
   @Mutation
   public setStartDatetime(datetime: string): void {
-    this.timeRecordState.startDatetime = datetime;
+    this.timerState.startDatetime = datetime;
   }
 
   @Mutation
   public reset(): void {
-    this.timeRecordState = { ...initialState };
+    this.timerState = { ...initialState };
   }
 
   // TODO: プロジェクト、タグ設定のミューテーションを書く
@@ -45,7 +45,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   public get isActive(): boolean {
-    return this.timeRecordState.startDatetime !== null;
+    return this.timerState.startDatetime !== null;
   }
 }
 

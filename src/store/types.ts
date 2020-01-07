@@ -26,7 +26,7 @@ export interface ILoaderState {
   loadingState: ILoadingState,
 }
 
-export interface ITimeRecordState {
+export interface ITimerState {
   startDatetime: string | null,
   projectId: string | null,
   tags: number[],
@@ -34,5 +34,5 @@ export interface ITimeRecordState {
 }
 
 export interface ITimeRecorderState {
-  timeRecordState: ITimeRecordState,
+  timerState: ITimerState,
 }
