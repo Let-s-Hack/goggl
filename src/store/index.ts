@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import {
   IBottomSheetBehaviorState,
   ILoaderState,
-  IActiveTimerState,
+  ITimerState,
 } from './types';
 
 Vue.use(Vuex);
@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export interface IRootState {
   bottomSheetBehavior: IBottomSheetBehaviorState,
   loader: ILoaderState,
-  activeTimer: IActiveTimerState,
+  timer: ITimerState,
 }
 
 export default new Vuex.Store<IRootState>({});
