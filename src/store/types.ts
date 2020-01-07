@@ -10,6 +10,11 @@ export interface IBottomSheetBehaviorState {
   componentState: IBottomSheetState,
 }
 
+export interface IPageLayerState {
+  allPageLayerState: { [key: string]: Function[] },
+  pageLayerState: Function[],
+}
+
 export interface ILoadingState {
   timer: boolean,
   reports: boolean,
