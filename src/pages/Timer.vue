@@ -10,7 +10,7 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timerModule.isActive"
-          :click-callback="Timer.startRecording"
+          :click-callback="timer.startRecording"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 import Loader from '@/store/modules/Loader';
@@ -69,7 +69,7 @@ const loadingTime: number = 3000;
   },
 })
 export default class Timer extends Vue {
-  private Timer = Timer;
+  private timer = Timer;
 
   private bottomSheet = BottomSheetBehavior;
 
