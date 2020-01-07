@@ -25,16 +25,16 @@ class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorStat
   };
 
   @Mutation
-  public show(componentName: string) {
+  public show(componentName: string): void {
     this.componentState[componentName] = true;
   }
 
   @Mutation
-  public hide(componentName: string) {
+  public hide(componentName: string): void {
     this.componentState[componentName] = false;
   }
 
-  public get isShown() {
+  public get isShown(): Function {
     return (componentName: string) => this.componentState[componentName];
   }
 }
