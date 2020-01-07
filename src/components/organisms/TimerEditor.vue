@@ -2,7 +2,10 @@
   <div class="TimerEditor">
     <BackgroundOverlay />
     <BottomSheet class="TimerEditor_Inner">
-      <BottomSheetHeader class="TimerEditor_Header">
+      <BottomSheetHeader
+        :back-button-callback="() => pageLayer.pop()"
+        class="TimerEditor_Header"
+      >
         <template v-slot:icon>
           <SvgIcon class="TimerEditor_CloseIcon" name="close" />
         </template>
