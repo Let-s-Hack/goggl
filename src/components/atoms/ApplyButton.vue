@@ -4,9 +4,7 @@
     <span
       v-if="subText"
       class="ApplyButton_SubText"
-    >
-      {{ subText }}
-    </span>
+    >{{ subText }}</span>
     <p class="ApplyButton_Text"><slot /></p>
   </button>
 </template>
@@ -16,7 +14,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component
 export default class ApplyButton extends Vue {
-  @Prop({ type: String, required: false }) readonly subText!: string;
+  @Prop({ required: false }) readonly subText?: string;
 }
 </script>
 
