@@ -37,7 +37,7 @@ export default class DiscardButtonGroup extends Vue {
   &_Inner {
     position: fixed;
     bottom: 0;
-    z-index: $zIndex_buttonGroup;
+    z-index: $zIndex_pageLayer;
     width: 100%;
     padding: 0 8px 8px 8px;
     box-sizing: border-box;

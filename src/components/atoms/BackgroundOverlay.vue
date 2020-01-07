@@ -13,7 +13,7 @@ export default class BackgroundOverlay extends Vue {
 <style lang="scss" scoped>
 .BackgroundOverlay {
   position: fixed;
-  z-index: $zIndex_backgroundOverlay;
+  z-index: $zIndex_pageLayer;
   top: 0;
   left: 0;
   width: 100vw;
