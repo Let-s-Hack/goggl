@@ -14,7 +14,7 @@ import store from '@/store';
   store,
 })
 class PageLayer extends VuexModule implements IPageLayerState {
-  public allPageLayerState: { [key:string]: Function[] } = {};
+  public allPageLayerState: { [key: string]: Function[] } = {};
 
   public pageLayerState: Function[] = [];
 

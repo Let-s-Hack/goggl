@@ -11,9 +11,7 @@ export interface IBottomSheetBehaviorState {
 }
 
 export interface IPageLayerState {
-  allPageLayerState: {
-    [key: string]: Function[],
-  },
+  allPageLayerState: { [key: string]: Function[] },
   pageLayerState: Function[],
 }
 
