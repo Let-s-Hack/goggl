@@ -10,7 +10,7 @@
       >goggl</span>
     </div>
     <TimerStopButton
-      @click.stop.native="timerModule.record()"
+      @click.stop.native="timeRecorder.record()"
       class="ActiveTimer_Button"
     />
   </div>
