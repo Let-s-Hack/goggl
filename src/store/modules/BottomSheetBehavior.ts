@@ -35,7 +35,7 @@ class BottomSheetBehavior extends VuexModule implements IBottomSheetBehaviorStat
   }
 
   public get isShown(): Function {
-    return (componentName: string) => this.componentState[componentName];
+    return (componentName: string): boolean => this.componentState[componentName];
   }
 }
 

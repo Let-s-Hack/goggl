@@ -34,7 +34,7 @@ class Loader extends VuexModule implements ILoaderState {
   }
 
   public get isLoading(): Function {
-    return (name: string) => this.loadingState[name];
+    return (name: string): boolean => this.loadingState[name];
   }
 }
 
