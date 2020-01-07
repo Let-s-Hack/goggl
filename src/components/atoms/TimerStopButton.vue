@@ -1,7 +1,7 @@
 <template>
   <button
-    class="TimerStopButton"
     @click.stop.prevent="clickCallback()"
+    class="TimerStopButton"
   ></button>
 </template>
 
