@@ -20,3 +20,14 @@ export interface ILoadingState {
 export interface ILoaderState {
   loadingState: ILoadingState,
 }
+
+export interface ITimeState {
+  startDatetime: string | null,
+  projectId: string | null,
+  tags: number[],
+  [key: string]: string | number[] | null,
+}
+
+export interface ITimerState {
+  timerState: ITimeState,
+}
