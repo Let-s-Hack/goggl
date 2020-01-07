@@ -47,7 +47,7 @@ const loadingTime: number = 3000;
   },
 })
 export default class Reports extends Vue {
-  isLoading: boolean = Loader.isLoading('reports');
+  private isLoading: boolean = Loader.isLoading('reports');
 
   created() {
     if (this.isLoading) {

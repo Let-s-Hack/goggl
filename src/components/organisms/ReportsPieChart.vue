@@ -44,16 +44,16 @@ const minShowDataLabelDegree = 10;
 export default class ReportsPieChart extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
 
-  ctx?: CanvasRenderingContext2D;
+  private ctx?: CanvasRenderingContext2D;
 
-  canvasSize: number = 0;
+  private canvasSize: number = 0;
 
-  centerPosition: number = 0;
+  private centerPosition: number = 0;
 
-  radius: number = 0;
+  private radius: number = 0;
 
   // TODO: 仮データなので置き換える、型をちゃんと設定する
-  allProjectGroup: any = [
+  private allProjectGroup: any = [
     {
       name: 'プロジェクトX',
       color: '#3F46E3',
@@ -88,7 +88,7 @@ export default class ReportsPieChart extends Vue {
     },
   ];
 
-  animationFrameId: number = 0;
+  private animationFrameId: number = 0;
 
   beforeMount() {
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
@@ -128,7 +128,7 @@ export default class ReportsPieChart extends Vue {
 
   private drawAllProjectGroup(): void {
     if (typeof this.ctx === 'undefined') return;
-    let prevAngle = 0;
+    let prevAngle: number = 0;
 
     forEach(this.allProjectGroup, (
       project: { name: string, color: string, time: { percent: number } },
@@ -150,8 +150,8 @@ export default class ReportsPieChart extends Vue {
   }
 
   private drawDataLabel(angle: number, projectName: string, percent: number): void {
-    const radian = ReportsPieChart.degreeToRadian(angle);
-    const isLessThanHalf = angle < 180;
+    const radian: number = ReportsPieChart.degreeToRadian(angle);
+    const isLessThanHalf: boolean = angle < 180;
 
     this.resetTransform();
     this.ctx!.beginPath();
@@ -178,7 +178,7 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  private drawCircleSector(startAngle: number, endAngle: number, color: string) {
+  private drawCircleSector(startAngle: number, endAngle: number, color: string): void {
     this.ctx!.beginPath();
     this.ctx!.arc(
       this.centerPosition,

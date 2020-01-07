@@ -30,7 +30,7 @@ import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
 
 @Component
 export default class Record extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private bottomSheet = BottomSheetBehavior;
 }
 </script>
 

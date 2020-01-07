@@ -17,24 +17,24 @@ import store from '@/store';
   store,
 })
 class Loader extends VuexModule implements ILoaderState {
-  loadingState: ILoadingState = {
+  public loadingState: ILoadingState = {
     timer: true,
     reports: true,
     loadingBar: false,
   };
 
   @Mutation
-  public activate(name: string) {
+  public activate(name: string): void {
     this.loadingState[name] = true;
   }
 
   @Mutation
-  public deactivate(name: string) {
+  public deactivate(name: string): void {
     this.loadingState[name] = false;
   }
 
-  get isLoading() {
-    return (name: string) => this.loadingState[name];
+  public get isLoading(): Function {
+    return (name: string): boolean => this.loadingState[name];
   }
 }
 
