@@ -24,16 +24,16 @@ const initialState: ITimeState = {
   store,
 })
 class Timer extends VuexModule implements ITimerState {
-  public activeTimeState: ITimeState = { ...initialState };
+  public timerState: ITimeState = { ...initialState };
 
   @Mutation
   public setStartDatetime(datetime: string): void {
-    this.activeTimeState.startDatetime = datetime;
+    this.timerState.startDatetime = datetime;
   }
 
   @Mutation
   public reset(): void {
-    this.activeTimeState = { ...initialState };
+    this.timerState = { ...initialState };
   }
 
   // TODO: プロジェクト、タグ設定のミューテーションを書く
@@ -45,7 +45,7 @@ class Timer extends VuexModule implements ITimerState {
   }
 
   public get isActive(): boolean {
-    return this.activeTimeState.startDatetime !== null;
+    return this.timerState.startDatetime !== null;
   }
 }
 

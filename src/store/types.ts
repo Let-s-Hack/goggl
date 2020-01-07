@@ -29,5 +29,5 @@ export interface ITimeState {
 }
 
 export interface ITimerState {
-  activeTimeState: ITimeState,
+  timerState: ITimeState,
 }
