@@ -10,27 +10,23 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timerModule.isActive"
-          :click-callback="timer.startRecording"
+          :click-callback="startRecording()"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer v-else class="Timer_ActiveTimer" />
       </template>
     </BaseContent>
     <GlobalNav />
-    <!-- TODO: 表示切り替え -->
-    <TimerCreator v-if="bottomSheet.isShown('timerCreator')" />
-    <TimerEditor v-if="bottomSheet.isShown('timerEditor')" />
-    <ProjectSelector v-if="false" />
-    <TagsSelector v-if="false" />
-    <DeleteButtonGroup v-if="false" />
-    <DiscardButtonGroup v-if="false" />
+    <template v-for="(component, index) in pageLayer.pageLayerState">
+      <component :is="component" :key="index" />
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
-import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
+import PageLayer from '@/store/modules/PageLayer';
 import Loader from '@/store/modules/Loader';
 import TimerModule from '@/store/modules/Timer';
 import LoadingBar from '~/atoms/LoadingBar.vue';
@@ -69,9 +65,7 @@ const loadingTime: number = 3000;
   },
 })
 export default class Timer extends Vue {
-  private timer = Timer;
-
-  private bottomSheet = BottomSheetBehavior;
+  private pageLayer = PageLayer;
 
   private loader = Loader;
 
@@ -80,6 +74,8 @@ export default class Timer extends Vue {
   private isLoading: boolean = Loader.isLoading('timer');
 
   created() {
+    this.pageLayer.setPage(this.constructor.name);
+
     if (this.isLoading) {
       setTimeout(() => {
         this.isLoading = false;
@@ -88,10 +84,10 @@ export default class Timer extends Vue {
     }
   }
 
-  private static startRecording(): void {
+  private startRecording(): void {
     const now: string = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    BottomSheetBehavior.show('timerCreator');
+    this.pageLayer.push(TimerCreator);
     TimerModule.setStartDatetime(now);
   }
 }
