@@ -38,11 +38,7 @@
           <!-- TODO: 選択時のみ背景色を設定 -->
           <span
             class="ProjectSelector_Project"
-            :style="{
-              borderColor: '#4BC800',
-              color: '#4BC800',
-              backgroundColor: ProjectSelector.getBackGroundColor('#4BC800')
-            }"
+            :style="{ borderColor: '#4BC800', color: '#4BC800', background: '#4BC800' }"
           >LTSF LINE</span>
         </li>
       </ul>
@@ -64,19 +60,6 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class ProjectSelector extends Vue {
-  private ProjectSelector = ProjectSelector;
-
-  private static getBackGroundColor(hex: string): string {
-    const pattern: RegExp = /^#([A-Z0-9]{1,2})([A-Z0-9]{1,2})([A-Z0-9]{1,2})$/;
-    const matches: string[]|null = hex.match(pattern);
-    if (hex.length % 3 !== 1 || matches === null) return '#000';
-
-    const red: number = parseInt(matches[1], 16);
-    const green: number = parseInt(matches[2], 16);
-    const blue: number = parseInt(matches[3], 16);
-
-    return `rgba(${red}, ${green}, ${blue}, 0.2)`;
-  }
 }
 </script>
 
@@ -138,21 +121,23 @@ export default class ProjectSelector extends Vue {
   }
 
   &_Project {
+    $fontSize: 1.3rem;
     display: flex;
     align-items: center;
     color: #B2BCC1;
-    font-size: 1.3rem;
+    font-size: $fontSize;
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
     padding: 6px;
     border-radius: 8px;
+    box-shadow: 0 0 0 $fontSize rgba(#FFF, 0.8) inset;
 
     &::before {
       display: inline-block;
       margin-right: 4px;
       border-radius: 50%;
-      // border-colorを親(.Record_Project)から継承するため、ショートハンドプロパティは使いません
+      // border-colorを親から継承するため、ショートハンドプロパティは使いません
       border-width: 3px;
       border-style: solid;
       border-color: inherit;
