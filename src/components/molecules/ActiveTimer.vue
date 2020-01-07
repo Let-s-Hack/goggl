@@ -8,19 +8,21 @@
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
       <span
-        class="ActiveTimer_Project"
         :style="{ borderColor: '#E30909', color: '#E30909' }"
-      >
-        goggl
-      </span>
+        class="ActiveTimer_Project"
+      >goggl</span>
     </div>
-    <TimerStopButton class="ActiveTimer_Button" />
+    <TimerStopButton
+      :click-callback="() => timerModule.record()"
+      class="ActiveTimer_Button"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import BottomSheetBehavior from '@/store/modules/BottomSheetBehavior';
+import TimerModule from '@/store/modules/Timer';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
 @Component({
@@ -29,7 +31,9 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private bottomSheet = BottomSheetBehavior;
+
+  private timerModule = TimerModule;
 }
 </script>
 
