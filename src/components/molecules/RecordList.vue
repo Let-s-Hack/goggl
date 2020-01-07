@@ -43,7 +43,7 @@ import RecordListItem from '~/atoms/RecordListItem.vue';
   },
 })
 export default class RecordList extends Vue {
-  bottomSheet = BottomSheetBehavior;
+  private bottomSheet = BottomSheetBehavior;
 }
 </script>
 

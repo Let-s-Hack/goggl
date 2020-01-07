@@ -41,15 +41,15 @@ const graphScaleHeight: number = 40;
 export default class ReportsBarGraph extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
 
-  ctx?: CanvasRenderingContext2D;
+  private ctx?: CanvasRenderingContext2D;
 
-  maxScale: number = 0;
+  private maxScale: number = 0;
 
-  contentWidth: number = 0;
+  private contentWidth: number = 0;
 
-  contentHeight: number = 0;
+  private contentHeight: number = 0;
 
-  data: {[key: string]: number} = {
+  private data: {[key: string]: number} = {
     '2019-12-21': 13,
     '2019-12-22': 13,
     '2019-12-23': 9,
