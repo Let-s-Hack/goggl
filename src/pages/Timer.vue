@@ -36,7 +36,6 @@ import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
-import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
 import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
 import TimerCreator from '~/organisms/TimerCreator.vue';
