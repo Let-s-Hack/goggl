@@ -2,7 +2,7 @@
   <div class="RecordGroup">
     <RecordGroupHeader class="RecordGroup_Header" />
     <ul>
-      <Record class="RecordGroup_Item" />
+      <Record @click.native="showTimerEditor()" class="RecordGroup_Item" />
       <RecordList class="RecordGroup_Item" />
     </ul>
   </div>
@@ -10,9 +10,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import Record from '~/atoms/Record.vue';
 import RecordList from '~/molecules/RecordList.vue';
 import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
+import TimerEditor from '~/organisms/TimerEditor.vue';
 
 @Component({
   components: {
@@ -22,6 +24,11 @@ import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
   },
 })
 export default class RecordGroup extends Vue {
+  private pageLayer = PageLayer;
+
+  private showTimerEditor(): void {
+    this.pageLayer.push(TimerEditor);
+  }
 }
 </script>
 

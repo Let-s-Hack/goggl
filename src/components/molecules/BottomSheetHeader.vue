@@ -1,7 +1,7 @@
 <template>
   <div class="BottomSheetHeader">
     <button
-      @click.stop.prevent="backButtonCallback()"
+      @click.stop.prevent="pageLayer.pop()"
       class="BottomSheetHeader_BackButton"
     >
       <slot name="icon" />
@@ -27,12 +27,13 @@ import {
   Prop,
   Vue,
 } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 
 @Component
 export default class BottomSheetHeader extends Vue {
-  @Prop({ required: true }) backButtonCallback!: Function;
-
   @Prop({ required: false }) actionButtonCallback?: Function;
+
+  private pageLayer = PageLayer;
 }
 </script>
 

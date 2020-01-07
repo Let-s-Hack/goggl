@@ -10,7 +10,7 @@
       >goggl</span>
     </div>
     <TimerStopButton
-      :click-callback="() => timerModule.record()"
+      @click.stop.native="timerModule.record()"
       class="ActiveTimer_Button"
     />
   </div>

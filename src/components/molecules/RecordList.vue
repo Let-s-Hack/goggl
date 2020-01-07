@@ -1,6 +1,6 @@
 <template>
   <li class="RecordList">
-    <div class="RecordList_Summary">
+    <div @click="showTimerEditor()" class="RecordList_Summary">
       <p class="RecordList_SummaryCount _isActive">4</p>
       <div class="RecordList_SummaryTitleGroup">
         <!-- TODO: _isEmptyの出し分け -->
@@ -22,16 +22,18 @@
       </div>
     </div>
     <ul>
-      <RecordListItem class="RecordList_Record" />
-      <RecordListItem class="RecordList_Record" />
-      <RecordListItem class="RecordList_Record" />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
     </ul>
   </li>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import RecordListItem from '~/atoms/RecordListItem.vue';
+import TimerEditor from '~/organisms/TimerEditor.vue';
 
 @Component({
   components: {
@@ -39,6 +41,11 @@ import RecordListItem from '~/atoms/RecordListItem.vue';
   },
 })
 export default class RecordList extends Vue {
+  private pageLayer = PageLayer;
+
+  private showTimerEditor(): void {
+    this.pageLayer.push(TimerEditor);
+  }
 }
 </script>
 

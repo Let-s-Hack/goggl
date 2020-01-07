@@ -10,10 +10,13 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timerModule.isActive"
-          :click-callback="() => startRecording()"
+          @click.native="startRecording()"
           class="Timer_TimerStartButton"
         />
-        <ActiveTimer v-else class="Timer_ActiveTimer" />
+        <ActiveTimer
+          v-else
+          @click.native="showTimerEditor()"
+          class="Timer_ActiveTimer" />
       </template>
     </BaseContent>
     <GlobalNav />
@@ -33,12 +36,9 @@ import LoadingBar from '~/atoms/LoadingBar.vue';
 import TimerStartButton from '~/atoms/TimerStartButton.vue';
 import ActiveTimer from '~/molecules/ActiveTimer.vue';
 import BaseContent from '~/organisms/BaseContent.vue';
-import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
 import GlobalHeader from '~/organisms/GlobalHeader.vue';
 import GlobalNav from '~/organisms/GlobalNav.vue';
-import ProjectSelector from '~/organisms/ProjectSelector.vue';
-import TagsSelector from '~/organisms/TagsSelector.vue';
 import TimerCreator from '~/organisms/TimerCreator.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
 import TimerSkeletonScreen from '~/organisms/TimerSkeletonScreen.vue';
@@ -52,14 +52,8 @@ const loadingTime: number = 3000;
     TimerStartButton,
     ActiveTimer,
     BaseContent,
-    DeleteButtonGroup,
-    DiscardButtonGroup,
     GlobalHeader,
     GlobalNav,
-    ProjectSelector,
-    TagsSelector,
-    TimerCreator,
-    TimerEditor,
     TimerSkeletonScreen,
     RecordContainer,
   },
@@ -82,6 +76,10 @@ export default class Timer extends Vue {
         Loader.deactivate('timer');
       }, loadingTime);
     }
+  }
+
+  private showTimerEditor(): void {
+    this.pageLayer.push(TimerEditor);
   }
 
   private startRecording(): void {

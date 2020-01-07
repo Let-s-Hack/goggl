@@ -3,7 +3,7 @@
     <BackgroundOverlay />
     <BottomSheet class="TimerCreator_Inner">
       <div class="TimerCreator_Header">
-        <button class="TimerCreator_HeaderBackButton">
+        <button @click="pageLayer.pop()" class="TimerCreator_HeaderBackButton">
           <SvgIcon name="close" class="TimerCreator_CloseIcon" />
         </button>
         <div class="TimerCreator_HeaderTimeGroup">
@@ -55,7 +55,7 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
+          <button @click="pageLayer.pop()" class="TimerCreator_ActionButton">
             <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
           </button>
         </li>
@@ -66,6 +66,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
@@ -84,6 +85,7 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   },
 })
 export default class TimerCreator extends Vue {
+  private pageLayer = PageLayer;
 }
 </script>
 
