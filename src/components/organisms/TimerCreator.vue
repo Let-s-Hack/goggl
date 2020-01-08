@@ -55,7 +55,7 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button @click="pageLayer.pop()" class="TimerCreator_ActionButton">
+          <button @click="save()" class="TimerCreator_ActionButton">
             <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
           </button>
         </li>
@@ -66,7 +66,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
+import { ITimerState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
@@ -85,7 +88,20 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
   },
 })
 export default class TimerCreator extends Vue {
-  private pageLayer = PageLayer;
+  private timerState: ITimerState = {
+    startDatetime: null,
+    projectId: null,
+    tags: [],
+  };
+
+  created() {
+    this.timerState.startDatetime = moment().format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  private save(): void {
+    TimeRecorder.activate(this.timerState);
+    PageLayer.pop();
+  }
 }
 </script>
 

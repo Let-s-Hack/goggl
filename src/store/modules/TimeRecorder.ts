@@ -27,12 +27,12 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   public timerState: ITimerState = { ...initialState };
 
   @Mutation
-  public setStartDatetime(datetime: string): void {
-    this.timerState.startDatetime = datetime;
+  public activate(payload: ITimerState): void {
+    this.timerState = { ...payload };
   }
 
   @Mutation
-  public reset(): void {
+  public deactivate(): void {
     this.timerState = { ...initialState };
   }
 
@@ -41,7 +41,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   @Action
   public record(): void {
     // TODO: 記録する処理を書く
-    this.context.commit('reset');
+    this.context.commit('deactivate');
   }
 
   public get isActive(): boolean {
