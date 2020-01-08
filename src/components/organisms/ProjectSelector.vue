@@ -1,6 +1,6 @@
 <template>
   <div class="ProjectSelector">
-    <BackgroundOverlay />
+    <BackgroundOverlay @click.native="close()" />
     <BottomSheet class="ProjectSelector_Inner">
       <BottomSheetHeader class="ProjectSelector_Header">
         <template v-slot:icon>
@@ -48,6 +48,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -60,6 +61,12 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class ProjectSelector extends Vue {
+  private pageLayer = PageLayer;
+
+  private close(): void {
+    // TODO: 変更監視
+    this.pageLayer.pop();
+  }
 }
 </script>
 

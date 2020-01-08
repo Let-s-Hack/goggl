@@ -1,9 +1,12 @@
 <template>
   <div class="TimerCreator">
-    <BackgroundOverlay />
+    <BackgroundOverlay @click.native="close()" />
     <BottomSheet class="TimerCreator_Inner">
       <div class="TimerCreator_Header">
-        <button @click="pageLayer.pop()" class="TimerCreator_HeaderBackButton">
+        <button
+          @click="close()"
+          class="TimerCreator_HeaderBackButton"
+        >
           <SvgIcon name="close" class="TimerCreator_CloseIcon" />
         </button>
         <div class="TimerCreator_HeaderTimeGroup">
@@ -55,7 +58,10 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button @click="pageLayer.pop()" class="TimerCreator_ActionButton">
+          <button
+            @click="save()"
+            class="TimerCreator_ActionButton"
+          >
             <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
           </button>
         </li>
@@ -86,6 +92,16 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
 })
 export default class TimerCreator extends Vue {
   private pageLayer = PageLayer;
+
+  private close(): void {
+    // TODO: 変更監視
+    this.pageLayer.pop();
+  }
+
+  private save(): void {
+    // TODO: 保存処理
+    this.pageLayer.pop();
+  }
 }
 </script>
 
