@@ -1,6 +1,9 @@
 <template>
   <div class="DiscardButtonGroup">
-    <BackgroundOverlay class="DiscardButtonGroup_BackgroundOverlay" />
+    <BackgroundOverlay
+      @click.native="pageLayer.pop()"
+      class="DiscardButtonGroup_BackgroundOverlay"
+    />
     <div class="DiscardButtonGroup_Inner">
       <ApplyButton
         sub-text="Would you like to discard this time entry?"
@@ -13,6 +16,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import PageLayer from '@/store/modules/PageLayer';
 import ApplyButton from '~/atoms/ApplyButton.vue';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import CancelButton from '~/atoms/CancelButton.vue';
@@ -25,6 +29,7 @@ import CancelButton from '~/atoms/CancelButton.vue';
   },
 })
 export default class DiscardButtonGroup extends Vue {
+  private pageLayer = PageLayer;
 }
 </script>
 

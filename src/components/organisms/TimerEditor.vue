@@ -1,9 +1,9 @@
 <template>
   <div class="TimerEditor">
-    <BackgroundOverlay />
+    <BackgroundOverlay @click.native="close()" />
     <BottomSheet class="TimerEditor_Inner">
       <BottomSheetHeader
-        :back-button-callback="() => pageLayer.pop()"
+        :back-button-callback="() => close()"
         class="TimerEditor_Header"
       >
         <template v-slot:icon>
@@ -83,7 +83,7 @@
           class="TimerEditor_DeleteButton"
         >Delete</button>
         <button
-          @click="pageLayer.pop()"
+          @click="close()"
           class="TimerEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
@@ -108,6 +108,11 @@ import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 })
 export default class TimerEditor extends Vue {
   private pageLayer = PageLayer;
+
+  private close(): void {
+    // TODO: 変更監視
+    this.pageLayer.pop();
+  }
 
   private showDeleteButtonGroup(): void {
     this.pageLayer.push(DeleteButtonGroup);
