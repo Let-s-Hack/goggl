@@ -23,27 +23,40 @@
           />
           -->
         </li>
-        <li class="TimerEditor_InputGroup">
+        <li
+          @click="showProjectSelector()"
+          class="TimerEditor_InputGroup"
+        >
           <!-- TODO: 選択済み時の出し分け -->
           <span
+            v-if="true"
             class="TimerEditor_Project"
             :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
           >
             テスト
           </span>
-          <!-- <span class="TimerEditor_EmptyItem">
+          <span
+            v-else
+            class="TimerEditor_EmptyItem"
+          >
             <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
-          </span> -->
+          </span>
         </li>
-        <li class="TimerEditor_InputGroup">
+        <li
+          @click="showTagsSelector()"
+          class="TimerEditor_InputGroup"
+        >
           <!-- TODO: 選択済み時の出し分け -->
-          <ul>
+          <ul v-if="true">
             <li class="TimerEditor_Tag">設計</li>
             <li class="TimerEditor_Tag">実装</li>
           </ul>
-          <!-- <span class="TimerEditor_EmptyItem">
+          <span
+            v-else
+            class="TimerEditor_EmptyItem"
+          >
             <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
-          </span> -->
+          </span>
         </li>
         <li class="TimerEditor_InputGroup _time">
           <div class="TimerEditor_TimeItem">
@@ -55,9 +68,14 @@
           </div>
           <div class="TimerEditor_TimeItem">
             <div class="TimerEditor_LabelGroup">
-              <span class="TimerEditor_LabelText">09:06 PM</span>
-              <!-- TODO: 出し分け -->
-              <!-- <span class="TimerEditor_LabelText _isStop">Stop</span> -->
+              <span
+                v-if="true"
+                class="TimerEditor_LabelText"
+              >09:06 PM</span>
+              <span
+                v-else
+                class="TimerEditor_LabelText _isStop"
+              >Stop</span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
@@ -98,6 +116,8 @@ import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
+import ProjectSelector from '~/organisms/ProjectSelector.vue';
+import TagsSelector from '~/organisms/TagsSelector.vue';
 
 @Component({
   components: {
@@ -112,6 +132,14 @@ export default class TimerEditor extends Vue {
   private close(): void {
     // TODO: 変更監視
     this.pageLayer.pop();
+  }
+
+  private showProjectSelector(): void {
+    this.pageLayer.push(ProjectSelector);
+  }
+
+  private showTagsSelector(): void {
+    this.pageLayer.push(TagsSelector);
   }
 
   private showDeleteButtonGroup(): void {
