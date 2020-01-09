@@ -2,7 +2,11 @@
   <div class="TagsSelector">
     <BackgroundOverlay @click.native="pageLayer.pop()" />
     <BottomSheet class="TagsSelector_Inner">
-      <BottomSheetHeader class="TagsSelector_Header">
+      <BottomSheetHeader
+        :back-button-callback="() => pageLayer.pop()"
+        :action-button-callback="() => save()"
+        class="TagsSelector_Header"
+      >
         <template v-slot:icon>
           <SvgIcon class="TagsSelector_CloseIcon" name="close" />
         </template>
@@ -60,6 +64,11 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class TagsSelector extends Vue {
   private pageLayer = PageLayer;
+
+  private save(): void {
+    // TODO: 保存処理
+    this.pageLayer.pop();
+  }
 }
 </script>
 
