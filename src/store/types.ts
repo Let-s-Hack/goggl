@@ -18,7 +18,6 @@ export interface ITimerState {
   startDatetime: string | null,
   projectId: string | null,
   tags: number[],
-  isActive: boolean,
   [key: string]: string | number[] | boolean | null,
 }
 

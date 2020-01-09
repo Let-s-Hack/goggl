@@ -92,7 +92,6 @@ export default class TimerCreator extends Vue {
     startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
     projectId: null,
     tags: [],
-    isActive: false,
   };
 
   private save(): void {
