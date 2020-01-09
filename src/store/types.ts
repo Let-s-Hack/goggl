@@ -23,4 +23,5 @@ export interface ITimerState {
 
 export interface ITimeRecorderState {
   timerState: ITimerState,
+  isActive: boolean,
 }

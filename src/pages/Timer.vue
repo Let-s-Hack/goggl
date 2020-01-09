@@ -10,7 +10,7 @@
         <RecordContainer class="Timer_RecordContainer" />
         <TimerStartButton
           v-if="!timeRecorder.isActive"
-          @click.native="startRecording()"
+          @click.native="showTimerCreator()"
           class="Timer_TimerStartButton"
         />
         <ActiveTimer
@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import moment from 'moment';
 import PageLayer from '@/store/modules/PageLayer';
 import Loader from '@/store/modules/Loader';
 import TimeRecorder from '@/store/modules/TimeRecorder';
@@ -77,15 +76,12 @@ export default class Timer extends Vue {
     }
   }
 
-  private showTimerEditor(): void {
-    this.pageLayer.push(TimerEditor);
+  private showTimerCreator(): void {
+    this.pageLayer.push(TimerCreator);
   }
 
-  private startRecording(): void {
-    const now: string = moment().format('YYYY-MM-DD HH:mm:ss');
-
-    this.pageLayer.push(TimerCreator);
-    TimeRecorder.setStartDatetime(now);
+  private showTimerEditor(): void {
+    this.pageLayer.push(TimerEditor);
   }
 }
 </script>

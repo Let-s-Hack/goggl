@@ -11,7 +11,7 @@ import {
 } from '@/store/types';
 import store from '@/store';
 
-const initialState: ITimerState = {
+const initialTimerState: ITimerState = {
   startDatetime: null,
   projectId: null,
   tags: [],
@@ -24,16 +24,20 @@ const initialState: ITimerState = {
   store,
 })
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
-  public timerState: ITimerState = { ...initialState };
+  public timerState: ITimerState = { ...initialTimerState };
+
+  public isActive: boolean = false;
 
   @Mutation
-  public setStartDatetime(datetime: string): void {
-    this.timerState.startDatetime = datetime;
+  public activate(payload: ITimerState): void {
+    this.timerState = { ...payload };
+    this.isActive = true;
   }
 
   @Mutation
-  public reset(): void {
-    this.timerState = { ...initialState };
+  public deactivate(): void {
+    this.timerState = { ...initialTimerState };
+    this.isActive = false;
   }
 
   // TODO: プロジェクト、タグ設定のミューテーションを書く
@@ -41,11 +45,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   @Action
   public record(): void {
     // TODO: 記録する処理を書く
-    this.context.commit('reset');
-  }
-
-  public get isActive(): boolean {
-    return this.timerState.startDatetime !== null;
+    this.context.commit('deactivate');
   }
 }
 

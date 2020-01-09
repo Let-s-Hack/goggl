@@ -72,7 +72,10 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
+import { ITimerState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
@@ -93,14 +96,21 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
 export default class TimerCreator extends Vue {
   private pageLayer = PageLayer;
 
+  private timerState: ITimerState = {
+    startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
+    projectId: null,
+    tags: [],
+  };
+
   private close(): void {
     // TODO: 変更監視
     this.pageLayer.pop();
   }
 
   private save(): void {
+    TimeRecorder.activate(this.timerState);
     // TODO: 保存処理
-    this.pageLayer.pop();
+    PageLayer.pop();
   }
 }
 </script>
