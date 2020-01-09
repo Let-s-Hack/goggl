@@ -11,7 +11,7 @@ import {
 } from '@/store/types';
 import store from '@/store';
 
-const initialState: ITimerState = {
+const initialTimerState: ITimerState = {
   startDatetime: null,
   projectId: null,
   tags: [],
@@ -24,7 +24,7 @@ const initialState: ITimerState = {
   store,
 })
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
-  public timerState: ITimerState = { ...initialState };
+  public timerState: ITimerState = { ...initialTimerState };
 
   public isActive: boolean = false;
 
@@ -36,7 +36,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   @Mutation
   public deactivate(): void {
-    this.timerState = { ...initialState };
+    this.timerState = { ...initialTimerState };
     this.isActive = false;
   }
 
