@@ -1,6 +1,6 @@
 <template>
   <div class="TagsSelector">
-    <BackgroundOverlay @click.native="close()" />
+    <BackgroundOverlay @click.native="pageLayer.pop()" />
     <BottomSheet class="TagsSelector_Inner">
       <BottomSheetHeader class="TagsSelector_Header">
         <template v-slot:icon>
@@ -60,11 +60,6 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class TagsSelector extends Vue {
   private pageLayer = PageLayer;
-
-  private close(): void {
-    // TODO: 変更監視
-    this.pageLayer.pop();
-  }
 }
 </script>
 

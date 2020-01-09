@@ -1,6 +1,6 @@
 <template>
   <div class="ProjectSelector">
-    <BackgroundOverlay @click.native="close()" />
+    <BackgroundOverlay @click.native="pageLayer.pop()" />
     <BottomSheet class="ProjectSelector_Inner">
       <BottomSheetHeader class="ProjectSelector_Header">
         <template v-slot:icon>
@@ -62,11 +62,6 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class ProjectSelector extends Vue {
   private pageLayer = PageLayer;
-
-  private close(): void {
-    // TODO: 変更監視
-    this.pageLayer.pop();
-  }
 }
 </script>
 
