@@ -18,7 +18,7 @@ export interface ITimerState {
   startDatetime: string | null,
   projectId: string | null,
   tags: number[],
-  [key: string]: string | number[] | boolean | null,
+  [key: string]: string | number[] | null,
 }
 
 export interface ITimeRecorderState {

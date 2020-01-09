@@ -108,7 +108,6 @@ export default class TimerCreator extends Vue {
   }
 
   private save(): void {
-    this.timerState.isActive = true;
     TimeRecorder.activate(this.timerState);
     // TODO: 保存処理
     PageLayer.pop();
