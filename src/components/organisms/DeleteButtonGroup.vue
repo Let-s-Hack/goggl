@@ -1,6 +1,9 @@
 <template>
   <div class="DeleteButtonGroup">
-    <BackgroundOverlay class="DeleteButtonGroup_BackgroundOverlay" />
+    <BackgroundOverlay
+      @click.native="pageLayer.pop()"
+      class="DeleteButtonGroup_BackgroundOverlay"
+    />
     <div class="DeleteButtonGroup_Inner">
       <ApplyButton
         class="DeleteButtonGroup_Button"
