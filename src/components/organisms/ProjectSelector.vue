@@ -2,7 +2,10 @@
   <div class="ProjectSelector">
     <BackgroundOverlay @click.native="pageLayer.pop()" />
     <BottomSheet class="ProjectSelector_Inner">
-      <BottomSheetHeader class="ProjectSelector_Header">
+      <BottomSheetHeader
+        :back-button-callback="() => pageLayer.pop()"
+        class="ProjectSelector_Header"
+      >
         <template v-slot:icon>
           <SvgIcon class="ProjectSelector_CloseIcon" name="close" />
         </template>
@@ -13,28 +16,43 @@
         <input type="text" class="ProjectSelector_Input" placeholder="Add/filter project">
       </div>
       <ul>
-        <li class="ProjectSelector_ListItem">
+        <li
+          @click="save()"
+          class="ProjectSelector_ListItem"
+        >
           <span class="ProjectSelector_Project">No Project</span>
         </li>
-        <li class="ProjectSelector_ListItem">
+        <li
+          @click="save()"
+          class="ProjectSelector_ListItem"
+        >
           <span
             :style="{ borderColor: '#EA468D', color: '#EA468D' }"
             class="ProjectSelector_Project"
           >ITR MP</span>
         </li>
-        <li class="ProjectSelector_ListItem">
+        <li
+          @click="save()"
+          class="ProjectSelector_ListItem"
+        >
           <span
             :style="{ borderColor: '#3750B5', color: '#3750B5' }"
             class="ProjectSelector_Project"
           >LTP</span>
         </li>
-        <li class="ProjectSelector_ListItem">
+        <li
+          @click="save()"
+          class="ProjectSelector_ListItem"
+        >
           <span
             :style="{ borderColor: '#06AAF5', color: '#06AAF5' }"
             class="ProjectSelector_Project"
           >LTSF</span>
         </li>
-        <li class="ProjectSelector_ListItem">
+        <li
+          @click="save()"
+          class="ProjectSelector_ListItem"
+        >
           <!-- TODO: 選択時のみ背景色を設定 -->
           <span
             :style="{ borderColor: '#4BC800', color: '#4BC800', background: '#4BC800' }"
@@ -62,6 +80,11 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class ProjectSelector extends Vue {
   private pageLayer = PageLayer;
+
+  private save(): void {
+    // TODO: 保存処理
+    this.pageLayer.pop();
+  }
 }
 </script>
 
