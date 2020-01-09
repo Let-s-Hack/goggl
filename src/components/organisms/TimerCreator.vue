@@ -89,16 +89,14 @@ import StartDateSelector from '~/organisms/StartDateSelector.vue';
 })
 export default class TimerCreator extends Vue {
   private timerState: ITimerState = {
-    startDatetime: null,
+    startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
     projectId: null,
     tags: [],
+    isActive: false,
   };
 
-  created() {
-    this.timerState.startDatetime = moment().format('YYYY-MM-DD HH:mm:ss');
-  }
-
   private save(): void {
+    this.timerState.isActive = true;
     TimeRecorder.activate(this.timerState);
     PageLayer.pop();
   }

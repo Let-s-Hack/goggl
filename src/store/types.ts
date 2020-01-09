@@ -18,7 +18,8 @@ export interface ITimerState {
   startDatetime: string | null,
   projectId: string | null,
   tags: number[],
-  [key: string]: string | number[] | null,
+  isActive: boolean,
+  [key: string]: string | number[] | boolean | null,
 }
 
 export interface ITimeRecorderState {

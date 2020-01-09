@@ -15,6 +15,7 @@ const initialState: ITimerState = {
   startDatetime: null,
   projectId: null,
   tags: [],
+  isActive: false,
 };
 
 @Module({
@@ -45,7 +46,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   public get isActive(): boolean {
-    return this.timerState.startDatetime !== null;
+    return this.timerState.isActive;
   }
 }
 
