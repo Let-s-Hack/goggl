@@ -4,7 +4,10 @@ import {
   Mutation,
   getModule,
 } from 'vuex-module-decorators';
-import { IPageLayerState } from '@/store/types';
+import {
+  IPropState,
+  IPageLayerState,
+} from '@/store/types';
 import store from '@/store';
 
 @Module({
@@ -14,9 +17,11 @@ import store from '@/store';
   store,
 })
 class PageLayer extends VuexModule implements IPageLayerState {
-  public allPageLayerState: { [key: string]: Function[] } = {};
+  public allPageLayerState: {
+    [page: string]: { [key: string]: Function | IPropState }[],
+  } = {};
 
-  public pageLayerState: Function[] = [];
+  public pageLayerState: { [key: string]: Function | IPropState }[] = [];
 
   @Mutation
   public setPage(page: string): void {
@@ -24,8 +29,11 @@ class PageLayer extends VuexModule implements IPageLayerState {
   }
 
   @Mutation
-  public push(component: Function): void {
-    this.pageLayerState.push(component);
+  public push(payload: { [key: string]: Function | IPropState }): void {
+    this.pageLayerState.push({
+      component: payload.component,
+      attributes: payload.attributes,
+    });
   }
 
   @Mutation
