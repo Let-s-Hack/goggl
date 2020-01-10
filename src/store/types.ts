@@ -1,6 +1,12 @@
+export interface IPropState {
+  [key: string]: string | Function,
+}
+
 export interface IPageLayerState {
-  allPageLayerState: { [key: string]: Function[] },
-  pageLayerState: Function[],
+  allPageLayerState: {
+    [page: string]: { [key: string]: Function | IPropState }[],
+  },
+  pageLayerState: { [key: string]: Function | IPropState }[],
 }
 
 export interface ILoadingState {
