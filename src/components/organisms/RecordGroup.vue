@@ -27,7 +27,7 @@ export default class RecordGroup extends Vue {
   private pageLayer = PageLayer;
 
   private showTimerEditor(): void {
-    this.pageLayer.push(TimerEditor);
+    this.pageLayer.push({ component: TimerEditor });
   }
 }
 </script>

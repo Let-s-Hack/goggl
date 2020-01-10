@@ -98,6 +98,7 @@ import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
+import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
 
 @Component({
   components: {
@@ -115,7 +116,7 @@ export default class TimerEditor extends Vue {
   }
 
   private showDeleteButtonGroup(): void {
-    this.pageLayer.push(DeleteButtonGroup);
+    this.pageLayer.push({ component: DeleteButtonGroup });
   }
 }
 </script>
