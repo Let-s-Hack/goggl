@@ -18,10 +18,18 @@ import store from '@/store';
 })
 class PageLayer extends VuexModule implements IPageLayerState {
   public allPageLayerState: {
-    [page: string]: { [key: string]: Function | IPropState }[],
+    [page: string]: {
+      component: Function,
+      attributes?: IPropState,
+      [key: string]: Function | IPropState | undefined,
+    }[],
   } = {};
 
-  public pageLayerState: { [key: string]: Function | IPropState }[] = [];
+  public pageLayerState: {
+    component: Function,
+    attributes?: IPropState,
+    [key: string]: Function | IPropState | undefined,
+  }[] = [];
 
   @Mutation
   public setPage(page: string): void {
@@ -29,7 +37,7 @@ class PageLayer extends VuexModule implements IPageLayerState {
   }
 
   @Mutation
-  public push(payload: { [key: string]: Function | IPropState }): void {
+  public push(payload: { component: Function, attributes?: IPropState }): void {
     this.pageLayerState.push({
       component: payload.component,
       attributes: payload.attributes,
