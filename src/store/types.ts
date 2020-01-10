@@ -4,9 +4,17 @@ export interface IPropState {
 
 export interface IPageLayerState {
   allPageLayerState: {
-    [page: string]: { [key: string]: Function | IPropState }[],
+    [page: string]: {
+      component: Function,
+      attributes?: IPropState,
+      [key: string]: Function | IPropState | undefined
+    }[],
   },
-  pageLayerState: { [key: string]: Function | IPropState }[],
+  pageLayerState: {
+    component: Function,
+    attributes?: IPropState,
+    [key: string]: Function | IPropState | undefined
+  }[],
 }
 
 export interface ILoadingState {
