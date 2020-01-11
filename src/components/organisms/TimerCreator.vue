@@ -103,7 +103,6 @@ import BottomSheet from '~/atoms/BottomSheet.vue';
 import DurationSelector from '~/organisms/DurationSelector.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
-import StartDateSelector from '~/organisms/StartDateSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
 @Component({
@@ -113,7 +112,6 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
     ProjectSelector,
     TagsSelector,
     DurationSelector,
-    StartDateSelector,
   },
 })
 export default class TimerCreator extends Vue {
