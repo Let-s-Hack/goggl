@@ -107,7 +107,7 @@ export default class ProjectSelector extends Vue {
     height: 48px;
     align-items: center;
     padding: 0 10px;
-    border-bottom: 1px solid $color_baseBorder;
+    border-bottom: 1px solid $color_lightGrayBorder;
   }
 
   &_ListItem {

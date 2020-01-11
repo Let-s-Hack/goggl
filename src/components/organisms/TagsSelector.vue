@@ -91,7 +91,7 @@ export default class TagsSelector extends Vue {
     height: 48px;
     align-items: center;
     padding-left: 16px;
-    border-bottom: 1px solid $color_baseBorder;
+    border-bottom: 1px solid $color_lightGrayBorder;
     overflow: hidden;
   }
 
