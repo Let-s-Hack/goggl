@@ -15,7 +15,7 @@
         <SvgIcon name="search" class="ProjectSelector_SearchIcon" />
         <input type="text" class="ProjectSelector_Input" placeholder="Add/filter project">
       </div>
-      <ul>
+      <ul class="ProjectSelector_List">
         <li
           @click="save()"
           class="ProjectSelector_ListItem"
@@ -91,6 +91,8 @@ export default class ProjectSelector extends Vue {
 <style lang="scss" scoped>
 .ProjectSelector {
   &_Inner {
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 
@@ -108,6 +110,11 @@ export default class ProjectSelector extends Vue {
     align-items: center;
     padding: 0 10px;
     border-bottom: 1px solid $color_lightGrayBorder;
+  }
+
+  &_List {
+    flex: 1;
+    overflow: auto;
   }
 
   &_ListItem {
