@@ -68,8 +68,9 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
+          <!-- TODO: 完了ボタン出し分け -->
           <button
-            v-if="false"
+            v-if="true"
             @click="save()"
             class="TimerCreator_ActionButton"
           >
