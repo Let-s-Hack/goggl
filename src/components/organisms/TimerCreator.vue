@@ -28,11 +28,15 @@
           <li
             @click="showProjectSelector()"
             class="TimerCreator_SearchListItem"
-          ><strong>@</strong>Search Projects</li>
+          >
+            <strong>@</strong>Search Projects
+          </li>
           <li
             @click="showTagsSelector()"
             class="TimerCreator_SearchListItem"
-          ><strong>#</strong>Search Tags</li>
+          >
+            <strong>#</strong>Search Tags
+          </li>
         </ul>
       </div>
       <!-- TODO: ボタンのアクティブクラスの出し分け -->
@@ -65,10 +69,18 @@
         </li>
         <li class="TimerCreator_ActionListItem">
           <button
+            v-if="false"
             @click="save()"
             class="TimerCreator_ActionButton"
           >
             <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
+          </button>
+          <button
+            v-else
+            disabled
+            class="TimerCreator_ActionButton"
+          >
+            <SvgIcon name="check" class="TimerCreator_ActionIcon _check" />
           </button>
         </li>
       </ul>
@@ -282,7 +294,7 @@ export default class TimerCreator extends Vue {
       position: relative;
       padding: 0 12px;
 
-      &:active::before {
+      &:active::before:not(._check) {
         position: absolute;
         display: block;
         width: 28px;
@@ -299,7 +311,7 @@ export default class TimerCreator extends Vue {
     padding: 0 14px;
 
     &:active {
-      > .TimerCreator_ActionIcon:not(._checkCircle) {
+      > .TimerCreator_ActionIcon:not(._checkCircle):not(._check) {
         fill: #606467;
       }
     }
@@ -335,6 +347,11 @@ export default class TimerCreator extends Vue {
     &._checkCircle {
       width: 28px;
       fill: #4CD964;
+    }
+
+    &._check {
+      width: 28px;
+      fill: #EBECED;
     }
   }
 }
