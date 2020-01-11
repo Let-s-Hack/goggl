@@ -53,7 +53,9 @@ export default class DeleteButtonGroup extends Vue {
     bottom: 0;
     z-index: $zIndex_pageLayer;
     width: 100%;
-    padding: 0 8px 8px 8px;
+    padding: 0 8px;
+    padding-bottom: calc(8px + constant(safe-area-inset-bottom));
+    padding-bottom: calc(8px + env(safe-area-inset-bottom));
     box-sizing: border-box;
   }
 
