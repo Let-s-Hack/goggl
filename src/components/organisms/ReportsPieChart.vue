@@ -25,8 +25,9 @@
 <script lang="ts">
 import {
   Component,
-  Vue,
   Prop,
+  Ref,
+  Vue,
   Watch,
 } from 'vue-property-decorator';
 import { forEach } from 'lodash';
@@ -44,7 +45,9 @@ const minShowDataLabelDegree = 10;
 export default class ReportsPieChart extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
 
-  private ctx?: CanvasRenderingContext2D;
+  @Ref('pieChart') pieChartContent!: HTMLCanvasElement;
+
+  private ctx!: CanvasRenderingContext2D | null;
 
   private canvasSize: number = 0;
 
@@ -97,8 +100,8 @@ export default class ReportsPieChart extends Vue {
   }
 
   mounted() {
-    const canvas = this.$refs.pieChart as HTMLCanvasElement;
-    this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const canvas = this.pieChartContent;
+    this.ctx = canvas!.getContext('2d');
 
     if (this.isLoading) {
       this.playLoadingAnimation();
