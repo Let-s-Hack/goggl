@@ -58,9 +58,12 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
-            <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
-          </button>
+          <label class="TimerCreator_ActionButtonOuter">
+            <input type="date" class="TimerCreator_Input">
+            <button class="TimerCreator_ActionButton">
+              <SvgIcon name="calendar" class="TimerCreator_ActionIcon _calendar" />
+            </button>
+          </label>
         </li>
         <li class="TimerCreator_ActionListItem">
           <button class="TimerCreator_ActionButton">
@@ -308,7 +311,13 @@ export default class TimerCreator extends Vue {
     }
   }
 
+  &_ActionButtonOuter {
+    display: block;
+    height: 100%;
+  }
+
   &_ActionButton {
+    position: relative;
     height: 100%;
     padding: 0 14px;
 
@@ -343,6 +352,11 @@ export default class TimerCreator extends Vue {
       width: 28px;
       fill: #EBECED;
     }
+  }
+
+  &_Input {
+    position: absolute;
+    transform: scale(0);
   }
 }
 </style>
