@@ -57,7 +57,7 @@ export default class BottomSheetHeader extends Vue {
 
     > svg {
       width: 100%;
-      height: 100%;
+      height: inherit;
     }
   }
 

@@ -17,7 +17,7 @@
         <SvgIcon name="search" class="TagsSelector_SearchIcon" />
         <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
       </div>
-      <ul>
+      <ul class="TagsSelector_List">
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">設計</span>
           <SvgIcon name="check-circle" class="TagsSelector_Selected" />
@@ -75,6 +75,8 @@ export default class TagsSelector extends Vue {
 <style lang="scss" scoped>
 .TagsSelector {
   &_Inner {
+    display: flex;
+    flex-direction: column;
     height: 100%;
   }
 
@@ -86,7 +88,13 @@ export default class TagsSelector extends Vue {
     fill: #8A8A8E;
   }
 
+  &_List {
+    flex: 1;
+    overflow: auto;
+  }
+
   &_ListItem {
+    position: relative;
     display: flex;
     height: 48px;
     align-items: center;
