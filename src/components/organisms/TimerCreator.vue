@@ -120,8 +120,7 @@ export default class TimerCreator extends Vue {
   &_Inner {
     display: flex;
     flex-direction: column;
-    height: calc(100% - constant(safe-area-inset-bottom));
-    height: calc(100% - env(safe-area-inset-bottom));
+    height: 100%;
   }
 
   &_Header {
