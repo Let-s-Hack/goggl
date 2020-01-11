@@ -28,10 +28,7 @@ class PageLayer extends VuexModule implements IPageLayerState {
   }
 
   @Mutation
-  public push(payload: {
-    component: Function,
-    attributes?: IPageLayerPropState
-  }): void {
+  public push(payload: IPageLayerComponentState): void {
     this.pageLayerState.push({
       component: payload.component,
       attributes: payload.attributes,
