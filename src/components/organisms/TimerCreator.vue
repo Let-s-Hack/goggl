@@ -68,20 +68,19 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <!-- TODO: 完了ボタン出し分け -->
+          <!-- TODO: ボタン出し分け -->
           <button
-            v-if="true"
+            :disabled="false"
             @click="save()"
             class="TimerCreator_ActionButton"
           >
-            <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
-          </button>
-          <button
-            v-else
-            disabled
-            class="TimerCreator_ActionButton"
-          >
-            <SvgIcon name="check" class="TimerCreator_ActionIcon _check" />
+            <!-- TODO: アイコン出し分け -->
+            <SvgIcon
+              v-if="true"
+              name="check-circle"
+              class="TimerCreator_ActionIcon _checkCircle"
+            />
+            <SvgIcon v-else name="check" class="TimerCreator_ActionIcon _check" />
           </button>
         </li>
       </ul>
