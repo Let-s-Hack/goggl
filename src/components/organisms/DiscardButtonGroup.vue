@@ -6,7 +6,7 @@
     />
     <div class="DiscardButtonGroup_Inner">
       <ApplyButton
-        @click.native="discard()"
+        @click.native="pageLayer.clear()"
         sub-text="Would you like to discard this time entry?"
         class="DiscardButtonGroup_Button"
       >Discard</ApplyButton>
@@ -34,11 +34,6 @@ import CancelButton from '~/atoms/CancelButton.vue';
 })
 export default class DiscardButtonGroup extends Vue {
   private pageLayer = PageLayer;
-
-  private discard() {
-    this.pageLayer.pop();
-    this.pageLayer.pop();
-  }
 }
 </script>
 

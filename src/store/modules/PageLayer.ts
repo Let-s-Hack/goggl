@@ -39,6 +39,11 @@ class PageLayer extends VuexModule implements IPageLayerState {
   public pop(): void {
     this.pageLayerState.pop();
   }
+
+  @Mutation
+  public clear(): void {
+    this.pageLayerState = [];
+  }
 }
 
 const pageLayer = getModule(PageLayer);
