@@ -44,7 +44,7 @@
         <li class="TimerCreator_ActionListItem">
           <button
             @click="showProjectSelector()"
-            class="TimerCreator_ActionButton _isActive"
+            class="TimerCreator_ActionButton"
           >
             <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
           </button>
@@ -70,9 +70,9 @@
         <li class="TimerCreator_ActionListItem">
           <!-- TODO: ボタン出し分け -->
           <button
-            :disabled="false"
             @click="save()"
-            class="TimerCreator_ActionButton"
+            :disabled="false"
+            :class="['TimerCreator_ActionButton', { '_isDisabled': false }]"
           >
             <!-- TODO: アイコン出し分け -->
             <SvgIcon
@@ -80,7 +80,11 @@
               name="check-circle"
               class="TimerCreator_ActionIcon _checkCircle"
             />
-            <SvgIcon v-else name="check" class="TimerCreator_ActionIcon _check" />
+            <SvgIcon
+              v-else
+              name="check"
+              class="TimerCreator_ActionIcon _check"
+            />
           </button>
         </li>
       </ul>
@@ -294,7 +298,7 @@ export default class TimerCreator extends Vue {
       position: relative;
       padding: 0 12px;
 
-      &:active::before:not(._check) {
+      &:not(._isDisabled):active::before {
         position: absolute;
         display: block;
         width: 28px;
@@ -313,18 +317,6 @@ export default class TimerCreator extends Vue {
     &:active {
       > .TimerCreator_ActionIcon:not(._checkCircle):not(._check) {
         fill: #606467;
-      }
-    }
-
-    &._isActive {
-      > .TimerCreator_ActionIcon {
-        fill: #4CD964;
-      }
-
-      &:active {
-        > .TimerCreator_ActionIcon {
-          fill: #606467;
-        }
       }
     }
   }
