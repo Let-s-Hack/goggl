@@ -101,7 +101,7 @@
           class="TimerEditor_DeleteButton"
         >Delete</button>
         <button
-          @click="close()"
+          @click="save()"
           class="TimerEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
@@ -140,6 +140,11 @@ export default class TimerEditor extends Vue {
       return;
     }
 
+    this.pageLayer.pop();
+  }
+
+  private save(): void {
+    // TODO: 保存処理
     this.pageLayer.pop();
   }
 
