@@ -116,6 +116,7 @@ import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
+import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
@@ -135,15 +136,15 @@ export default class TimerEditor extends Vue {
   }
 
   private showProjectSelector(): void {
-    this.pageLayer.push(ProjectSelector);
+    this.pageLayer.push({ component: ProjectSelector });
   }
 
   private showTagsSelector(): void {
-    this.pageLayer.push(TagsSelector);
+    this.pageLayer.push({ component: TagsSelector });
   }
 
   private showDeleteButtonGroup(): void {
-    this.pageLayer.push(DeleteButtonGroup);
+    this.pageLayer.push({ component: DeleteButtonGroup });
   }
 }
 </script>

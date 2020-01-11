@@ -20,8 +20,12 @@
       </template>
     </BaseContent>
     <GlobalNav />
-    <template v-for="(component, index) in pageLayer.pageLayerState">
-      <component :is="component" :key="index" />
+    <template v-for="(item, index) in pageLayer.pageLayerState">
+      <component
+        :key="index"
+        :is="item.component"
+        v-bind="item.attributes"
+      />
     </template>
   </div>
 </template>
@@ -77,11 +81,11 @@ export default class Timer extends Vue {
   }
 
   private showTimerCreator(): void {
-    this.pageLayer.push(TimerCreator);
+    this.pageLayer.push({ component: TimerCreator });
   }
 
   private showTimerEditor(): void {
-    this.pageLayer.push(TimerEditor);
+    this.pageLayer.push({ component: TimerEditor });
   }
 }
 </script>
