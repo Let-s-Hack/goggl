@@ -35,7 +35,6 @@ export default class ReportsHeader extends Vue {
 
   &_Spinner {
     width: 20px;
-    fill: #BABABA;
   }
 
   &_Title {
