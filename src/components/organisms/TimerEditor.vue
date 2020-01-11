@@ -143,7 +143,7 @@ export default class TimerEditor extends Vue {
     this.pageLayer.pop();
   }
 
-  private delete() {
+  private delete(): void {
     // TODO: 削除処理
     this.pageLayer.clear();
   }
