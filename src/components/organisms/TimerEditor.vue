@@ -101,7 +101,7 @@
           class="TimerEditor_DeleteButton"
         >Delete</button>
         <button
-          @click="close()"
+          @click="save()"
           class="TimerEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
@@ -130,9 +130,27 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
 export default class TimerEditor extends Vue {
   private pageLayer = PageLayer;
 
+  // TODO: 変更監視（要削除）
+  private tmp: boolean = true;
+
   private close(): void {
     // TODO: 変更監視
+    if (this.tmp) {
+      this.pageLayer.push({ component: DiscardButtonGroup });
+      return;
+    }
+
     this.pageLayer.pop();
+  }
+
+  private save(): void {
+    // TODO: 保存処理
+    this.pageLayer.pop();
+  }
+
+  private delete(): void {
+    // TODO: 削除処理
+    this.pageLayer.clear();
   }
 
   private showProjectSelector(): void {
@@ -144,7 +162,10 @@ export default class TimerEditor extends Vue {
   }
 
   private showDeleteButtonGroup(): void {
-    this.pageLayer.push({ component: DeleteButtonGroup });
+    this.pageLayer.push({
+      component: DeleteButtonGroup,
+      attributes: { applyButtonCallback: () => this.delete() },
+    });
   }
 }
 </script>

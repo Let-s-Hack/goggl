@@ -6,10 +6,14 @@
     />
     <div class="DiscardButtonGroup_Inner">
       <ApplyButton
+        @click.native="pageLayer.clear()"
         sub-text="Would you like to discard this time entry?"
         class="DiscardButtonGroup_Button"
       >Discard</ApplyButton>
-      <CancelButton class="DiscardButtonGroup_Button">Continue Editing</CancelButton>
+      <CancelButton
+        @click.native="pageLayer.pop()"
+        class="DiscardButtonGroup_Button"
+      >Continue Editing</CancelButton>
     </div>
   </div>
 </template>

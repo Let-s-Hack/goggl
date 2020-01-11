@@ -78,10 +78,11 @@ import PageLayer from '@/store/modules/PageLayer';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
-import ProjectSelector from '~/organisms/ProjectSelector.vue';
-import TagsSelector from '~/organisms/TagsSelector.vue';
 import DurationSelector from '~/organisms/DurationSelector.vue';
+import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
+import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import StartDateSelector from '~/organisms/StartDateSelector.vue';
+import TagsSelector from '~/organisms/TagsSelector.vue';
 
 @Component({
   components: {
@@ -102,8 +103,16 @@ export default class TimerCreator extends Vue {
     tags: [],
   };
 
+  // TODO: 変更監視（要削除）
+  private tmp: boolean = true;
+
   private close(): void {
     // TODO: 変更監視
+    if (this.tmp) {
+      this.pageLayer.push({ component: DiscardButtonGroup });
+      return;
+    }
+
     this.pageLayer.pop();
   }
 

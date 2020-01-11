@@ -6,6 +6,7 @@
     />
     <div class="DeleteButtonGroup_Inner">
       <ApplyButton
+        @click.native="applyButtonCallback()"
         class="DeleteButtonGroup_Button"
       >Delete</ApplyButton>
       <CancelButton
@@ -17,7 +18,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
 import ApplyButton from '~/atoms/ApplyButton.vue';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
@@ -31,6 +36,8 @@ import CancelButton from '~/atoms/CancelButton.vue';
   },
 })
 export default class DeleteButtonGroup extends Vue {
+ @Prop({ required: true }) applyButtonCallback!: Function;
+
   private pageLayer = PageLayer;
 }
 </script>
