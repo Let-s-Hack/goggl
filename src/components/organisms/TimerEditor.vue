@@ -136,11 +136,11 @@ export default class TimerEditor extends Vue {
   }
 
   private showProjectSelector(): void {
-    this.pageLayer.push(ProjectSelector);
+    this.pageLayer.push({ component: ProjectSelector });
   }
 
   private showTagsSelector(): void {
-    this.pageLayer.push(TagsSelector);
+    this.pageLayer.push({ component: TagsSelector });
   }
 
   private showDeleteButtonGroup(): void {
