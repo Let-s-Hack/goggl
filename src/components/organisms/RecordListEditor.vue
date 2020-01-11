@@ -14,58 +14,58 @@
       </BottomSheetHeader>
       <ul>
         <li class="RecordListEditor_InputGroup">
-            <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-            <input type="text" class="RecordListEditor_Description" value="goggl | 静的コーディング"/>
-            <!--
-            <input
+          <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
+          <input type="text" class="RecordListEditor_Description" value="goggl | 静的コーディング"/>
+          <!--
+          <input
             type="text"
             class="RecordListEditor_Description _isEmpty"
             value="Add description"
-            />
-            -->
+          />
+          -->
         </li>
         <li
-            @click="showProjectSelector()"
-            class="RecordListEditor_InputGroup"
+          @click="showProjectSelector()"
+          class="RecordListEditor_InputGroup"
         >
-            <!-- TODO: 選択済み時の出し分け -->
-            <span
+          <!-- TODO: 選択済み時の出し分け -->
+          <span
             v-if="true"
             class="RecordListEditor_Project"
             :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-            >テスト</span>
-            <span
+          >テスト</span>
+          <span
             v-else
             class="RecordListEditor_EmptyItem"
-            >
+          >
             <SvgIcon name="add" class="RecordListEditor_AddIcon" />Add project/task
-            </span>
+          </span>
         </li>
         <li
             @click="showTagsSelector()"
             class="RecordListEditor_InputGroup"
         >
-            <!-- TODO: 選択済み時の出し分け -->
-            <ul v-if="true">
+          <!-- TODO: 選択済み時の出し分け -->
+          <ul v-if="true">
             <li class="RecordListEditor_Tag">設計</li>
             <li class="RecordListEditor_Tag">実装</li>
-            </ul>
-            <span
+          </ul>
+          <span
             v-else
             class="RecordListEditor_EmptyItem"
-            >
+          >
             <SvgIcon name="add" class="RecordListEditor_AddIcon" />Add tags
-            </span>
+          </span>
         </li>
       </ul>
       <div class="RecordListEditor_ButtonGroup">
         <button
-            @click="showDeleteButtonGroup()"
-            class="RecordListEditor_DeleteButton"
+          @click="showDeleteButtonGroup()"
+          class="RecordListEditor_DeleteButton"
         >Delete</button>
         <button
-            @click="save()"
-            class="RecordListEditor_ConfirmButton"
+          @click="save()"
+          class="RecordListEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
     </BottomSheet>
