@@ -18,6 +18,9 @@ export default class BottomSheet extends Vue {
   bottom: 0;
   z-index: $zIndex_pageLayer;
   width: 100vw;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
   border-radius: 8px;
   background: #FFF;
 }
