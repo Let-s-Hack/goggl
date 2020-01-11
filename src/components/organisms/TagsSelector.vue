@@ -75,7 +75,7 @@ export default class TagsSelector extends Vue {
 <style lang="scss" scoped>
 .TagsSelector {
   &_Inner {
-    height: 100vh;
+    height: 100%;
   }
 
   &_Header {
