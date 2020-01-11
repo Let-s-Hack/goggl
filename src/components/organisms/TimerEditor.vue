@@ -93,7 +93,7 @@
             <span class="TimerEditor_LabelText">12/29</span>
             <span class="TimerEditor_LabelSubText">Start date</span>
           </div>
-          <label class="TimerEditor_InputGroupInner">
+          <label class="TimerEditor_InputBlock">
             <input type="date" class="TimerEditor_Input">
           </label>
         </li>
@@ -209,7 +209,7 @@ export default class TimerEditor extends Vue {
     padding: 0;
   }
 
-  &_InputGroupInner {
+  &_InputBlock {
     position: absolute;
     left: 0;
     width: 100%;
