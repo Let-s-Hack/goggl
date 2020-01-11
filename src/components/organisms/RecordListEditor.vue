@@ -1,114 +1,71 @@
 <template>
-  <div class="TimerEditor">
+  <div class="RecordListEditor">
     <BackgroundOverlay @click.native="close()" />
-    <BottomSheet>
+    <BottomSheet class="TimerCreator_Inner">
       <BottomSheetHeader
         :back-button-callback="() => close()"
-        class="TimerEditor_Header"
+        class="RecordListEditor_Header"
       >
         <template v-slot:icon>
-          <SvgIcon name="close" class="TimerEditor_CloseIcon" />
+          <SvgIcon name="close" class="RecordListEditor_CloseIcon" />
         </template>
-        <template v-slot:title>Edit</template>
+        <template v-slot:title>Editing 4 time entries</template>
+        <template v-slot:text>0:30:00</template>
       </BottomSheetHeader>
       <ul>
-        <li class="TimerEditor_InputGroup">
+        <li class="RecordListEditor_InputGroup">
           <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-          <input type="text" class="TimerEditor_Description" value="goggl | 静的コーディング"/>
+          <input type="text" class="RecordListEditor_Description" value="goggl | 静的コーディング"/>
           <!--
           <input
             type="text"
-            class="TimerEditor_Description _isEmpty"
+            class="RecordListEditor_Description _isEmpty"
             value="Add description"
           />
           -->
         </li>
         <li
           @click="showProjectSelector()"
-          class="TimerEditor_InputGroup"
+          class="RecordListEditor_InputGroup"
         >
           <!-- TODO: 選択済み時の出し分け -->
           <span
             v-if="true"
-            class="TimerEditor_Project"
+            class="RecordListEditor_Project"
             :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-          >
-            テスト
-          </span>
+          >テスト</span>
           <span
             v-else
-            class="TimerEditor_EmptyItem"
+            class="RecordListEditor_EmptyItem"
           >
-            <SvgIcon name="add" class="TimerEditor_AddIcon" />Add project/task
+            <SvgIcon name="add" class="RecordListEditor_AddIcon" />Add project/task
           </span>
         </li>
         <li
-          @click="showTagsSelector()"
-          class="TimerEditor_InputGroup"
+            @click="showTagsSelector()"
+            class="RecordListEditor_InputGroup"
         >
           <!-- TODO: 選択済み時の出し分け -->
           <ul v-if="true">
-            <li class="TimerEditor_Tag">設計</li>
-            <li class="TimerEditor_Tag">実装</li>
+            <li class="RecordListEditor_Tag">設計</li>
+            <li class="RecordListEditor_Tag">実装</li>
           </ul>
           <span
             v-else
-            class="TimerEditor_EmptyItem"
+            class="RecordListEditor_EmptyItem"
           >
-            <SvgIcon name="add" class="TimerEditor_AddIcon" />Add tags
+            <SvgIcon name="add" class="RecordListEditor_AddIcon" />Add tags
           </span>
         </li>
-        <li class="TimerEditor_InputGroup _time">
-          <div class="TimerEditor_TimeItem">
-            <SvgIcon name="time" class="TimerEditor_Icon" />
-            <div class="TimerEditor_LabelGroup">
-              <span class="TimerEditor_LabelText">05:06 PM</span>
-              <span class="TimerEditor_LabelSubText">Start</span>
-            </div>
-          </div>
-          <div class="TimerEditor_TimeItem">
-            <div class="TimerEditor_LabelGroup">
-              <span
-                v-if="true"
-                class="TimerEditor_LabelText"
-              >09:06 PM</span>
-              <span
-                v-else
-                class="TimerEditor_LabelText _isStop"
-              >Stop</span>
-              <span class="TimerEditor_LabelSubText">End</span>
-            </div>
-          </div>
-        </li>
-        <li
-          @click="showDurationSelector()"
-          class="TimerEditor_InputGroup _large"
-        >
-          <SvgIcon name="timer" class="TimerEditor_Icon" />
-          <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">0:00:23</span>
-            <span class="TimerEditor_LabelSubText">Duration</span>
-          </div>
-        </li>
-        <li class="TimerEditor_InputGroup _large">
-          <SvgIcon name="calendar" class="TimerEditor_Icon" />
-          <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">12/29</span>
-            <span class="TimerEditor_LabelSubText">Start date</span>
-          </div>
-          <label class="TimerEditor_InputBlock">
-            <input type="date" class="TimerEditor_Input">
-          </label>
-        </li>
       </ul>
-      <div class="TimerEditor_ButtonGroup">
+      <div class="RecordListEditor_ButtonGroup">
         <button
           @click="showDeleteButtonGroup()"
-          class="TimerEditor_DeleteButton"
+          class="RecordListEditor_DeleteButton"
         >Delete</button>
         <button
           @click="save()"
-          class="TimerEditor_ConfirmButton"
+          class="RecordListEditor_ConfirmButton"
         >Confirm changes</button>
       </div>
     </BottomSheet>
@@ -123,7 +80,6 @@ import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
-import DurationSelector from '~/organisms/DurationSelector.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
@@ -134,7 +90,7 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
     BottomSheetHeader,
   },
 })
-export default class TimerEditor extends Vue {
+export default class RecordListEditor extends Vue {
   private pageLayer = PageLayer;
 
   // TODO: 変更監視（要削除）
@@ -168,10 +124,6 @@ export default class TimerEditor extends Vue {
     this.pageLayer.push({ component: TagsSelector });
   }
 
-  private showDurationSelector(): void {
-    this.pageLayer.push({ component: DurationSelector });
-  }
-
   private showDeleteButtonGroup(): void {
     this.pageLayer.push({
       component: DeleteButtonGroup,
@@ -182,8 +134,14 @@ export default class TimerEditor extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.TimerEditor {
+.RecordListEditor {
   $padding: 16px;
+
+  &_Inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
 
   &_Header {
     margin-bottom: 15px;
@@ -194,7 +152,6 @@ export default class TimerEditor extends Vue {
   }
 
   &_InputGroup {
-    position: relative;
     height: 48px;
     display: flex;
     align-items: center;
@@ -206,39 +163,6 @@ export default class TimerEditor extends Vue {
 
     & + & {
       border-top: 1px solid $color_lightGrayBorder;
-    }
-  }
-
-  &_InputGroup._large {
-    height: 56px;
-  }
-
-  &_InputGroup._time {
-    padding: 0;
-  }
-
-  &_InputBlock {
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  &_Input {
-    position: absolute;
-    transform: scale(0);
-  }
-
-  &_TimeItem {
-    display: inherit;
-    flex: 50%;
-    height: 100%;
-    padding: 0 $padding;
-    box-sizing: border-box;
-    align-items: center;
-
-    & + & {
-      border-left: 1px solid $color_lightGrayBorder;
     }
   }
 
@@ -289,7 +213,7 @@ export default class TimerEditor extends Vue {
   }
 
   &_EmptyItem {
-    @extend .TimerEditor_Project;
+    @extend .RecordListEditor_Project;
     color: #8A8A8D;
 
     &::before {
@@ -302,26 +226,6 @@ export default class TimerEditor extends Vue {
     height: 15px;
     margin-right: 12px;
     fill: #B5BCC0;
-  }
-
-  &_LabelGroup {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &_LabelText {
-    font-size: 1.4rem;
-    letter-spacing: 0.1rem;
-
-    &._isStop {
-      color: #69E085;
-    }
-  }
-
-  &_LabelSubText {
-    margin-top: 6px;
-    font-size: 1.2rem;
-    color: #8A8A8E;
   }
 
   &_AddIcon {

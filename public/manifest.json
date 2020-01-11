@@ -1,7 +1,6 @@
 {
   "name": "goggl",
   "short_name": "goggl",
-  "theme_color": "#E01B22",
   "icons": [{
     "src": "./img/favicons/favicon-192x192.png",
     "sizes": "192x192",
@@ -26,8 +25,17 @@
     "src": "./img/favicons/apple-touch-icon-180x180.png",
     "sizes": "180x180",
     "type": "image/png"
+  }, {
+    "src": "./img/splash/launch-750x1334.png",
+    "sizes": "750x1334",
+    "type": "image/png"
+  }, {
+    "src": "./img/splash/launch-1242x2688.png",
+    "sizes": "1242x2688",
+    "type": "image/png"
   }],
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#E01B22"
+  "background_color": "#000",
+  "theme_color": "#E01B22"
 }
