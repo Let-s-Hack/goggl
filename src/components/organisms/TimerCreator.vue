@@ -63,7 +63,10 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
+          <button
+            @click="showDurationSelector()"
+            class="TimerCreator_ActionButton"
+          >
             <SvgIcon name="time" class="TimerCreator_ActionIcon _time" />
           </button>
         </li>
@@ -100,8 +103,8 @@ import PageLayer from '@/store/modules/PageLayer';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
-import DurationSelector from '~/organisms/DurationSelector.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
+import DurationSelector from '~/organisms/DurationSelector.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
@@ -109,9 +112,9 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   components: {
     BackgroundOverlay,
     BottomSheet,
+    DurationSelector,
     ProjectSelector,
     TagsSelector,
-    DurationSelector,
   },
 })
 export default class TimerCreator extends Vue {
@@ -140,6 +143,10 @@ export default class TimerCreator extends Vue {
     TimeRecorder.activate(this.timerState);
     // TODO: 保存処理
     PageLayer.pop();
+  }
+
+  private showDurationSelector(): void {
+    this.pageLayer.push({ component: DurationSelector });
   }
 
   private showProjectSelector(): void {
