@@ -93,6 +93,9 @@
             <span class="TimerEditor_LabelText">12/29</span>
             <span class="TimerEditor_LabelSubText">Start date</span>
           </div>
+          <label class="TimerEditor_InputBlock">
+            <input type="date" class="TimerEditor_Input">
+          </label>
         </li>
       </ul>
       <div class="TimerEditor_ButtonGroup _large">
@@ -183,6 +186,7 @@ export default class TimerEditor extends Vue {
   }
 
   &_InputGroup {
+    position: relative;
     height: 48px;
     display: flex;
     align-items: center;
@@ -203,6 +207,18 @@ export default class TimerEditor extends Vue {
 
   &_InputGroup._time {
     padding: 0;
+  }
+
+  &_InputBlock {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &_Input {
+    position: absolute;
+    transform: scale(0);
   }
 
   &_TimeItem {
