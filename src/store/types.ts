@@ -1,20 +1,16 @@
-export interface IPropState {
+export interface IPageLayerPropState {
   [key: string]: string | Function,
 }
 
+export interface IPageLayerComponentState {
+  component: Function,
+  attributes?: IPageLayerPropState,
+  [key: string]: Function | IPageLayerPropState | undefined,
+}
+
 export interface IPageLayerState {
-  allPageLayerState: {
-    [page: string]: {
-      component: Function,
-      attributes?: IPropState,
-      [key: string]: Function | IPropState | undefined
-    }[],
-  },
-  pageLayerState: {
-    component: Function,
-    attributes?: IPropState,
-    [key: string]: Function | IPropState | undefined
-  }[],
+  allPageLayerState: { [page: string]: IPageLayerComponentState[] },
+  pageLayerState: IPageLayerComponentState[],
 }
 
 export interface ILoadingState {

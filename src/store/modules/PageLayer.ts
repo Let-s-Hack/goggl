@@ -5,7 +5,8 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  IPropState,
+  IPageLayerPropState,
+  IPageLayerComponentState,
   IPageLayerState,
 } from '@/store/types';
 import store from '@/store';
@@ -17,19 +18,9 @@ import store from '@/store';
   store,
 })
 class PageLayer extends VuexModule implements IPageLayerState {
-  public allPageLayerState: {
-    [page: string]: {
-      component: Function,
-      attributes?: IPropState,
-      [key: string]: Function | IPropState | undefined,
-    }[],
-  } = {};
+  public allPageLayerState: { [page: string]: IPageLayerComponentState[] } = {};
 
-  public pageLayerState: {
-    component: Function,
-    attributes?: IPropState,
-    [key: string]: Function | IPropState | undefined,
-  }[] = [];
+  public pageLayerState: IPageLayerComponentState[] = [];
 
   @Mutation
   public setPage(page: string): void {
@@ -37,7 +28,10 @@ class PageLayer extends VuexModule implements IPageLayerState {
   }
 
   @Mutation
-  public push(payload: { component: Function, attributes?: IPropState }): void {
+  public push(payload: {
+    component: Function,
+    attributes?: IPageLayerPropState
+  }): void {
     this.pageLayerState.push({
       component: payload.component,
       attributes: payload.attributes,
