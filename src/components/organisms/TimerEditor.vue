@@ -1,7 +1,7 @@
 <template>
   <div class="TimerEditor">
     <BackgroundOverlay @click.native="close()" />
-    <BottomSheet class="TimerEditor_Inner">
+    <BottomSheet>
       <BottomSheetHeader
         :back-button-callback="() => close()"
         class="TimerEditor_Header"
@@ -151,10 +151,6 @@ export default class TimerEditor extends Vue {
 <style lang="scss" scoped>
 .TimerEditor {
   $padding: 16px;
-
-  &_Inner {
-    height: 430px;
-  }
 
   &_Header {
     margin-bottom: 15px;

@@ -91,7 +91,7 @@ export default class ProjectSelector extends Vue {
 <style lang="scss" scoped>
 .ProjectSelector {
   &_Inner {
-    height: 100vh;
+    height: 100%;
   }
 
   &_Header {
