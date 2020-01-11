@@ -19,18 +19,18 @@
             <div class="DurationSelector_DurationLabel">
               <SvgIcon name="triangle" class="DurationSelector_IconStart" />Start
             </div>
-            <label class="DurationSelector_DurationInputGroup">
+            <input id="durationStart" type="datetime-local" class="DurationSelector_DurationInput">
+            <label for="durationStart" class="DurationSelector_DurationInputBlock">
               <!-- TODO: inputで入力した値を整形して表示する -->
               09:21 AM <span>01/04</span>
-              <input type="datetime-local" class="DurationSelector_DurationInput">
             </label>
           </li>
           <li class="DurationSelector_DurationItem">
             <div class="DurationSelector_DurationLabel _end">End</div>
-            <label class="DurationSelector_DurationInputGroup">
+            <input id="durationEnd" type="datetime-local" class="DurationSelector_DurationInput">
+            <label for="durationEnd" class="DurationSelector_DurationInputBlock _isStop">
               <!-- TODO: inputで入力した値を整形して表示する -->
-              09:51 AM <span>01/04</span>
-              <input type="datetime-local" class="DurationSelector_DurationInput">
+              Stop
             </label>
           </li>
         </ul>
@@ -86,11 +86,17 @@ export default class DurationSelector extends Vue {
 
   &_DurationGroup {
     display: flex;
-    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
   }
 
-  &_DurationItem + &_DurationItem {
-    margin-left: 30px;
+  &_DurationItem {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    padding: 0 18px;
+    box-sizing: border-box;
   }
 
   &_IconStart {
@@ -115,7 +121,12 @@ export default class DurationSelector extends Vue {
     }
   }
 
-  &_DurationInputGroup {
+  &_DurationInput {
+    position: absolute;
+    transform: scale(0);
+  }
+
+  &_DurationInputBlock {
     position: relative;
     display: block;
     line-height: 3.2rem;
@@ -125,29 +136,34 @@ export default class DurationSelector extends Vue {
     font-size: 1.5rem;
     letter-spacing: 0.1rem;
 
+    &._isStop {
+      color: #6FC53A;
+    }
+
+    .DurationSelector_DurationInput:focus + & {
+      color: #6FC53A;
+
+      > span {
+        color: #6FC53A;
+      }
+    }
+
     > span {
       color: #B5BCC0;
     }
   }
 
-  &_DurationInput {
-    position: absolute;
-    transform: scale(0);
-  }
-
   &_TimePickerGroup {
     position: relative;
-    width: 300px;
-    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin-bottom: 20px;
   }
 
   &_TimePicker {
-    width: 100%;
-    height: 100%;
+    width: 300px;
+    height: 300px;
   }
 
   &_InputGroup {
