@@ -193,7 +193,7 @@ export default class TimerEditor extends Vue {
     letter-spacing: 0.1rem;
 
     & + & {
-      border-top: 1px solid #EEE;
+      border-top: 1px solid $color_lightGrayBorder;
     }
   }
 
@@ -214,7 +214,7 @@ export default class TimerEditor extends Vue {
     align-items: center;
 
     & + & {
-      border-left: 1px solid #EEE;
+      border-left: 1px solid $color_lightGrayBorder;
     }
   }
 

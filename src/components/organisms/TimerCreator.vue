@@ -267,7 +267,7 @@ export default class TimerCreator extends Vue {
     font-size: 1.3rem;
     letter-spacing: 0.045rem;
     color: #CFCFCF;
-    border-bottom: 1px solid #C6C6C8;
+    border-bottom: 1px solid $color_lightGrayBorder;
 
     &:active {
       background: #D9D9D9;
@@ -285,7 +285,7 @@ export default class TimerCreator extends Vue {
     display: flex;
     line-height: 48px;
     padding-left: 2px;
-    border-top: 1px solid #C6C6C8;
+    border-top: 1px solid $color_grayBorder;
     background: #FFF;
   }
 

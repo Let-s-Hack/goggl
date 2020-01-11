@@ -48,16 +48,16 @@ export default class RecordGroup extends Vue {
     padding-top: 20px;
     padding-bottom: 8px;
     background: $color_timerBackground;
-    border-bottom: 1px solid #C5C6C8;
+    border-bottom: 1px solid $color_recordBorder;
   }
 
   &_Item {
     & + & {
-      border-top: 1px solid #C5C6C8;
+      border-top: 1px solid $color_recordBorder;
     }
 
     &:last-child {
-      border-bottom: 1px solid #C5C6C8;
+      border-bottom: 1px solid $color_recordBorder;
     }
   }
 }

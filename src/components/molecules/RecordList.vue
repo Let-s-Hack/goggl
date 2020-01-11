@@ -169,7 +169,7 @@ export default class RecordList extends Vue {
   }
 
   &_Record {
-    border-top: 1px solid #C5C6C8;
+    border-top: 1px solid $color_recordBorder;
   }
 
   &_IconTag {

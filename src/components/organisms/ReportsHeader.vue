@@ -24,7 +24,7 @@ export default class ReportsHeader extends Vue {
   width: 100%;
   height: 44px;
   padding: 8px 0;
-  border-bottom: 1px solid #A9A9AC;
+  border-bottom: 1px solid $color_grayBorder;
   background-color: #FFF;
   box-sizing: border-box;
 

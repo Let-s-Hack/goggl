@@ -33,7 +33,7 @@ export default class GlobalNav extends Vue {
   height: 50px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
-  border-top: 1px solid #B2B2B2;
+  border-top: 1px solid $color_grayBorder;
   background-color: #FFF;
 
   &_List {
