@@ -92,7 +92,7 @@ export default class ActiveTimer extends Vue {
 
     &::before {
       display: inline-block;
-      margin-left: 8px;
+      margin: 0 6px 0 8px;
       border-radius: 50%;
       border-width: 3px;
       border-style: solid;
