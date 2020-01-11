@@ -36,6 +36,7 @@ module.exports = {
       swSrc: 'src/service-worker.js',
       swDest: 'service-worker.js',
     },
+    appleMobileWebAppCapable: 'yes',
   },
   css: {
     loaderOptions: {
