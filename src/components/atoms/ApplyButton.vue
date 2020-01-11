@@ -1,11 +1,12 @@
 <template>
-  <!-- TODO: callbackで押した後の処理を実行 -->
   <button class="ApplyButton">
     <span
       v-if="subText"
       class="ApplyButton_SubText"
     >{{ subText }}</span>
-    <p class="ApplyButton_Text"><slot /></p>
+    <p class="ApplyButton_Text">
+      <slot />
+    </p>
   </button>
 </template>
 

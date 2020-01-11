@@ -8,39 +8,39 @@
         class="TagsSelector_Header"
       >
         <template v-slot:icon>
-          <SvgIcon class="TagsSelector_CloseIcon" name="close" />
+          <SvgIcon name="close" class="TagsSelector_CloseIcon" />
         </template>
         <template v-slot:title>Tags</template>
         <template v-slot:action>Save</template>
       </BottomSheetHeader>
       <div class="TagsSelector_ListItem">
-        <SvgIcon class="TagsSelector_SearchIcon" name="search" />
+        <SvgIcon name="search" class="TagsSelector_SearchIcon" />
         <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
       </div>
       <ul>
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">設計</span>
-          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
           <!-- <span class="TagsSelector_Unselected"></span> -->
         </li>
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">MTG</span>
-          <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+          <!-- <SvgIcon name="check-circle" class="TagsSelector_Selected" /> -->
           <span class="TagsSelector_Unselected"></span>
         </li>
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">実装</span>
-          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
           <!-- <span class="TagsSelector_Unselected"></span> -->
         </li>
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">UIデザイン</span>
-          <!-- <SvgIcon class="TagsSelector_Selected" name="check-circle" /> -->
+          <!-- <SvgIcon name="check-circle" class="TagsSelector_Selected" /> -->
           <span class="TagsSelector_Unselected"></span>
         </li>
         <li class="TagsSelector_ListItem">
           <span class="TagsSelector_Tag">コードレビュー</span>
-          <SvgIcon class="TagsSelector_Selected" name="check-circle" />
+          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
           <!-- <span class="TagsSelector_Unselected"></span> -->
         </li>
       </ul>

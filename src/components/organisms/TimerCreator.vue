@@ -25,12 +25,16 @@
           <span class="TimerCreator_SelectedTag">実装</span>
         </div>
         <ul class="TimerCreator_SearchList">
-          <!-- TODO: クリックしたときに ProjectSelector を表示する -->
-          <li class="TimerCreator_SearchListItem">
+          <li
+            @click="showProjectSelector()"
+            class="TimerCreator_SearchListItem"
+          >
             <strong>@</strong>Search Projects
           </li>
-          <!-- TODO: クリックしたときに TagsSelector を表示する -->
-          <li class="TimerCreator_SearchListItem">
+          <li
+            @click="showTagsSelector()"
+            class="TimerCreator_SearchListItem"
+          >
             <strong>#</strong>Search Tags
           </li>
         </ul>
@@ -38,12 +42,18 @@
       <!-- TODO: ボタンのアクティブクラスの出し分け -->
       <ul class="TimerCreator_ActionList">
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton _isActive">
+          <button
+            @click="showProjectSelector()"
+            class="TimerCreator_ActionButton"
+          >
             <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
+          <button
+            @click="showTagsSelector()"
+            class="TimerCreator_ActionButton"
+          >
             <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
           </button>
         </li>
@@ -58,11 +68,23 @@
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
+          <!-- TODO: ボタン出し分け -->
           <button
             @click="save()"
-            class="TimerCreator_ActionButton"
+            :disabled="false"
+            :class="['TimerCreator_ActionButton', { '_isDisabled': false }]"
           >
-            <SvgIcon name="check-circle" class="TimerCreator_ActionIcon _checkCircle" />
+            <!-- TODO: アイコン出し分け -->
+            <SvgIcon
+              v-if="false"
+              name="check"
+              class="TimerCreator_ActionIcon _check"
+            />
+            <SvgIcon
+              v-else
+              name="check-circle"
+              class="TimerCreator_ActionIcon _checkCircle"
+            />
           </button>
         </li>
       </ul>
@@ -118,6 +140,14 @@ export default class TimerCreator extends Vue {
     TimeRecorder.activate(this.timerState);
     // TODO: 保存処理
     PageLayer.pop();
+  }
+
+  private showProjectSelector(): void {
+    this.pageLayer.push({ component: ProjectSelector });
+  }
+
+  private showTagsSelector(): void {
+    this.pageLayer.push({ component: TagsSelector });
   }
 }
 </script>
@@ -266,7 +296,7 @@ export default class TimerCreator extends Vue {
       position: relative;
       padding: 0 12px;
 
-      &:active::before {
+      &:not(._isDisabled):active::before {
         position: absolute;
         display: block;
         width: 28px;
@@ -283,20 +313,8 @@ export default class TimerCreator extends Vue {
     padding: 0 14px;
 
     &:active {
-      > .TimerCreator_ActionIcon:not(._checkCircle) {
+      > .TimerCreator_ActionIcon:not(._checkCircle):not(._check) {
         fill: #606467;
-      }
-    }
-
-    &._isActive {
-      > .TimerCreator_ActionIcon {
-        fill: #4CD964;
-      }
-
-      &:active {
-        > .TimerCreator_ActionIcon {
-          fill: #606467;
-        }
       }
     }
   }
@@ -319,6 +337,11 @@ export default class TimerCreator extends Vue {
     &._checkCircle {
       width: 28px;
       fill: #4CD964;
+    }
+
+    &._check {
+      width: 28px;
+      fill: #EBECED;
     }
   }
 }

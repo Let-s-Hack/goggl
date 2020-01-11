@@ -14,11 +14,11 @@
         </span>
       </div>
       <div class="RecordList_SummaryTag">
-        <SvgIcon class="RecordList_IconTag" name="tag" />
+        <SvgIcon name="tag" class="RecordList_IconTag" />
       </div>
       <div class="RecordList_SummaryTimeGroup">
         <span class="RecordList_SummaryTime">0:30:00</span>
-        <SvgIcon class="RecordList_IconStart" name="triangle" />
+        <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
     <ul>

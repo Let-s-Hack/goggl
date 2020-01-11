@@ -3,17 +3,17 @@
     <ul class="GlobalNav_List">
       <li class="GlobalNav_Item">
         <router-link :to="{ path: 'timer' }" exact-active-class="_isActive">
-          <SvgIcon class="GlobalNav_Icon" name="time" />
+          <SvgIcon name="time" class="GlobalNav_Icon" />
         </router-link>
       </li>
       <li class="GlobalNav_Item">
         <router-link :to="{ path: 'reports' }" exact-active-class="_isActive">
-          <SvgIcon class="GlobalNav_Icon" name="graph" />
+          <SvgIcon name="graph" class="GlobalNav_Icon" />
         </router-link>
       </li>
       <li class="GlobalNav_Item">
         <router-link :to="{ path: 'calendar' }" exact-active-class="_isActive">
-          <SvgIcon class="GlobalNav_Icon" name="calendar" />
+          <SvgIcon name="calendar" class="GlobalNav_Icon" />
         </router-link>
       </li>
     </ul>

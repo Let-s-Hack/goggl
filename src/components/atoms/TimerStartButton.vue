@@ -1,6 +1,6 @@
 <template>
   <button class="TimerStartButton">
-    <SvgIcon class="TimerStartButton_IconStart" name="triangle" />
+    <SvgIcon name="triangle" class="TimerStartButton_IconStart" />
   </button>
 </template>
 

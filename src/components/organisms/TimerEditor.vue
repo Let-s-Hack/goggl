@@ -7,7 +7,7 @@
         class="TimerEditor_Header"
       >
         <template v-slot:icon>
-          <SvgIcon class="TimerEditor_CloseIcon" name="close" />
+          <SvgIcon name="close" class="TimerEditor_CloseIcon" />
         </template>
         <template v-slot:title>Edit</template>
       </BottomSheetHeader>
@@ -39,7 +39,7 @@
             v-else
             class="TimerEditor_EmptyItem"
           >
-            <SvgIcon class="TimerEditor_AddIcon" name="add" />Add project/task
+            <SvgIcon name="add" class="TimerEditor_AddIcon" />Add project/task
           </span>
         </li>
         <li
@@ -55,12 +55,12 @@
             v-else
             class="TimerEditor_EmptyItem"
           >
-            <SvgIcon class="TimerEditor_AddIcon" name="add" />Add tags
+            <SvgIcon name="add" class="TimerEditor_AddIcon" />Add tags
           </span>
         </li>
         <li class="TimerEditor_InputGroup _time">
           <div class="TimerEditor_TimeItem">
-            <SvgIcon class="TimerEditor_Icon" name="time" />
+            <SvgIcon name="time" class="TimerEditor_Icon" />
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">05:06 PM</span>
               <span class="TimerEditor_LabelSubText">Start</span>
@@ -81,14 +81,14 @@
           </div>
         </li>
         <li class="TimerEditor_InputGroup _large">
-          <SvgIcon class="TimerEditor_Icon" name="timer" />
+          <SvgIcon name="timer" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
             <span class="TimerEditor_LabelText">0:00:23</span>
             <span class="TimerEditor_LabelSubText">Duration</span>
           </div>
         </li>
         <li class="TimerEditor_InputGroup _large">
-          <SvgIcon class="TimerEditor_Icon" name="calendar" />
+          <SvgIcon name="calendar" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
             <span class="TimerEditor_LabelText">12/29</span>
             <span class="TimerEditor_LabelSubText">Start date</span>

@@ -7,12 +7,12 @@
         class="ProjectSelector_Header"
       >
         <template v-slot:icon>
-          <SvgIcon class="ProjectSelector_CloseIcon" name="close" />
+          <SvgIcon name="close" class="ProjectSelector_CloseIcon" />
         </template>
         <template v-slot:title>Projects</template>
       </BottomSheetHeader>
       <div class="ProjectSelector_Container">
-        <SvgIcon class="ProjectSelector_SearchIcon" name="search" />
+        <SvgIcon name="search" class="ProjectSelector_SearchIcon" />
         <input type="text" class="ProjectSelector_Input" placeholder="Add/filter project">
       </div>
       <ul>
