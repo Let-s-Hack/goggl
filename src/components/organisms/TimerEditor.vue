@@ -95,7 +95,7 @@
           </div>
         </li>
       </ul>
-      <div class="TimerEditor_ButtonGroup _large">
+      <div class="TimerEditor_ButtonGroup">
         <button
           @click="showDeleteButtonGroup()"
           class="TimerEditor_DeleteButton"
