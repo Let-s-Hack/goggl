@@ -80,7 +80,10 @@
             </div>
           </div>
         </li>
-        <li class="TimerEditor_InputGroup _large">
+        <li
+          @click="showDurationSelector()"
+          class="TimerEditor_InputGroup _large"
+        >
           <SvgIcon name="timer" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
             <span class="TimerEditor_LabelText">0:00:23</span>
@@ -117,6 +120,7 @@ import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
+import DurationSelector from '~/organisms/DurationSelector.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
@@ -159,6 +163,10 @@ export default class TimerEditor extends Vue {
 
   private showTagsSelector(): void {
     this.pageLayer.push({ component: TagsSelector });
+  }
+
+  private showDurationSelector(): void {
+    this.pageLayer.push({ component: DurationSelector });
   }
 
   private showDeleteButtonGroup(): void {
