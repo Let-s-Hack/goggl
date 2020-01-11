@@ -25,25 +25,31 @@
           <span class="TimerCreator_SelectedTag">実装</span>
         </div>
         <ul class="TimerCreator_SearchList">
-          <!-- TODO: クリックしたときに ProjectSelector を表示する -->
-          <li class="TimerCreator_SearchListItem">
-            <strong>@</strong>Search Projects
-          </li>
-          <!-- TODO: クリックしたときに TagsSelector を表示する -->
-          <li class="TimerCreator_SearchListItem">
-            <strong>#</strong>Search Tags
-          </li>
+          <li
+            @click="showProjectSelector()"
+            class="TimerCreator_SearchListItem"
+          ><strong>@</strong>Search Projects</li>
+          <li
+            @click="showTagsSelector()"
+            class="TimerCreator_SearchListItem"
+          ><strong>#</strong>Search Tags</li>
         </ul>
       </div>
       <!-- TODO: ボタンのアクティブクラスの出し分け -->
       <ul class="TimerCreator_ActionList">
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton _isActive">
+          <button
+            @click="showProjectSelector()"
+            class="TimerCreator_ActionButton _isActive"
+          >
             <SvgIcon name="folder" class="TimerCreator_ActionIcon _folder" />
           </button>
         </li>
         <li class="TimerCreator_ActionListItem">
-          <button class="TimerCreator_ActionButton">
+          <button
+            @click="showTagsSelector()"
+            class="TimerCreator_ActionButton"
+          >
             <SvgIcon name="tag" class="TimerCreator_ActionIcon _tag" />
           </button>
         </li>
@@ -120,6 +126,14 @@ export default class TimerCreator extends Vue {
     TimeRecorder.activate(this.timerState);
     // TODO: 保存処理
     PageLayer.pop();
+  }
+
+  private showProjectSelector(): void {
+    this.pageLayer.push({ component: ProjectSelector });
+  }
+
+  private showTagsSelector(): void {
+    this.pageLayer.push({ component: TagsSelector });
   }
 }
 </script>
