@@ -2,7 +2,7 @@
   <BaseCard class="ReportsBarGraph">
     <p class="ReportsBarGraph_Title">CLOCKED HOURS</p>
     <canvas
-      ref="barGraphContent"
+      ref="barGraph"
       class="ReportsBarGraph_Content"
       :width="`${contentWidth}px`"
       :height="`${contentHeight}px`"
@@ -20,6 +20,7 @@ import moment, { Moment } from 'moment';
 import {
   Component,
   Prop,
+  Ref,
   Vue,
   Watch,
 } from 'vue-property-decorator';
@@ -41,7 +42,9 @@ const graphScaleHeight: number = 40;
 export default class ReportsBarGraph extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
 
-  private ctx?: CanvasRenderingContext2D;
+  @Ref('barGraph') barGraphContent!: HTMLCanvasElement;
+
+  private ctx!: CanvasRenderingContext2D | null;
 
   private maxScale: number = 0;
 
@@ -63,8 +66,8 @@ export default class ReportsBarGraph extends Vue {
     this.contentWidth = this.$el.clientWidth * 2;
     this.contentHeight = (graphMaxHeight + graphScaleHeight) * 2;
 
-    const canvas = this.$refs.barGraphContent as HTMLCanvasElement;
-    this.ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+    const canvas = this.barGraphContent;
+    this.ctx = canvas!.getContext('2d');
   }
 
   updated() {

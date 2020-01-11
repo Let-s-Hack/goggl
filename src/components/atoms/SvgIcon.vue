@@ -3,8 +3,16 @@
 </template>
 
 <script lang="ts">
-import { camelCase, forEach, upperFirst } from 'lodash';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {
+  camelCase,
+  forEach,
+  upperFirst,
+} from 'lodash';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 
 const files: any = require.context('~public/img/icons/');
 const icons: { [key: string]: any } = {};
@@ -20,6 +28,6 @@ forEach(files.keys(), (path: string) => {
   components: icons,
 })
 export default class SvgIcon extends Vue {
-  @Prop() name!: String;
+  @Prop() name!: string;
 }
 </script>
