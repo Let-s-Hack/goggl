@@ -246,12 +246,12 @@ export default class ReportsPieChart extends Vue {
     display: flex;
     line-height: 56px;
     padding: 0 16px;
-    border-top: 1px solid #C6C6C8;
+    border-top: 1px solid $color_baseBorder;
     background: #FFF;
     font-size: 1.4rem;
 
     &:last-child {
-      border-bottom: 1px solid #C6C6C8;
+      border-bottom: 1px solid $color_baseBorder;
     }
   }
 

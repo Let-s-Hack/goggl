@@ -76,7 +76,7 @@ export default class Calendar extends Vue {
     width: 100%;
     height: 110px;
     padding: 0 8px;
-    border-bottom: 1px solid #A9A9AC;
+    border-bottom: 1px solid $color_baseBorder;
     background-color: #FFF;
     box-sizing: border-box;
   }
