@@ -1,7 +1,7 @@
 <template>
   <div class="GlobalHeader">
     <img class="GlobalHeader_Logo" src="/img/logo.svg" />
-    <SvgIcon class="GlobalHeader_Setting" name="setting" />
+    <SvgIcon name="setting" class="GlobalHeader_Setting" />
   </div>
 </template>
 

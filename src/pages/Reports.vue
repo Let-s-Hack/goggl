@@ -12,7 +12,7 @@
       </template>
       <template v-else>
         <div class="Reports_NoReports">
-          <SvgIcon class="Reports_NoReportsIcon" name="no-reports" />
+          <SvgIcon name="no-reports" class="Reports_NoReportsIcon" />
           <p class="Reports_NoReportsHeading">Nothing here</p>
           <span class="Reports_NoReportsText">
             You have no time entries for<br>the selected time period.

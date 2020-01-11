@@ -5,7 +5,7 @@
         <span class="Calendar_Total">0:00:00</span>
         <!-- TODO: 動的 -->
         <span class="Calendar_Date">Sunday, Dec 29</span>
-        <SvgIcon class="Calendar_Setting" name="setting" />
+        <SvgIcon name="setting" class="Calendar_Setting" />
       </div>
       <ul class="Calendar_DayWeekList">
         <li

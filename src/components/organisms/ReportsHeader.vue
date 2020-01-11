@@ -1,7 +1,7 @@
 <template>
   <div class="ReportsHeader">
     <div class="ReportsHeader_Inner">
-      <SvgIcon v-if="isLoading" class="ReportsHeader_Spinner" name="spinner" />
+      <SvgIcon v-if="isLoading" name="spinner" class="ReportsHeader_Spinner" />
       <p v-else class="ReportsHeader_Title">This week</p>
     </div>
   </div>

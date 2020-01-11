@@ -2,7 +2,7 @@
   <BottomSheet class="DurationSelector">
     <BottomSheetHeader>
       <template v-slot:icon>
-        <SvgIcon class="Record_IconTag" name="arrow" />
+        <SvgIcon name="arrow" class="Record_IconTag" />
       </template>
       <template v-slot:title>Start and stop times</template>
       <!-- TODO: クリックされたときに渡されたメソッドを実行する処理を書く -->

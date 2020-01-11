@@ -12,11 +12,11 @@
       </span>
     </div>
     <div class="RecordListItem_Center">
-      <SvgIcon class="RecordListItem_IconTag" name="tag" />
+      <SvgIcon name="tag" class="RecordListItem_IconTag" />
     </div>
     <div class="RecordListItem_Right">
       <span class="RecordListItem_Time">0:30:00</span>
-      <SvgIcon class="RecordListItem_IconStart" name="triangle" />
+      <SvgIcon name="triangle" class="RecordListItem_IconStart" />
     </div>
   </li>
 </template>
