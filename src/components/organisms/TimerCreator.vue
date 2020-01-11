@@ -76,14 +76,14 @@
           >
             <!-- TODO: アイコン出し分け -->
             <SvgIcon
-              v-if="true"
-              name="check-circle"
-              class="TimerCreator_ActionIcon _checkCircle"
+              v-if="false"
+              name="check"
+              class="TimerCreator_ActionIcon _check"
             />
             <SvgIcon
               v-else
-              name="check"
-              class="TimerCreator_ActionIcon _check"
+              name="check-circle"
+              class="TimerCreator_ActionIcon _checkCircle"
             />
           </button>
         </li>
