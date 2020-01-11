@@ -10,7 +10,6 @@
           <SvgIcon name="arrow" class="Record_IconTag" />
         </template>
         <template v-slot:title>Start and stop times</template>
-        <!-- TODO: クリックされたときに渡されたメソッドを実行する処理を書く -->
         <template v-slot:action>Save</template>
       </BottomSheetHeader>
       <div class="DurationSelector_Content">
@@ -19,7 +18,12 @@
             <div class="DurationSelector_DurationLabel">
               <SvgIcon name="triangle" class="DurationSelector_IconStart" />Start
             </div>
-            <input id="durationStart" type="datetime-local" class="DurationSelector_DurationInput">
+            <input
+              ref="durationStartInput"
+              id="durationStart"
+              type="datetime-local"
+              class="DurationSelector_DurationInput"
+            >
             <label for="durationStart" class="DurationSelector_DurationInputBlock">
               <!-- TODO: inputで入力した値を整形して表示する -->
               09:21 AM <span>01/04</span>
@@ -27,8 +31,16 @@
           </li>
           <li class="DurationSelector_DurationItem">
             <div class="DurationSelector_DurationLabel _end">End</div>
-            <input id="durationEnd" type="datetime-local" class="DurationSelector_DurationInput">
-            <label for="durationEnd" class="DurationSelector_DurationInputBlock _isStop">
+            <input
+              ref="durationEndInput"
+              id="durationEnd"
+              type="datetime-local"
+              class="DurationSelector_DurationInput"
+            >
+            <label
+              for="durationEnd"
+              :class="['DurationSelector_DurationInputBlock', { '_isStop': true }]"
+            >
               <!-- TODO: inputで入力した値を整形して表示する -->
               Stop
             </label>
@@ -41,7 +53,11 @@
             <label class="DurationSelector_TimePickerInputGroup">
               <!-- TODO: inputで入力した値を整形して表示する -->
               00:<span>30</span>
-              <input type="number" class="DurationSelector_TimePickerInput">
+              <input
+                ref="timePickerInput"
+                type="number"
+                class="DurationSelector_TimePickerInput"
+              >
             </label>
           </div>
         </div>
@@ -51,7 +67,12 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Vue,
+  Prop,
+  Ref,
+} from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
@@ -65,7 +86,26 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class DurationSelector extends Vue {
+  @Prop({ default: null }) focusTarget!: string | null;
+
+  @Ref('durationStartInput') durationStartInput!: HTMLInputElement;
+
+  @Ref('durationEndInput') durationEndInput!: HTMLInputElement;
+
+  @Ref('timePickerInput') timePickerInput!: HTMLInputElement;
+
+  $refs!: {
+    [key: string]: HTMLInputElement,
+  }
+
   private pageLayer = PageLayer;
+
+  mounted() {
+    if (this.focusTarget) {
+      const target: HTMLInputElement = this.$refs[this.focusTarget];
+      target.focus();
+    }
+  }
 
   private save(): void {
     // TODO: 保存処理
@@ -150,6 +190,7 @@ export default class DurationSelector extends Vue {
 
     > span {
       color: #B5BCC0;
+      font-weight: 500;
     }
   }
 
@@ -197,12 +238,15 @@ export default class DurationSelector extends Vue {
     display: block;
     width: 100%;
     height: 100%;
+    margin: 0;
     font-size: 2.1rem;
     text-align: right;
-    appearance: none;
     background: transparent;
     color: transparent;
     caret-color: #6FC53A;
+    appearance: none;
+    -moz-appearance:textfield;
+    -webkit-appearance: none;
   }
 }
 </style>

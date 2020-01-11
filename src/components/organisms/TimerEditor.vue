@@ -169,7 +169,10 @@ export default class TimerEditor extends Vue {
   }
 
   private showDurationSelector(): void {
-    this.pageLayer.push({ component: DurationSelector });
+    this.pageLayer.push({
+      component: DurationSelector,
+      attributes: { focusTarget: 'timePickerInput' },
+    });
   }
 
   private showDeleteButtonGroup(): void {
