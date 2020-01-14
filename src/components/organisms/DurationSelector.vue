@@ -38,7 +38,7 @@
               class="DurationSelector_DurationInput"
             >
             <label
-              v-if="isStop"
+              v-if="isEmptyDurationEnd"
               @click.prevent="durationSelector.stop()"
               for="durationEnd"
               class="DurationSelector_DurationInputBlock _isStop"
@@ -106,7 +106,7 @@ export default class DurationSelector extends Vue {
   private pageLayer = PageLayer;
 
   // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
-  private isStop: boolean = true;
+  private isEmptyDurationEnd: boolean = true;
 
   mounted() {
     if (this.focusTarget) {

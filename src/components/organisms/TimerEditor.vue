@@ -70,7 +70,7 @@
             </div>
           </div>
           <div
-            v-if="isStop"
+            v-if="isEmptyDurationEnd"
             @click="timerEditor.stop()"
             class="TimerEditor_TimeItem"
           >
@@ -158,7 +158,7 @@ export default class TimerEditor extends Vue {
   private tmp: boolean = true;
 
   // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
-  private isStop: boolean = true;
+  private isEmptyDurationEnd: boolean = true;
 
   private close(): void {
     // TODO: 変更監視
@@ -193,13 +193,13 @@ export default class TimerEditor extends Vue {
   }
 
   private showDurationSelector(focusTarget: string | null = null): void {
-    const payload: IPageLayerComponentState = { component: DurationSelector };
+    const params: IPageLayerComponentState = { component: DurationSelector };
 
     if (focusTarget !== null) {
-      payload.attributes = { focusTarget };
+      params.attributes = { focusTarget };
     }
 
-    this.pageLayer.push(payload);
+    this.pageLayer.push(params);
   }
 
   private showDeleteButtonGroup(): void {
