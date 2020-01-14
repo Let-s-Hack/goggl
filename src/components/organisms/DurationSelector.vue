@@ -103,10 +103,10 @@ export default class DurationSelector extends Vue {
 
   private pageLayer = PageLayer;
 
-  $refs!: { [key: string]: HTMLInputElement };
-
   // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
-  isStop: boolean = true;
+  private isStop: boolean = true;
+
+  public $refs!: { [key: string]: HTMLInputElement };
 
   mounted() {
     if (this.focusTarget) {

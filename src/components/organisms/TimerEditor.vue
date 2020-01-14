@@ -70,18 +70,26 @@
             </div>
           </div>
           <div
+            v-if="isStop"
+            @click="timerEditor.stop()"
+            class="TimerEditor_TimeItem"
+          >
+            <div class="TimerEditor_LabelGroup">
+              <span
+                class="TimerEditor_LabelText _isStop"
+              >Stop</span>
+              <span class="TimerEditor_LabelSubText">End</span>
+            </div>
+          </div>
+          <div
+            v-else
             @click="showDurationSelector()"
             class="TimerEditor_TimeItem"
           >
             <div class="TimerEditor_LabelGroup">
               <span
-                v-if="true"
                 class="TimerEditor_LabelText"
               >09:06 PM</span>
-              <span
-                v-else
-                class="TimerEditor_LabelText _isStop"
-              >Stop</span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
@@ -141,10 +149,15 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   },
 })
 export default class TimerEditor extends Vue {
+  private timerEditor = TimerEditor;
+
   private pageLayer = PageLayer;
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
+
+  // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
+  private isStop: boolean = true;
 
   private close(): void {
     // TODO: 変更監視
@@ -164,6 +177,10 @@ export default class TimerEditor extends Vue {
   private delete(): void {
     // TODO: 削除処理
     this.pageLayer.clear();
+  }
+
+  private static stop(): void {
+    // TODO: durationEndに値が入っていないときに現在時刻をセットする処理を書く
   }
 
   private showProjectSelector(): void {
