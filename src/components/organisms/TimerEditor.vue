@@ -59,14 +59,20 @@
           </span>
         </li>
         <li class="TimerEditor_InputGroup _time">
-          <div class="TimerEditor_TimeItem">
+          <div
+            @click="showDurationSelector()"
+            class="TimerEditor_TimeItem"
+          >
             <SvgIcon name="time" class="TimerEditor_Icon" />
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">05:06 PM</span>
               <span class="TimerEditor_LabelSubText">Start</span>
             </div>
           </div>
-          <div class="TimerEditor_TimeItem">
+          <div
+            @click="showDurationSelector()"
+            class="TimerEditor_TimeItem"
+          >
             <div class="TimerEditor_LabelGroup">
               <span
                 v-if="true"
@@ -81,7 +87,7 @@
           </div>
         </li>
         <li
-          @click="showDurationSelector()"
+          @click="showDurationSelector('timePickerInput')"
           class="TimerEditor_InputGroup _large"
         >
           <SvgIcon name="timer" class="TimerEditor_Icon" />
@@ -168,10 +174,16 @@ export default class TimerEditor extends Vue {
     this.pageLayer.push({ component: TagsSelector });
   }
 
-  private showDurationSelector(): void {
+  private showDurationSelector(focusTargt: string | null = null): void {
+    if (focusTargt === null) {
+      this.pageLayer.push({ component: DurationSelector });
+
+      return;
+    }
+
     this.pageLayer.push({
       component: DurationSelector,
-      attributes: { focusTarget: 'timePickerInput' },
+      attributes: { focusTarget: focusTargt! },
     });
   }
 

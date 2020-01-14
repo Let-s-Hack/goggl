@@ -38,11 +38,18 @@
               class="DurationSelector_DurationInput"
             >
             <label
+              v-if="isStop"
+              @click.prevent="durationSelector.stop()"
               for="durationEnd"
-              :class="['DurationSelector_DurationInputBlock', { '_isStop': true }]"
+              class="DurationSelector_DurationInputBlock _isStop"
+            >Stop</label>
+            <label
+              v-else
+              for="durationEnd"
+              class="DurationSelector_DurationInputBlock"
             >
               <!-- TODO: inputで入力した値を整形して表示する -->
-              Stop
+              09:21 AM <span>01/04</span>
             </label>
           </li>
         </ul>
@@ -50,14 +57,19 @@
           <img src="/img/durationTimer.svg" class="DurationSelector_TimePicker">
           <div class="DurationSelector_InputGroup">
             <SvgIcon name="timer" class="DurationSelector_TimerIcon" />
-            <label class="DurationSelector_TimePickerInputGroup">
+            <input
+              ref="timePickerInput"
+              id="timePicker"
+              type="number"
+              pattern="\d*"
+              class="DurationSelector_TimePickerInput"
+            >
+            <label
+              for="timePicker"
+              class="DurationSelector_TimePickerInputGroup"
+            >
               <!-- TODO: inputで入力した値を整形して表示する -->
               00:<span>30</span>
-              <input
-                ref="timePickerInput"
-                type="number"
-                class="DurationSelector_TimePickerInput"
-              >
             </label>
           </div>
         </div>
@@ -69,9 +81,8 @@
 <script lang="ts">
 import {
   Component,
-  Vue,
   Prop,
-  Ref,
+  Vue,
 } from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
@@ -88,28 +99,33 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 export default class DurationSelector extends Vue {
   @Prop({ default: null }) focusTarget!: string | null;
 
-  @Ref('durationStartInput') durationStartInput!: HTMLInputElement;
-
-  @Ref('durationEndInput') durationEndInput!: HTMLInputElement;
-
-  @Ref('timePickerInput') timePickerInput!: HTMLInputElement;
-
-  $refs!: {
-    [key: string]: HTMLInputElement,
-  }
+  private durationSelector = DurationSelector;
 
   private pageLayer = PageLayer;
 
+  $refs!: { [key: string]: HTMLInputElement };
+
+  // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
+  isStop: boolean = true;
+
   mounted() {
     if (this.focusTarget) {
-      const target: HTMLInputElement = this.$refs[this.focusTarget];
-      target.focus();
+      this.focus();
     }
   }
 
   private save(): void {
     // TODO: 保存処理
     this.pageLayer.pop();
+  }
+
+  private static stop(): void {
+    // TODO: durationEndに値が入っていないときに現在時刻をセットする処理を書く
+  }
+
+  private focus(): void {
+    const target: HTMLInputElement = this.$refs[this.focusTarget!];
+    target.focus();
   }
 }
 </script>
@@ -175,9 +191,12 @@ export default class DurationSelector extends Vue {
     border-radius: 1.6rem;
     font-size: 1.5rem;
     letter-spacing: 0.1rem;
+    font-weight: 500;
+    white-space: nowrap;
 
     &._isStop {
       color: #6FC53A;
+      font-weight: 400;
     }
 
     .DurationSelector_DurationInput:focus + & {
@@ -190,7 +209,6 @@ export default class DurationSelector extends Vue {
 
     > span {
       color: #B5BCC0;
-      font-weight: 500;
     }
   }
 
@@ -220,7 +238,6 @@ export default class DurationSelector extends Vue {
   }
 
   &_TimePickerInputGroup {
-    position: relative;
     margin-left: 8px;
     font-size: 2.1rem;
     letter-spacing: 0.2rem;
@@ -236,10 +253,11 @@ export default class DurationSelector extends Vue {
     top: 0;
     right: 0;
     display: block;
-    width: 100%;
-    height: 100%;
-    margin: 0;
+    width: 80px;
+    height: 2.1rem;
+    padding: 6px 12px;
     font-size: 2.1rem;
+    letter-spacing: 0.2rem;
     text-align: right;
     background: transparent;
     color: transparent;
