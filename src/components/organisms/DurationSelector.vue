@@ -99,14 +99,14 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 export default class DurationSelector extends Vue {
   @Prop({ default: null }) focusTarget!: string | null;
 
+  public $refs!: { [key: string]: HTMLInputElement };
+
   private durationSelector = DurationSelector;
 
   private pageLayer = PageLayer;
 
   // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
   private isStop: boolean = true;
-
-  public $refs!: { [key: string]: HTMLInputElement };
 
   mounted() {
     if (this.focusTarget) {
@@ -124,7 +124,9 @@ export default class DurationSelector extends Vue {
   }
 
   private focus(): void {
-    const target: HTMLInputElement = this.$refs[this.focusTarget!];
+    if (this.focusTarget === null) return;
+
+    const target: HTMLInputElement = this.$refs[this.focusTarget];
     target.focus();
   }
 }

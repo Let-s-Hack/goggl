@@ -131,6 +131,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { IPageLayerComponentState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
@@ -191,17 +192,14 @@ export default class TimerEditor extends Vue {
     this.pageLayer.push({ component: TagsSelector });
   }
 
-  private showDurationSelector(focusTargt: string | null = null): void {
-    if (focusTargt === null) {
-      this.pageLayer.push({ component: DurationSelector });
+  private showDurationSelector(focusTarget: string | null = null): void {
+    const payload: IPageLayerComponentState = { component: DurationSelector };
 
-      return;
+    if (focusTarget !== null) {
+      payload.attributes = { focusTarget };
     }
 
-    this.pageLayer.push({
-      component: DurationSelector,
-      attributes: { focusTarget: focusTargt! },
-    });
+    this.pageLayer.push(payload);
   }
 
   private showDeleteButtonGroup(): void {
