@@ -26,6 +26,7 @@ export interface ILoaderState {
 
 export interface ITimerState {
   startDatetime: string | null,
+  endDatetime: string | null,
   projectId: string | null,
   tags: number[],
   [key: string]: string | number[] | null,
@@ -33,5 +34,6 @@ export interface ITimerState {
 
 export interface ITimeRecorderState {
   timerState: ITimerState,
+  tmpState: ITimerState,
   isActive: boolean,
 }
