@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 import {
   IPageLayerState,
   ILoaderState,
-  ITimeRecorderState,
   IProjectsManagerState,
+  ITimeRecorderState,
 } from './types';
 
 Vue.use(Vuex);
