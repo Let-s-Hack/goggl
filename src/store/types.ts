@@ -39,5 +39,5 @@ export interface ITimeRecorderState {
 }
 
 export interface ITagManager {
-  tags: { id: number, name: string }[],
+  tagState: { id: number, name: string }[],
 }
