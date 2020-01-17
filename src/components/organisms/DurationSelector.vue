@@ -48,8 +48,8 @@
               for="durationEnd"
               class="DurationSelector_DurationInputBlock"
             >
-              {{ displayEndDateTime | format('HH:mm A ') }}
-              <span>{{ displayEndDateTime | format('MM/DD') }}</span>
+              {{ displayEndDatetime | format('HH:mm A ') }}
+              <span>{{ displayEndDatetime | format('MM/DD') }}</span>
             </label>
           </li>
         </ul>
@@ -107,14 +107,14 @@ export default class DurationSelector extends Vue {
 
   private timeRecorder = TimeRecorder;
 
-  private endDateTime: string = this.timeRecorder.endDateTime;
+  private endDatetime: string = this.timeRecorder.endDatetime;
 
   private isTimerActive: boolean = this.timeRecorder.isActive;
 
-  private tmpEndDateTime: string = this.timeRecorder.tmpEndDateTime;
+  private tmpEndDatetime: string = this.timeRecorder.tmpEndDatetime;
 
-  private get displayEndDateTime(): string {
-    return this.timeRecorder.tmpEndDateTime || this.timeRecorder.endDateTime;
+  private get displayEndDatetime(): string {
+    return this.timeRecorder.tmpEndDatetime || this.timeRecorder.endDatetime;
   }
 
   mounted() {
@@ -127,7 +127,7 @@ export default class DurationSelector extends Vue {
   }
 
   private stop(): void {
-    this.timeRecorder.setEndDateTime({
+    this.timeRecorder.setEndDatetime({
       type: 'tmp',
       datetime: moment().format('YYYY-MM-DD HH:mm'),
     });

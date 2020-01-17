@@ -26,13 +26,13 @@ const initialTimerState: ITimerState = {
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
   public timerState: ITimerState = { ...initialTimerState };
 
-  public endDateTime: string = '';
+  public endDatetime: string = '';
 
-  public startDateTime: string = '';
+  public startDatetime: string = '';
 
-  public tmpEndDateTime: string = '';
+  public tmpEndDatetime: string = '';
 
-  public tmpStartDateTime: string = '';
+  public tmpStartDatetime: string = '';
 
   public isActive: boolean = true;
 
@@ -49,13 +49,13 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   @Mutation
-  public setEndDateTime(payload: { datetime: string, type?: string }): void {
+  public setEndDatetime(payload: { datetime: string, type?: string }): void {
     if (payload.type === 'tmp') {
-      this.tmpEndDateTime = payload.datetime;
+      this.tmpEndDatetime = payload.datetime;
       return;
     }
 
-    this.endDateTime = payload.datetime;
+    this.endDatetime = payload.datetime;
   }
 
   @Action

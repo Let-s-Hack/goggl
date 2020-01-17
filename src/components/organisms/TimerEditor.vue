@@ -88,7 +88,7 @@
           >
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">
-                {{ displayEndDateTime | format('HH:mm') }}
+                {{ displayEndDatetime | format('HH:mm') }}
               </span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
@@ -156,17 +156,17 @@ export default class TimerEditor extends Vue {
 
   private timeRecorder = TimeRecorder;
 
-  private endDateTime: string = this.timeRecorder.endDateTime;
+  private endDatetime: string = this.timeRecorder.endDatetime;
 
   private isTimerActive: boolean = this.timeRecorder.isActive;
 
-  private tmpEndDateTime: string = this.timeRecorder.tmpEndDateTime;
+  private tmpEndDatetime: string = this.timeRecorder.tmpEndDatetime;
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
 
-  private get displayEndDateTime(): string {
-    return this.timeRecorder.tmpEndDateTime || this.timeRecorder.endDateTime;
+  private get displayEndDatetime(): string {
+    return this.timeRecorder.tmpEndDatetime || this.timeRecorder.endDatetime;
   }
 
   private close(): void {
@@ -190,7 +190,7 @@ export default class TimerEditor extends Vue {
   }
 
   private stop(): void {
-    this.timeRecorder.setEndDateTime({
+    this.timeRecorder.setEndDatetime({
       type: 'tmp',
       datetime: moment().format('YYYY-MM-DD HH:mm'),
     });
