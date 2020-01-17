@@ -156,17 +156,18 @@ export default class TimerEditor extends Vue {
 
   private timeRecorder = TimeRecorder;
 
-  private endDatetime: string = this.timeRecorder.endDatetime;
+  private endDatetime: string = this.timeRecorder.getState({ key: 'endDatetime' });
 
   private isTimerActive: boolean = this.timeRecorder.isActive;
 
-  private tmpEndDatetime: string = this.timeRecorder.tmpEndDatetime;
+  private tmpEndDatetime: string = this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' });
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
 
   private get displayEndDatetime(): string {
-    return this.timeRecorder.tmpEndDatetime || this.timeRecorder.endDatetime;
+    return this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
+      || this.timeRecorder.getState({ key: 'endDatetime' });
   }
 
   private close(): void {
@@ -190,9 +191,10 @@ export default class TimerEditor extends Vue {
   }
 
   private stop(): void {
-    this.timeRecorder.setEndDatetime({
+    this.timeRecorder.setState({
       type: 'tmp',
-      datetime: moment().format('YYYY-MM-DD HH:mm'),
+      key: 'endDatetime',
+      value: moment().format('YYYY-MM-DD HH:mm'),
     });
     this.isTimerActive = false;
   }

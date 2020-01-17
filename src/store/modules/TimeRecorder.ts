@@ -13,6 +13,7 @@ import store from '@/store';
 
 const initialTimerState: ITimerState = {
   startDatetime: null,
+  endDatetime: null,
   projectId: null,
   tags: [],
 };
@@ -26,13 +27,7 @@ const initialTimerState: ITimerState = {
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
   public timerState: ITimerState = { ...initialTimerState };
 
-  public endDatetime: string = '';
-
-  public startDatetime: string = '';
-
-  public tmpEndDatetime: string = '';
-
-  public tmpStartDatetime: string = '';
+  public tmpState: ITimerState = { ...initialTimerState };
 
   public isActive: boolean = true;
 
@@ -49,19 +44,26 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   @Mutation
-  public setEndDatetime(payload: { datetime: string, type?: string }): void {
-    if (payload.type === 'tmp') {
-      this.tmpEndDatetime = payload.datetime;
-      return;
-    }
-
-    this.endDatetime = payload.datetime;
+  public setState(payload: {
+    key: string,
+    value: string | number[],
+    type?: string,
+  }): void {
+    const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
+    state[payload.key] = payload.value;
   }
 
   @Action
   public record(): void {
     // TODO: 記録する処理を書く
     this.context.commit('deactivate');
+  }
+
+  public get getState(): Function {
+    return (params: { key: string, type?: string}): string | number[] | null => {
+      const state = (params.type === 'tmp') ? this.tmpState : this.timerState;
+      return state[params.key];
+    };
   }
 }
 
