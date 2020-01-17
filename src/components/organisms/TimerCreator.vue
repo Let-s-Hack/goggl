@@ -125,6 +125,7 @@ export default class TimerCreator extends Vue {
 
   private timerState: ITimerState = {
     startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
+    endDatetime: null,
     projectId: null,
     tags: [],
   };
