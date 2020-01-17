@@ -162,8 +162,10 @@ export default class TimerEditor extends Vue {
   private tmp: boolean = true;
 
   private get displayEndDatetime(): string {
-    return this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
-      || this.timeRecorder.getState({ key: 'endDatetime' });
+    return (
+      this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
+      || this.timeRecorder.getState({ key: 'endDatetime' })
+    );
   }
 
   private close(): void {

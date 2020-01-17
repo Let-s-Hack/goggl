@@ -110,8 +110,10 @@ export default class DurationSelector extends Vue {
   private isTimerActive: boolean = this.timeRecorder.isActive;
 
   private get displayEndDatetime(): string {
-    return this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
-      || this.timeRecorder.getState({ key: 'endDatetime' });
+    return (
+      this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
+      || this.timeRecorder.getState({ key: 'endDatetime' })
+    );
   }
 
   mounted() {
