@@ -4,13 +4,13 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  IProjectsState,
-  IProjectsManagerState,
+  IProjectState,
+  IProjectManagerState,
 } from '@/store/types';
 import store from '@/store';
 
 // TODO: 一時的に仮データを初期値に置いている。あとで修正する。
-const initialState: IProjectsState = [
+const initialState: IProjectState = [
   {
     id: 1,
     name: 'プロジェクトX',
@@ -34,15 +34,15 @@ const initialState: IProjectsState = [
 ];
 
 @Module({
-  name: 'ProjectsManager',
+  name: 'ProjectManager',
   namespaced: true,
   dynamic: true,
   store,
 })
-class ProjectsManager extends VuexModule implements IProjectsManagerState {
-  public projectsState: IProjectsState = { ...initialState };
+class ProjectManager extends VuexModule implements IProjectManagerState {
+  public projectState: IProjectState = { ...initialState };
 }
 
-const projectsManager = getModule(ProjectsManager);
+const projectManager = getModule(ProjectManager);
 
-export default projectsManager;
+export default projectManager;

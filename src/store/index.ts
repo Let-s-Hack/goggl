@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import {
   IPageLayerState,
   ILoaderState,
-  IProjectsManagerState,
+  IProjectManagerState,
   ITimeRecorderState,
 } from './types';
 
@@ -12,7 +12,7 @@ Vue.use(Vuex);
 export interface IRootState {
   pageLayer: IPageLayerState,
   loader: ILoaderState,
-  projectsManager: IProjectsManagerState,
+  projectManager: IProjectManagerState,
   timeRecorder: ITimeRecorderState,
 }
 
