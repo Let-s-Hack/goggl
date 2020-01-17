@@ -21,23 +21,28 @@ class ProjectManager extends VuexModule implements IProjectManagerState {
   }[] = [
     {
       id: 1,
-      name: 'プロジェクトX',
-      color: '#3F46E3',
+      name: 'No Project',
+      color: '#B2BCC1',
     },
     {
       id: 2,
-      name: 'プロジェクトY',
-      color: '#3FE643',
+      name: 'Finance',
+      color: '#06AAF5',
     },
     {
       id: 3,
-      name: 'プロジェクトZ',
-      color: '#F346E3',
+      name: 'CMS',
+      color: '#F1C33F',
     },
     {
       id: 4,
-      name: 'プロジェクトA',
-      color: '#999',
+      name: 'goggl',
+      color: '#E20505',
+    },
+    {
+      id: 5,
+      name: 'LINE',
+      color: '#4BC800',
     },
   ];
 }
