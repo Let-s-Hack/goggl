@@ -4,7 +4,7 @@ import {
   ILoaderState,
   IPageLayerState,
   IProjectManagerState,
-  ITagManager,
+  ITagManagerState,
   ITimeRecorderState,
 } from './types';
 
@@ -14,7 +14,7 @@ export interface IRootState {
   loader: ILoaderState,
   pageLayer: IPageLayerState,
   projectManager: IProjectManagerState,
-  tagManager: ITagManager,
+  tagManager: ITagManagerState,
   timeRecorder: ITimeRecorderState,
 }
 
