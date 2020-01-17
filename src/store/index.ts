@@ -4,6 +4,7 @@ import {
   IPageLayerState,
   ILoaderState,
   ITimeRecorderState,
+  IProjectsManagerState,
 } from './types';
 
 Vue.use(Vuex);
@@ -11,6 +12,7 @@ Vue.use(Vuex);
 export interface IRootState {
   pageLayer: IPageLayerState,
   loader: ILoaderState,
+  projectsManager: IProjectsManagerState,
   timeRecorder: ITimeRecorderState,
 }
 
