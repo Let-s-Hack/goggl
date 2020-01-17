@@ -1,18 +1,20 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {
-  IPageLayerState,
   ILoaderState,
+  IPageLayerState,
   IProjectManagerState,
+  ITagManagerState,
   ITimeRecorderState,
 } from './types';
 
 Vue.use(Vuex);
 
 export interface IRootState {
-  pageLayer: IPageLayerState,
   loader: ILoaderState,
+  pageLayer: IPageLayerState,
   projectManager: IProjectManagerState,
+  tagManager: ITagManagerState,
   timeRecorder: ITimeRecorderState,
 }
 

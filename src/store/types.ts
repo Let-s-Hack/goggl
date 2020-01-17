@@ -45,3 +45,7 @@ export interface IProjectManagerState {
     color: string,
   }[],
 }
+
+export interface ITagManagerState {
+  tagState: { id: number, name: string }[],
+}
