@@ -98,7 +98,7 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
 })
 export default class DurationSelector extends Vue {
-  @Prop({ default: null }) focusTarget!: string | null;
+  @Prop({ default: null }) focusTarget?: string | null;
 
   public $refs!: { [key: string]: HTMLInputElement };
 
@@ -122,7 +122,7 @@ export default class DurationSelector extends Vue {
   }
 
   private focus(): void {
-    if (this.focusTarget === null) return;
+    if (this.focusTarget === null || this.focusTarget === undefined) return;
 
     const target: HTMLInputElement = this.$refs[this.focusTarget];
 
