@@ -156,11 +156,7 @@ export default class TimerEditor extends Vue {
 
   private timeRecorder = TimeRecorder;
 
-  private endDatetime: string = this.timeRecorder.getState({ key: 'endDatetime' });
-
   private isTimerActive: boolean = this.timeRecorder.isActive;
-
-  private tmpEndDatetime: string = this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' });
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
