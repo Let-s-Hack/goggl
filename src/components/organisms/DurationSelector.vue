@@ -39,7 +39,7 @@
             >
             <label
               v-if="isTimerActive"
-              @click.prevent="durationSelector.stop()"
+              @click.prevent="stop()"
               for="durationEnd"
               class="DurationSelector_DurationInputBlock _isStop"
             >Stop</label>
@@ -48,8 +48,8 @@
               for="durationEnd"
               class="DurationSelector_DurationInputBlock"
             >
-              <!-- TODO: inputで入力した値を整形して表示する -->
-              09:21 AM <span>01/04</span>
+              {{ displayEndDateTime | format('HH:mm A ') }}
+              <span>{{ displayEndDateTime | format('MM/DD') }}</span>
             </label>
           </li>
         </ul>
@@ -79,6 +79,7 @@
 </template>
 
 <script lang="ts">
+import moment from 'moment';
 import {
   Component,
   Prop,
@@ -102,11 +103,19 @@ export default class DurationSelector extends Vue {
 
   public $refs!: { [key: string]: HTMLInputElement };
 
-  private durationSelector = DurationSelector;
-
   private pageLayer = PageLayer;
 
-  private isTimerActive: boolean = TimeRecorder.isActive;
+  private timeRecorder = TimeRecorder;
+
+  private endDateTime: string = this.timeRecorder.endDateTime;
+
+  private isTimerActive: boolean = this.timeRecorder.isActive;
+
+  private tmpEndDateTime: string = this.timeRecorder.tmpEndDateTime;
+
+  private get displayEndDateTime(): string {
+    return this.timeRecorder.tmpEndDateTime || this.timeRecorder.endDateTime;
+  }
 
   mounted() {
     this.focus();
@@ -117,8 +126,12 @@ export default class DurationSelector extends Vue {
     this.pageLayer.pop();
   }
 
-  private static stop(): void {
-    // TODO: durationEndに値が入っていないときに現在時刻をセットする処理を書く
+  private stop(): void {
+    this.timeRecorder.setEndDateTime({
+      type: 'tmp',
+      datetime: moment().format('YYYY-MM-DD HH:mm'),
+    });
+    this.isTimerActive = false;
   }
 
   private focus(): void {

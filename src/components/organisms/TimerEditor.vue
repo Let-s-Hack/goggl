@@ -71,7 +71,7 @@
           </div>
           <div
             v-if="isTimerActive"
-            @click="timerEditor.stop()"
+            @click="stop()"
             class="TimerEditor_TimeItem"
           >
             <div class="TimerEditor_LabelGroup">
@@ -87,7 +87,9 @@
             class="TimerEditor_TimeItem"
           >
             <div class="TimerEditor_LabelGroup">
-              <span class="TimerEditor_LabelText">09:06 PM</span>
+              <span class="TimerEditor_LabelText">
+                {{ displayEndDateTime | format('HH:mm') }}
+              </span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
@@ -128,6 +130,7 @@
 </template>
 
 <script lang="ts">
+import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { IPageLayerComponentState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
@@ -149,14 +152,22 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   },
 })
 export default class TimerEditor extends Vue {
-  private timerEditor = TimerEditor;
-
   private pageLayer = PageLayer;
 
-  private isTimerActive: boolean = TimeRecorder.isActive;
+  private timeRecorder = TimeRecorder;
+
+  private endDateTime: string = this.timeRecorder.endDateTime;
+
+  private isTimerActive: boolean = this.timeRecorder.isActive;
+
+  private tmpEndDateTime: string = this.timeRecorder.tmpEndDateTime;
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
+
+  private get displayEndDateTime(): string {
+    return this.timeRecorder.tmpEndDateTime || this.timeRecorder.endDateTime;
+  }
 
   private close(): void {
     // TODO: 変更監視
@@ -178,8 +189,12 @@ export default class TimerEditor extends Vue {
     this.pageLayer.clear();
   }
 
-  private static stop(): void {
-    // TODO: durationEndに値が入っていないときに現在時刻をセットする処理を書く
+  private stop(): void {
+    this.timeRecorder.setEndDateTime({
+      type: 'tmp',
+      datetime: moment().format('YYYY-MM-DD HH:mm'),
+    });
+    this.isTimerActive = false;
   }
 
   private showProjectSelector(): void {
