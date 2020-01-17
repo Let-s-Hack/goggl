@@ -15,9 +15,9 @@ import store from '@/store';
 class ProjectManager extends VuexModule implements IProjectManagerState {
   // TODO: 一時的に仮データを初期値に置いている。あとで修正する。
   public projectState: {
-    id: number | null,
-    name: string | null,
-    color: string | null,
+    id: number,
+    name: string,
+    color: string,
   }[] = [
     {
       id: 1,

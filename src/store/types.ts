@@ -40,8 +40,8 @@ export interface ITimeRecorderState {
 
 export interface IProjectManagerState {
   projectState: {
-    id: number | null,
-    name: string | null,
-    color: string | null,
+    id: number,
+    name: string,
+    color: string,
   }[],
 }
