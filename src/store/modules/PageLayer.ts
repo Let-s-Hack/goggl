@@ -5,7 +5,6 @@ import {
   getModule,
 } from 'vuex-module-decorators';
 import {
-  IPageLayerPropState,
   IPageLayerComponentState,
   IPageLayerState,
 } from '@/store/types';
