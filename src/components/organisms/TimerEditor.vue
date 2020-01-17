@@ -131,6 +131,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { IPageLayerComponentState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -152,11 +153,11 @@ export default class TimerEditor extends Vue {
 
   private pageLayer = PageLayer;
 
+  // TODO: TimeRecorderの初期値をセットする
+  private isTimerActive: boolean = TimeRecorder.isActive;
+
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
-
-  // TODO: TimeRecorderの初期値をセットする
-  private isTimerActive: boolean = true;
 
   private close(): void {
     // TODO: 変更監視

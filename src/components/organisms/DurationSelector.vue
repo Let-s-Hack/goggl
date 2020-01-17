@@ -85,6 +85,7 @@ import {
   Vue,
 } from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -105,13 +106,10 @@ export default class DurationSelector extends Vue {
 
   private pageLayer = PageLayer;
 
-  // TODO: TimeRecorderの初期値をセットする
-  private isTimerActive: boolean = true;
+  private isTimerActive: boolean = TimeRecorder.isActive;
 
   mounted() {
-    if (this.focusTarget) {
-      this.focus();
-    }
+    this.focus();
   }
 
   private save(): void {
@@ -125,6 +123,7 @@ export default class DurationSelector extends Vue {
 
   private focus(): void {
     if (this.focusTarget === null) return;
+    if (typeof this.$refs[this.focusTarget] === 'undefined') return;
 
     const target: HTMLInputElement = this.$refs[this.focusTarget];
     target.focus();
