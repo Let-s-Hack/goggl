@@ -87,9 +87,7 @@
             class="TimerEditor_TimeItem"
           >
             <div class="TimerEditor_LabelGroup">
-              <span
-                class="TimerEditor_LabelText"
-              >09:06 PM</span>
+              <span class="TimerEditor_LabelText">09:06 PM</span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
