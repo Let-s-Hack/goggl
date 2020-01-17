@@ -26,7 +26,15 @@ const initialTimerState: ITimerState = {
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
   public timerState: ITimerState = { ...initialTimerState };
 
-  public isActive: boolean = false;
+  public endDateTime: string = '';
+
+  public startDateTime: string = '';
+
+  public tmpEndDateTime: string = '';
+
+  public tmpStartDateTime: string = '';
+
+  public isActive: boolean = true;
 
   @Mutation
   public activate(payload: ITimerState): void {
@@ -40,7 +48,15 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
     this.isActive = false;
   }
 
-  // TODO: プロジェクト、タグ設定のミューテーションを書く
+  @Mutation
+  public setEndDateTime(payload: { datetime: string, type?: string }): void {
+    if (payload.type === 'tmp') {
+      this.tmpEndDateTime = payload.datetime;
+      return;
+    }
+
+    this.endDateTime = payload.datetime;
+  }
 
   @Action
   public record(): void {
