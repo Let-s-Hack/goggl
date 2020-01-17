@@ -16,19 +16,19 @@ class TagManager extends VuexModule implements ITagManager {
   public tagState: { id: number, name: string }[] = [
     {
       id: 1,
-      name: '設計',
+      name: 'design',
     },
     {
       id: 2,
-      name: '実装',
+      name: 'develop',
     },
     {
       id: 3,
-      name: 'レビュー',
+      name: 'review',
     },
     {
       id: 4,
-      name: '振り返り',
+      name: 'meeting',
     },
   ];
 }
