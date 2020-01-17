@@ -153,7 +153,6 @@ export default class TimerEditor extends Vue {
 
   private pageLayer = PageLayer;
 
-  // TODO: TimeRecorderの初期値をセットする
   private isTimerActive: boolean = TimeRecorder.isActive;
 
   // TODO: 変更監視（要削除）
