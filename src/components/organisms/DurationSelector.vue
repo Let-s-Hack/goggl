@@ -38,7 +38,7 @@
               class="DurationSelector_DurationInput"
             >
             <label
-              v-if="isActive"
+              v-if="isTimerActive"
               @click.prevent="durationSelector.stop()"
               for="durationEnd"
               class="DurationSelector_DurationInputBlock _isStop"
@@ -106,7 +106,7 @@ export default class DurationSelector extends Vue {
   private pageLayer = PageLayer;
 
   // TODO: TimeRecorderの初期値をセットする
-  private isActive: boolean = true;
+  private isTimerActive: boolean = true;
 
   mounted() {
     if (this.focusTarget) {

@@ -70,7 +70,7 @@
             </div>
           </div>
           <div
-            v-if="isEmptyDurationEnd"
+            v-if="isTimerActive"
             @click="timerEditor.stop()"
             class="TimerEditor_TimeItem"
           >
@@ -157,8 +157,8 @@ export default class TimerEditor extends Vue {
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
 
-  // TODO: durationEndの値が入っていない場合はtrueに、入っている場合はfalseにする処理を書く
-  private isEmptyDurationEnd: boolean = true;
+  // TODO: TimeRecorderの初期値をセットする
+  private isTimerActive: boolean = true;
 
   private close(): void {
     // TODO: 変更監視
