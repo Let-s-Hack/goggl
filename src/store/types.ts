@@ -37,3 +37,11 @@ export interface ITimeRecorderState {
   tmpState: ITimerState,
   isActive: boolean,
 }
+
+export interface IProjectManagerState {
+  projectState: {
+    id: number,
+    name: string,
+    color: string,
+  }[],
+}
