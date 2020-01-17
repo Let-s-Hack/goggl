@@ -37,3 +37,7 @@ export interface ITimeRecorderState {
   tmpState: ITimerState,
   isActive: boolean,
 }
+
+export interface ITagManager {
+  tags: { id: number, name: string }[],
+}
