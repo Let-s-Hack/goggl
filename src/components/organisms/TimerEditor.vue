@@ -59,28 +59,43 @@
           </span>
         </li>
         <li class="TimerEditor_InputGroup _time">
-          <div class="TimerEditor_TimeItem">
+          <div
+            @click="showDurationSelector()"
+            class="TimerEditor_TimeItem"
+          >
             <SvgIcon name="time" class="TimerEditor_Icon" />
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">05:06 PM</span>
               <span class="TimerEditor_LabelSubText">Start</span>
             </div>
           </div>
-          <div class="TimerEditor_TimeItem">
+          <div
+            v-if="isTimerActive"
+            @click="timerEditor.stop()"
+            class="TimerEditor_TimeItem"
+          >
             <div class="TimerEditor_LabelGroup">
               <span
-                v-if="true"
-                class="TimerEditor_LabelText"
-              >09:06 PM</span>
-              <span
-                v-else
                 class="TimerEditor_LabelText _isStop"
               >Stop</span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
+          <div
+            v-else
+            @click="showDurationSelector()"
+            class="TimerEditor_TimeItem"
+          >
+            <div class="TimerEditor_LabelGroup">
+              <span class="TimerEditor_LabelText">09:06 PM</span>
+              <span class="TimerEditor_LabelSubText">End</span>
+            </div>
+          </div>
         </li>
-        <li class="TimerEditor_InputGroup _large">
+        <li
+          @click="showDurationSelector('timePickerInput')"
+          class="TimerEditor_InputGroup _large"
+        >
           <SvgIcon name="timer" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
             <span class="TimerEditor_LabelText">0:00:23</span>
@@ -114,12 +129,15 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { IPageLayerComponentState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 import DeleteButtonGroup from '~/organisms/DeleteButtonGroup.vue';
 import DiscardButtonGroup from '~/organisms/DiscardButtonGroup.vue';
+import DurationSelector from '~/organisms/DurationSelector.vue';
 import ProjectSelector from '~/organisms/ProjectSelector.vue';
 import TagsSelector from '~/organisms/TagsSelector.vue';
 
@@ -131,7 +149,11 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   },
 })
 export default class TimerEditor extends Vue {
+  private timerEditor = TimerEditor;
+
   private pageLayer = PageLayer;
+
+  private isTimerActive: boolean = TimeRecorder.isActive;
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
@@ -156,12 +178,26 @@ export default class TimerEditor extends Vue {
     this.pageLayer.clear();
   }
 
+  private static stop(): void {
+    // TODO: durationEndに値が入っていないときに現在時刻をセットする処理を書く
+  }
+
   private showProjectSelector(): void {
     this.pageLayer.push({ component: ProjectSelector });
   }
 
   private showTagsSelector(): void {
     this.pageLayer.push({ component: TagsSelector });
+  }
+
+  private showDurationSelector(focusTarget: string | null = null): void {
+    const params: IPageLayerComponentState = { component: DurationSelector };
+
+    if (focusTarget !== null) {
+      params.attributes = { focusTarget };
+    }
+
+    this.pageLayer.push(params);
   }
 
   private showDeleteButtonGroup(): void {
