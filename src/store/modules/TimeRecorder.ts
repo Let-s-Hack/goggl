@@ -29,7 +29,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  public isActive: boolean = true;
+  public isActive: boolean = false;
 
   @Mutation
   public activate(payload: ITimerState): void {
@@ -46,7 +46,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   @Mutation
   public setState(payload: {
     key: string,
-    value: string | number[],
+    value: string | number[] | null,
     type?: string,
   }): void {
     const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
@@ -60,7 +60,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   public get getState(): Function {
-    return (params: { key: string, type?: string}): string | number[] | null => {
+    return (params: { key: string, type?: string }): string | number[] | null => {
       const state = (params.type === 'tmp') ? this.tmpState : this.timerState;
       return state[params.key];
     };
