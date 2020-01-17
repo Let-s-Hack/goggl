@@ -38,6 +38,14 @@ export interface ITimeRecorderState {
   isActive: boolean,
 }
 
+export interface IProjectManagerState {
+  projectState: {
+    id: number,
+    name: string,
+    color: string,
+  }[],
+}
+
 export interface ITagManager {
   tagState: { id: number, name: string }[],
 }

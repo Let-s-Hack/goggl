@@ -1,19 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {
-  IPageLayerState,
   ILoaderState,
-  ITimeRecorderState,
+  IPageLayerState,
+  IProjectManagerState,
   ITagManager,
+  ITimeRecorderState,
 } from './types';
 
 Vue.use(Vuex);
 
 export interface IRootState {
-  pageLayer: IPageLayerState,
   loader: ILoaderState,
-  timeRecorder: ITimeRecorderState,
+  pageLayer: IPageLayerState,
+  projectManager: IProjectManagerState,
   tagManager: ITagManager,
+  timeRecorder: ITimeRecorderState,
 }
 
 export default new Vuex.Store<IRootState>({});
