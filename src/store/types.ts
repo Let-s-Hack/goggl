@@ -46,6 +46,6 @@ export interface IProjectManagerState {
   }[],
 }
 
-export interface ITagManager {
+export interface ITagManagerState {
   tagState: { id: number, name: string }[],
 }

@@ -3,7 +3,7 @@ import {
   VuexModule,
   getModule,
 } from 'vuex-module-decorators';
-import { ITagManager } from '@/store/types';
+import { ITagManagerState } from '@/store/types';
 import store from '@/store';
 
 @Module({
@@ -12,7 +12,7 @@ import store from '@/store';
   dynamic: true,
   store,
 })
-class TagManager extends VuexModule implements ITagManager {
+class TagManager extends VuexModule implements ITagManagerState {
   public tagState: { id: number, name: string }[] = [
     {
       id: 1,
