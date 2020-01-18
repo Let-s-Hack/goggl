@@ -20,6 +20,7 @@
       <ul class="TagsSelector_List">
         <li
           v-for="tag in tags"
+          @click="tag.isSelected = !tag.isSelected"
           :key="tag.id"
           class="TagsSelector_ListItem"
         >
@@ -72,6 +73,7 @@ export default class TagsSelector extends Vue {
   }
 
   private save(): void {
+    // TODO: 選択済みの項目のみを抽出
     // TODO: 保存処理
     this.pageLayer.pop();
   }
