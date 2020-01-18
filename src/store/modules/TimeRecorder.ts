@@ -15,7 +15,7 @@ const initialTimerState: ITimerState = {
   startDatetime: null,
   endDatetime: null,
   projectId: null,
-  tags: [],
+  tagIds: [],
 };
 
 @Module({
@@ -47,7 +47,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   @Mutation
   public setState(payload: {
     key: string,
-    value: string | number[] | null,
+    value: string | number | number[] | null,
     type?: string,
   }): void {
     const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
