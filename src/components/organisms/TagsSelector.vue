@@ -18,28 +18,12 @@
         <input type="text" class="TagsSelector_Input" placeholder="Add/filter tags">
       </div>
       <ul class="TagsSelector_List">
-        <li class="TagsSelector_ListItem">
-          <span class="TagsSelector_Tag">設計</span>
-          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
-          <!-- <span class="TagsSelector_Unselected"></span> -->
-        </li>
-        <li class="TagsSelector_ListItem">
-          <span class="TagsSelector_Tag">MTG</span>
-          <!-- <SvgIcon name="check-circle" class="TagsSelector_Selected" /> -->
-          <span class="TagsSelector_Unselected"></span>
-        </li>
-        <li class="TagsSelector_ListItem">
-          <span class="TagsSelector_Tag">実装</span>
-          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
-          <!-- <span class="TagsSelector_Unselected"></span> -->
-        </li>
-        <li class="TagsSelector_ListItem">
-          <span class="TagsSelector_Tag">UIデザイン</span>
-          <!-- <SvgIcon name="check-circle" class="TagsSelector_Selected" /> -->
-          <span class="TagsSelector_Unselected"></span>
-        </li>
-        <li class="TagsSelector_ListItem">
-          <span class="TagsSelector_Tag">コードレビュー</span>
+        <li
+          v-for="tag in tags"
+          :key="tag.id"
+          class="TagsSelector_ListItem"
+        >
+          <span class="TagsSelector_Tag">{{ tag.name }}</span>
           <SvgIcon name="check-circle" class="TagsSelector_Selected" />
           <!-- <span class="TagsSelector_Unselected"></span> -->
         </li>
@@ -51,6 +35,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
+import TagManager from '@/store/modules/TagManager';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -64,6 +49,8 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class TagsSelector extends Vue {
   private pageLayer = PageLayer;
+
+  private tags = TagManager.tagState;
 
   private save(): void {
     // TODO: 保存処理
