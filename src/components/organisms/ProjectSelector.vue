@@ -17,47 +17,15 @@
       </div>
       <ul class="ProjectSelector_List">
         <li
+          v-for="project in projects"
           @click="save()"
-          class="ProjectSelector_ListItem"
-        >
-          <span class="ProjectSelector_Project">No Project</span>
-        </li>
-        <li
-          @click="save()"
+          :key="project.id"
           class="ProjectSelector_ListItem"
         >
           <span
-            :style="{ borderColor: '#EA468D', color: '#EA468D' }"
+            :style="{ borderColor: project.color, color: project.color, background: project.color }"
             class="ProjectSelector_Project"
-          >ITR MP</span>
-        </li>
-        <li
-          @click="save()"
-          class="ProjectSelector_ListItem"
-        >
-          <span
-            :style="{ borderColor: '#3750B5', color: '#3750B5' }"
-            class="ProjectSelector_Project"
-          >LTP</span>
-        </li>
-        <li
-          @click="save()"
-          class="ProjectSelector_ListItem"
-        >
-          <span
-            :style="{ borderColor: '#06AAF5', color: '#06AAF5' }"
-            class="ProjectSelector_Project"
-          >LTSF</span>
-        </li>
-        <li
-          @click="save()"
-          class="ProjectSelector_ListItem"
-        >
-          <!-- TODO: 選択時のみ背景色を設定 -->
-          <span
-            :style="{ borderColor: '#4BC800', color: '#4BC800', background: '#4BC800' }"
-            class="ProjectSelector_Project"
-          >LTSF LINE</span>
+          >{{ project.name }}</span>
         </li>
       </ul>
     </BottomSheet>
@@ -67,6 +35,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
+import ProjectManager from '@/store/modules/ProjectManager';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -80,6 +49,8 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 })
 export default class ProjectSelector extends Vue {
   private pageLayer = PageLayer;
+
+  private projects = ProjectManager.projectState;
 
   private save(): void {
     // TODO: 保存処理
