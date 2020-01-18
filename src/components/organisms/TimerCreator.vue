@@ -127,7 +127,7 @@ export default class TimerCreator extends Vue {
     startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
     endDatetime: null,
     projectId: null,
-    tags: [],
+    tagIds: [],
   };
 
   // TODO: 変更監視（要削除）
