@@ -60,7 +60,7 @@ export interface IReportState {
   total: number,
   billable: number,
   barGraph: { [date: string]: number },
-  pieChart: { [projectName: string]: number },
+  pieChart: { [projectId: number]: number },
 }
 
 export interface IReportManagerState {
