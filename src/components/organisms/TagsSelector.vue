@@ -24,8 +24,15 @@
           class="TagsSelector_ListItem"
         >
           <span class="TagsSelector_Tag">{{ tag.name }}</span>
-          <SvgIcon name="check-circle" class="TagsSelector_Selected" />
-          <!-- <span class="TagsSelector_Unselected"></span> -->
+          <SvgIcon
+            v-if="tag.isSelected"
+            name="check-circle"
+            class="TagsSelector_Selected"
+          />
+          <span
+            v-else
+            class="TagsSelector_Unselected"
+          ></span>
         </li>
       </ul>
     </BottomSheet>
@@ -50,7 +57,19 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
 export default class TagsSelector extends Vue {
   private pageLayer = PageLayer;
 
-  private tags = TagManager.tagState;
+  private tags: { id: number, name: string, isSelected: boolean }[] = [];
+
+  beforeMount() {
+    this.tags = TagManager.tagState.map((state: {id: number, name: string}) => {
+      const tag = {
+        id: state.id,
+        name: state.name,
+        // TODO: 選択済みのものをtrue
+        isSelected: false,
+      };
+      return tag;
+    });
+  }
 
   private save(): void {
     // TODO: 保存処理
