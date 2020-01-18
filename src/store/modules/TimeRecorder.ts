@@ -61,7 +61,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
   }
 
   public get getState(): Function {
-    return (params: { key: string, type?: string }): string | number[] | null => {
+    return (params: { key: string, type?: string }): string | number | number[] | null => {
       const state = (params.type === 'tmp') ? this.tmpState : this.timerState;
       return state[params.key];
     };
