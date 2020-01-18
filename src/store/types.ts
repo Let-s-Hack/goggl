@@ -49,3 +49,16 @@ export interface IProjectManagerState {
 export interface ITagManagerState {
   tagState: { id: number, name: string }[],
 }
+
+export interface IReportState {
+  startDate: string | null,
+  endDate: string | null,
+  total: number,
+  billable: number,
+  barGraph: { [date: string]: number },
+  pieChart: { [projectName: string]: number },
+}
+
+export interface IReportManagerState {
+  reportState: IReportState,
+}
