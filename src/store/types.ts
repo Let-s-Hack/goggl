@@ -53,3 +53,16 @@ export interface ITagManagerState {
 export interface IRecordManagerState {
   recordState: ITimerState[],
 }
+
+export interface IReportState {
+  startDate: string | null,
+  endDate: string | null,
+  total: number,
+  billable: number,
+  barGraph: { [date: string]: number },
+  pieChart: { [projectId: number]: number },
+}
+
+export interface IReportManagerState {
+  reportState: IReportState,
+}

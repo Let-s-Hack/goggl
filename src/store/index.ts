@@ -5,6 +5,7 @@ import {
   IPageLayerState,
   IProjectManagerState,
   IRecordManagerState,
+  IReportManagerState,
   ITagManagerState,
   ITimeRecorderState,
 } from './types';
@@ -16,6 +17,7 @@ export interface IRootState {
   pageLayer: IPageLayerState,
   projectManager: IProjectManagerState,
   recordManager: IRecordManagerState,
+  reportManager: IReportManagerState,
   tagManager: ITagManagerState,
   timeRecorder: ITimeRecorderState,
 }
