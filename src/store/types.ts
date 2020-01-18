@@ -28,7 +28,7 @@ export interface ITimerState {
   startDatetime: string | null,
   endDatetime: string | null,
   projectId: number | null,
-  tags: number[],
+  tagIds: number[],
   [key: string]: string | number | number[] | null,
 }
 
