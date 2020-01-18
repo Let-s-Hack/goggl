@@ -61,15 +61,14 @@ export default class TagsSelector extends Vue {
   private tags: { id: number, name: string, isSelected: boolean }[] = [];
 
   beforeMount() {
-    this.tags = TagManager.tagState.map((state: {id: number, name: string}) => {
-      const tag = {
-        id: state.id,
-        name: state.name,
+    this.tags = TagManager.tagState.map((tag: {id: number, name: string}) => (
+      {
+        id: tag.id,
+        name: tag.name,
         // TODO: 選択済みのものをtrue
         isSelected: false,
-      };
-      return tag;
-    });
+      }
+    ));
   }
 
   private save(): void {
