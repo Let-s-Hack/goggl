@@ -22,8 +22,9 @@
           :key="project.id"
           class="ProjectSelector_ListItem"
         >
+          <!-- TODO: 選択時のみ背景色を設定 -->
           <span
-            :style="{ borderColor: project.color, color: project.color, background: project.color }"
+            :style="{ borderColor: project.color, color: project.color }"
             class="ProjectSelector_Project"
           >{{ project.name }}</span>
         </li>
