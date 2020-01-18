@@ -147,7 +147,7 @@ export default class TimerCreator extends Vue {
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
 
-  private get selectedProject(): IProjectState {
+  private get selectedProject(): IProjectState | null {
     return ProjectManager.getById(this.timerState.projectId);
   }
 
