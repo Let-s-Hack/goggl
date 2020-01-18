@@ -27,9 +27,9 @@ export interface ILoaderState {
 export interface ITimerState {
   startDatetime: string | null,
   endDatetime: string | null,
-  projectId: string | null,
+  projectId: number | null,
   tags: number[],
-  [key: string]: string | number[] | null,
+  [key: string]: string | number | number[] | null,
 }
 
 export interface ITimeRecorderState {
@@ -48,4 +48,8 @@ export interface IProjectManagerState {
 
 export interface ITagManagerState {
   tagState: { id: number, name: string }[],
+}
+
+export interface IRecordManagerState {
+  recordState: ITimerState[],
 }
