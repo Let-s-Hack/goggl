@@ -18,11 +18,19 @@
         <!-- TODO: 選択されたProject, Tagを表示 -->
         <div class="TimerCreator_SelectedGroup">
           <span
-            :style="{ borderColor: '#EA468D', color: '#EA468D', background: '#EA468D' }"
+            v-if="selectedProject"
+            :style="{
+              borderColor: selectedProject.color,
+              color: selectedProject.color,
+              background: selectedProject.color,
+            }"
             class="TimerCreator_SelectedProject"
-          >goggl</span>
-          <span class="TimerCreator_SelectedTag">設計</span>
-          <span class="TimerCreator_SelectedTag">実装</span>
+          >{{ selectedProject.name }}</span>
+          <span
+            v-for="tag in selectedTags"
+            :key="tag.id"
+            class="TimerCreator_SelectedTag"
+          >{{ tag.name }}</span>
         </div>
         <ul class="TimerCreator_SearchList">
           <li
@@ -99,10 +107,16 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
 import moment from 'moment';
-import { ITimerState } from '@/store/types';
+import { Component, Vue } from 'vue-property-decorator';
+import {
+  IProjectState,
+  ITagState,
+  ITimerState,
+} from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import ProjectManager from '@/store/modules/ProjectManager';
+import TagManager from '@/store/modules/TagManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
@@ -126,12 +140,20 @@ export default class TimerCreator extends Vue {
   private timerState: ITimerState = {
     startDatetime: moment().format('YYYY-MM-DD HH:mm:ss'),
     endDatetime: null,
-    projectId: null,
-    tagIds: [],
+    projectId: 5,
+    tagIds: [1, 2],
   };
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
+
+  private get selectedProject(): IProjectState {
+    return ProjectManager.getById(this.timerState.projectId);
+  }
+
+  private get selectedTags(): ITagState[] {
+    return TagManager.getByIds(this.timerState.tagIds);
+  }
 
   private close(): void {
     // TODO: 変更監視
