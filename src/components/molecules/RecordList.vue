@@ -4,9 +4,9 @@
       <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
-          v-if="records[0].name"
+          v-if="records[0].title"
           class="RecordList_SummaryTitle"
-        >{{ records[0].name }}</h3>
+        >{{ records[0].title }}</h3>
         <h3
           v-else
           class="RecordList_SummaryTitle _isEmpty"

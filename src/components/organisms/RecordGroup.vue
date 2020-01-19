@@ -72,7 +72,7 @@ export default class RecordGroup extends Vue {
     ): ITimerState[][] => {
       // 名前、プロジェクトID、タグIDが同じレコードの配列番号を求める
       const dateIndex: number = result.findIndex((element: ITimerState[]) => (
-        element[0].name === value.name
+        element[0].title === value.title
         && element[0].projectId === value.projectId
         && isEqual(element[0].tagIds, value.tagIds)
       ));

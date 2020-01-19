@@ -2,9 +2,9 @@
   <li class="Record">
     <div class="Record_Left">
       <h3
-        v-if="record.name"
+        v-if="record.title"
         class="Record_Title"
-      >{{ record.name }}</h3>
+      >{{ record.title }}</h3>
       <h3
         v-else
         class="Record_Title _isEmpty"
