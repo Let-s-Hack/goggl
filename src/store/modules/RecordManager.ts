@@ -15,7 +15,7 @@ import store from '@/store';
 const firestoreRecords: ITimerState[] = [
   {
     id: 1,
-    name: 'design goggl',
+    title: 'design goggl',
     startDatetime: '2020-01-18 11:46:12',
     endDatetime: '2020-01-18 13:46:34',
     projectId: 1,
@@ -23,7 +23,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 2,
-    name: 'develop goggl',
+    title: 'develop goggl',
     startDatetime: '2020-01-18 13:46:43',
     endDatetime: '2020-01-18 16:46:23',
     projectId: 2,
@@ -31,7 +31,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 3,
-    name: null,
+    title: null,
     startDatetime: '2020-01-19 09:06:45',
     endDatetime: '2020-01-19 12:00:00',
     projectId: null,
@@ -39,7 +39,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 4,
-    name: 'make components',
+    title: 'make components',
     startDatetime: '2020-01-19 13:10:12',
     endDatetime: '2020-01-19 15:20:47',
     projectId: 4,
@@ -47,7 +47,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 5,
-    name: 'review',
+    title: 'review',
     startDatetime: '2020-01-18 09:46:57',
     endDatetime: '2020-01-18 10:46:10',
     projectId: 1,
@@ -55,7 +55,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 6,
-    name: 'finance',
+    title: 'finance',
     startDatetime: '2020-01-19 16:40:44',
     endDatetime: '2020-01-19 17:36:35',
     projectId: 2,
@@ -63,7 +63,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 7,
-    name: 'wordpress',
+    title: 'wordpress',
     startDatetime: '2020-01-19 19:20:45',
     endDatetime: '2020-01-19 20:00:10',
     projectId: 3,
@@ -71,7 +71,7 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 8,
-    name: ' goggl',
+    title: 'goggl',
     startDatetime: '2020-01-20 18:10:34',
     endDatetime: '2020-01-20 19:20:21',
     projectId: 4,
@@ -79,11 +79,19 @@ const firestoreRecords: ITimerState[] = [
   },
   {
     id: 9,
-    name: 'develop goggl',
+    title: 'develop goggl',
     startDatetime: '2020-01-18 19:10:34',
     endDatetime: '2020-01-18 21:20:21',
     projectId: 2,
     tagIds: [2, 3],
+  },
+  {
+    id: 10,
+    title: null,
+    startDatetime: '2020-01-19 10:00:00',
+    endDatetime: '2020-01-19 10:44:40',
+    projectId: null,
+    tagIds: [],
   },
 ];
 

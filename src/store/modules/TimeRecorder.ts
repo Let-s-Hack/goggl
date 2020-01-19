@@ -12,7 +12,7 @@ import {
 import store from '@/store';
 
 const initialTimerState: ITimerState = {
-  name: null,
+  title: null,
   startDatetime: null,
   endDatetime: null,
   projectId: null,
