@@ -1,31 +1,60 @@
 <template>
   <li class="RecordListItem">
     <div class="RecordListItem_Left">
-      <!-- TODO: _isEmptyの出し分け -->
-      <h4 class="RecordListItem_Title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</h4>
-      <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
+      <h4
+        v-if="record.name"
+        class="RecordListItem_Title"
+      >{{ record.name }}</h4>
+      <h4
+        v-else
+        class="RecordListItem_Title _isEmpty"
+      >Add description</h4>
       <span
+        v-if="getProject"
         class="RecordListItem_Project"
-        :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-      >
-        ゴーグル
-      </span>
+        :style="{
+          borderColor: getProject.color,
+          color: getProject.color
+        }"
+      >{{ getProject.name }}</span>
     </div>
-    <div class="RecordListItem_Center">
+    <div
+      v-if="record.tagIds.length > 0"
+      class="RecordListItem_Center"
+    >
       <SvgIcon name="tag" class="RecordListItem_IconTag" />
     </div>
     <div class="RecordListItem_Right">
-      <span class="RecordListItem_Time">0:30:00</span>
+      <span class="RecordListItem_Time">{{ getTotal | displayTotal() }}</span>
       <SvgIcon name="triangle" class="RecordListItem_IconStart" />
     </div>
   </li>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import moment, { Moment } from 'moment';
+import { IProjectState, ITimerState } from '@/store/types';
+import ProjectManager from '@/store/modules/ProjectManager';
 
 @Component
 export default class RecordListItem extends Vue {
+  @Prop({ required: true }) record!: ITimerState;
+
+  private projectManager = ProjectManager;
+
+  private get getProject(): IProjectState | undefined {
+    return this.projectManager.getById(this.record.projectId);
+  }
+
+  private get getTotal(): number {
+    if (this.record.startDatetime === null || this.record.endDatetime === null) return 0;
+
+    const start: Moment = moment(this.record.startDatetime);
+    const end: Moment = moment(this.record.endDatetime);
+
+    return Math.floor(end.diff(start) / 1000);
+  }
 }
 </script>
 

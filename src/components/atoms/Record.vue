@@ -1,31 +1,60 @@
 <template>
   <li class="Record">
     <div class="Record_Left">
-      <!-- TODO: _isEmptyの出し分け -->
-      <h3 class="Record_Title _isEmpty">説明を追加</h3>
-      <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
+      <h3
+        v-if="record.name"
+        class="Record_Title"
+      >{{ record.name }}</h3>
+      <h3
+        v-else
+        class="Record_Title _isEmpty"
+      >Add description</h3>
       <span
+        v-if="getProject"
         class="Record_Project"
-        :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-      >
-        ゴーグル
-      </span>
+        :style="{
+          borderColor: getProject.color,
+          color: getProject.color
+        }"
+      >{{ getProject.name }}</span>
     </div>
-    <div class="Record_Center">
+    <div
+      v-if="record.tagIds.length > 0"
+      class="Record_Center"
+    >
       <SvgIcon name="tag" class="Record_IconTag" />
     </div>
     <div class="Record_Right">
-      <span class="Record_Time">0:30:00</span>
+      <span class="Record_Time">{{ getTotal | displayTotal() }}</span>
       <SvgIcon name="triangle" class="Record_IconStart" />
     </div>
   </li>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import moment, { Moment } from 'moment';
+import { IProjectState, ITimerState } from '@/store/types';
+import ProjectManager from '@/store/modules/ProjectManager';
 
 @Component
 export default class Record extends Vue {
+  @Prop({ required: true }) record!: ITimerState;
+
+  private projectManager = ProjectManager;
+
+  private get getProject(): IProjectState | undefined {
+    return this.projectManager.getById(this.record.projectId);
+  }
+
+  private get getTotal(): number {
+    if (this.record.startDatetime === null || this.record.endDatetime === null) return 0;
+
+    const start: Moment = moment(this.record.startDatetime);
+    const end: Moment = moment(this.record.endDatetime);
+
+    return Math.floor(end.diff(start) / 1000);
+  }
 }
 </script>
 
