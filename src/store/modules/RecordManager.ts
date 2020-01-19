@@ -85,6 +85,14 @@ const firestoreRecords: ITimerState[] = [
     projectId: 2,
     tagIds: [2, 3],
   },
+  {
+    id: 10,
+    name: null,
+    startDatetime: '2020-01-19 10:00:00',
+    endDatetime: '2020-01-19 10:44:40',
+    projectId: null,
+    tagIds: [],
+  },
 ];
 
 @Module({
