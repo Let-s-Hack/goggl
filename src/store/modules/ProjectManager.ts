@@ -1,3 +1,4 @@
+import { find } from 'lodash';
 import {
   Module,
   VuexModule,
@@ -46,16 +47,7 @@ class ProjectManager extends VuexModule implements IProjectManagerState {
   ];
 
   public get getById(): Function {
-    return (id: number): IProjectState | null => {
-      let project = null;
-      this.projectState.forEach((_project: IProjectState) => {
-        if (_project.id === id) {
-          project = _project;
-        }
-      });
-
-      return project;
-    };
+    return (id: number): IProjectState | undefined => find(this.projectState, { id });
   }
 }
 
