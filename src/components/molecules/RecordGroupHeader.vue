@@ -1,7 +1,7 @@
 <template>
   <div class="RecordGroupHeader">
-    <h2 class="RecordGroupHeader_Date">Thu, 21 Nov</h2>
-    <p class="RecordGroupHeader_Time">8:40:36</p>
+    <h2 class="RecordGroupHeader_Date"><slot name="date" /></h2>
+    <p class="RecordGroupHeader_Time"><slot name="total" /></p>
   </div>
 </template>
 
