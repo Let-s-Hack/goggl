@@ -42,6 +42,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { ITagState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
 import TagManager from '@/store/modules/TagManager';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
@@ -61,7 +62,7 @@ export default class TagsSelector extends Vue {
   private tags: { id: number, name: string, isSelected: boolean }[] = [];
 
   created() {
-    this.tags = TagManager.tagState.map((tag: {id: number, name: string}) => ({
+    this.tags = TagManager.tagState.map((tag: ITagState) => ({
       id: tag.id,
       name: tag.name,
       // TODO: 選択済みのものをtrue

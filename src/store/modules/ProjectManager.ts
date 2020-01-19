@@ -1,9 +1,13 @@
+import { find } from 'lodash';
 import {
   Module,
   VuexModule,
   getModule,
 } from 'vuex-module-decorators';
-import { IProjectManagerState } from '@/store/types';
+import {
+  IProjectState,
+  IProjectManagerState,
+} from '@/store/types';
 import store from '@/store';
 
 @Module({
@@ -14,11 +18,7 @@ import store from '@/store';
 })
 class ProjectManager extends VuexModule implements IProjectManagerState {
   // TODO: 一時的に仮データを初期値に置いている。あとで修正する。
-  public projectState: {
-    id: number,
-    name: string,
-    color: string,
-  }[] = [
+  public projectState: IProjectState[] = [
     {
       id: 1,
       name: 'No Project',
@@ -45,6 +45,10 @@ class ProjectManager extends VuexModule implements IProjectManagerState {
       color: '#4BC800',
     },
   ];
+
+  public get getById(): Function {
+    return (id: number): IProjectState | undefined => find(this.projectState, { id });
+  }
 }
 
 const projectManager = getModule(ProjectManager);
