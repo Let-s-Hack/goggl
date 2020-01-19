@@ -5,8 +5,8 @@
       <template v-slot:total>{{ displayTotal }}</template>
     </RecordGroupHeader>
     <ul
-      v-for="(records, index) in getRecordGroup"
-      :key="index"
+      v-for="records in getRecordGroup"
+      :key="records[0].id"
     >
       <Record
         v-if="records.length === 1"
