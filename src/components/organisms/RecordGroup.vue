@@ -2,7 +2,7 @@
   <div class="RecordGroup">
     <RecordGroupHeader class="RecordGroup_Header">
       <template v-slot:date>{{ displayDate }}</template>
-      <template v-slot:total>{{ displayTotal }}</template>
+      <template v-slot:total>{{ getTotal | displayTotal() }}</template>
     </RecordGroupHeader>
     <ul
       v-for="records in getRecordGroup"
@@ -51,10 +51,6 @@ export default class RecordGroup extends Vue {
     this.pageLayer.push({ component: TimerEditor });
   }
 
-  mounted() {
-    console.log('propRecordGroup', this.getRecordGroup);
-  }
-
   private get displayDate(): string {
     const date: Moment = moment(this.recordGroup.date);
 
@@ -62,31 +58,6 @@ export default class RecordGroup extends Vue {
     if (date.isSame(moment().subtract(1, 'day'), 'day')) return 'Yesterday';
 
     return date.format('ddd, DD MMM');
-  }
-
-  private get displayTotal(): string {
-    let total = 0;
-
-    this.recordGroup.records.forEach((record: ITimerState) => {
-      if (record.startDatetime === null || record.endDatetime === null) return;
-
-      const start: Moment = moment(record.startDatetime);
-      const end: Moment = moment(record.endDatetime);
-
-      // ミリ秒から秒にして合計値に追加する
-      total += Math.floor(end.diff(start) / 1000);
-    });
-
-    const hours: number = Math.floor(total / 3600);
-    const minutes: number = Math.floor((total - (hours * 3600)) / 60);
-    const seconds: number = total % 100;
-    const displayTotal: string = (
-      `${hours}:`
-      + `${minutes < 10 ? '0' : ''}${minutes}:`
-      + `${seconds < 10 ? '0' : ''}${seconds}`
-    );
-
-    return displayTotal;
   }
 
   private get getRecordGroup(): ITimerState[][] {
@@ -116,6 +87,22 @@ export default class RecordGroup extends Vue {
     }, []);
 
     return nextRecordGroup;
+  }
+
+  private get getTotal(): number {
+    let total = 0;
+
+    this.recordGroup.records.forEach((record: ITimerState): void => {
+      if (record.startDatetime === null || record.endDatetime === null) return;
+
+      const start: Moment = moment(record.startDatetime);
+      const end: Moment = moment(record.endDatetime);
+
+      // ミリ秒から秒にして合計値に追加する
+      total += Math.floor(end.diff(start) / 1000);
+    });
+
+    return total;
   }
 }
 </script>
