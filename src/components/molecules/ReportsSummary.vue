@@ -1,8 +1,15 @@
 <template>
   <BaseCard :class="['ReportsSummary', { '_isLoading': isLoading }]">
-    <div class="ReportsSummary_Total _isActive">
+    <div :class="['ReportsSummary_Total', { '_isActive': total > 0 || billable > 0 }]">
       <p class="ReportsSummary_Label">TOTAL</p>
-      <p class="ReportsSummary_Count">59:15:47</p>
+      <p
+        v-if="isLoading"
+        class="ReportsSummary_Count"
+      >0:00:00</p>
+      <p
+        v-else
+        class="ReportsSummary_Count"
+      >{{ total | toTime }}</p>
       <div class="ReportsSummary_BarGraph">
         <div class="ReportsSummary_BarGraphItem"></div>
         <div class="ReportsSummary_BarGraphItem"></div>
@@ -10,9 +17,16 @@
         <div class="ReportsSummary_BarGraphItem"></div>
       </div>
     </div>
-    <div class="ReportsSummary_Billable _isActive">
+    <div :class="['ReportsSummary_Billable', { '_isActive': total > 0 || billable > 0 }]">
       <p class="ReportsSummary_Label">BILLABLE</p>
-      <p class="ReportsSummary_Count">0.00%</p>
+      <p
+        v-if="isLoading"
+        class="ReportsSummary_Count"
+      >0.00%</p>
+      <p
+        v-else
+        class="ReportsSummary_Count"
+      >{{ billable.toFixed(2) }}%</p>
       <div class="ReportsSummary_Line"></div>
     </div>
   </BaseCard>
@@ -20,6 +34,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import ReportManager from '@/store/modules/ReportManager';
 import BaseCard from '~/atoms/BaseCard.vue';
 
 @Component({
@@ -29,6 +44,16 @@ import BaseCard from '~/atoms/BaseCard.vue';
 })
 export default class ReportsSummary extends Vue {
   @Prop({ default: false }) isLoading?: boolean;
+
+  private reportManager = ReportManager;
+
+  private get total(): number {
+    return this.reportManager.reportState.total;
+  }
+
+  private get billable(): number {
+    return this.reportManager.reportState.billable;
+  }
 }
 </script>
 
