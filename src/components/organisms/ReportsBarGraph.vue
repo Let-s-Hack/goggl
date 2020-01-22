@@ -13,8 +13,8 @@
 <script lang="ts">
 import {
   forEach,
+  map,
   max,
-  values,
 } from 'lodash';
 import moment, { Moment } from 'moment';
 import {
@@ -24,6 +24,8 @@ import {
   Vue,
   Watch,
 } from 'vue-property-decorator';
+import Formatter from '@/utils/formatter';
+import ReportManager from '@/store/modules/ReportManager';
 import BaseCard from '~/atoms/BaseCard.vue';
 
 const loadingMaxScale = 10;
@@ -52,15 +54,7 @@ export default class ReportsBarGraph extends Vue {
 
   private contentHeight: number = 0;
 
-  private data: {[key: string]: number} = {
-    '2019-12-21': 13,
-    '2019-12-22': 13,
-    '2019-12-23': 9,
-    '2019-12-24': 10,
-    '2019-12-25': 5,
-    '2019-12-26': 0,
-    '2019-12-27': 3,
-  }
+  private data: {[date: string]: number} = ReportManager.reportState.barGraph;
 
   mounted() {
     this.contentWidth = this.$el.clientWidth * 2;
@@ -173,14 +167,15 @@ export default class ReportsBarGraph extends Vue {
   }
 
   private getMaxScale(): number {
-    const graphValues: number[] = values(this.data);
+    const graphValues: number[] = map(this.data, (count: number) => Formatter.toHour(count));
     const maxValue: number | undefined = max(graphValues);
     const minValue: number = 2;
     if (typeof maxValue === 'undefined' || maxValue <= minValue) {
       return minValue;
     }
+    const maxIntVal = Math.floor(maxValue);
 
-    return (maxValue % 2 !== 0) ? maxValue + 1 : maxValue;
+    return (maxIntVal % 2 !== 0) ? maxIntVal + 1 : maxIntVal;
   }
 
   private static getVerticalScale(maxHour: number): { [key: string]: number }[] {
@@ -194,7 +189,7 @@ export default class ReportsBarGraph extends Vue {
   }
 
   private getGraphItemHeight(value: number): number {
-    return graphItemMaxHeight / this.maxScale * value;
+    return graphItemMaxHeight / this.maxScale * Formatter.toHour(value);
   }
 
   private refleshContent(): void {
