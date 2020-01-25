@@ -41,10 +41,10 @@ export default class RecordContainer extends Vue {
       if (record.startDatetime === null) return;
 
       const date: string = moment(record.startDatetime).format('YYYY-MM-DD');
-      const equalDateIndex: number = findLastIndex(recordGroups, { date });
+      const sameDateIndex: number = findLastIndex(recordGroups, { date });
 
-      if (equalDateIndex >= 0) {
-        recordGroups[equalDateIndex].records.push(record);
+      if (sameDateIndex >= 0) {
+        recordGroups[sameDateIndex].records.push(record);
         return;
       }
 
