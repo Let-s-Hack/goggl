@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { forEach, orderBy } from 'lodash';
+import { findLastIndex, forEach, orderBy } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';
@@ -38,14 +38,13 @@ export default class RecordContainer extends Vue {
     const recordGroups: IRecordGroup[] = [];
 
     forEach(records, (record: ITimerState) => {
-      if (typeof record.startDatetime !== 'string') return;
+      if (record.startDatetime === null) return;
 
       const date: string = moment(record.startDatetime).format('YYYY-MM-DD');
-      const prevIndex = recordGroups.length - 1;
-      const { date: prevDate = null }: { date: string | null } = recordGroups[prevIndex] || {};
+      const equalDateIndex: number = findLastIndex(recordGroups, { date });
 
-      if (date === prevDate) {
-        recordGroups[prevIndex].records.push(record);
+      if (equalDateIndex >= 0) {
+        recordGroups[equalDateIndex].records.push(record);
         return;
       }
 
