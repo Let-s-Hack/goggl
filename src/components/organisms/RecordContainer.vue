@@ -30,14 +30,14 @@ import RecordGroup from '~/organisms/RecordGroup.vue';
 export default class RecordContainer extends Vue {
   private recordManager = RecordManager;
 
-  private get recordGroups(): IRecordGroup[] | any {
+  private get recordGroups(): IRecordGroup[] {
     const orderedRecords: ITimerState[] = orderBy(this.recordManager.recordState, ['startDatetime'], ['desc']);
     const recordGroups: IRecordGroup[] = RecordContainer.groupByDate(orderedRecords);
 
     return recordGroups;
   }
 
-  private static groupByDate(records: any): any {
+  private static groupByDate(records: ITimerState[]): IRecordGroup[] {
     const recordGroups: IRecordGroup[] = [];
 
     forEach(records, (record: ITimerState) => {
