@@ -11,10 +11,7 @@
 </template>
 
 <script lang="ts">
-import {
-  forEach,
-  orderBy,
-} from 'lodash';
+import { forEach, orderBy } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';
