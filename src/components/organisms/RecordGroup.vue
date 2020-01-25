@@ -58,16 +58,16 @@ export default class RecordGroup extends Vue {
 
   private pageLayer = PageLayer;
 
-  private showTimerEditor(): void {
-    this.pageLayer.push({ component: TimerEditor });
-  }
-
   private diffDays(): number {
     const now: Moment = moment();
     const recordDate: Moment = moment(this.recordGroup.date);
     const diffDays: number = now.diff(recordDate, 'days');
 
     return diffDays;
+  }
+
+  private showTimerEditor(): void {
+    this.pageLayer.push({ component: TimerEditor });
   }
 
   private get recordsList(): ITimerState[][] {
