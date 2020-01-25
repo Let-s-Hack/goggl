@@ -4,16 +4,27 @@
       <RecordGroup
         v-for="recordGroup in recordGroups"
         :key="recordGroup.date"
-        :recordGroup="recordGroup"
+        :record-group="recordGroup"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { orderBy, reduce } from 'lodash';
+import {
+  // チェック: 並べ替える
+  orderBy,
+  reduce,
+  forEach,
+  groupBy,
+  keyBy,
+  map,
+  partition,
+  invokeMap,
+  uniqBy,
+} from 'lodash';
 import moment from 'moment';
+import { Component, Vue } from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';
 import { ITimerState } from '@/store/types';
 import RecordManager from '@/store/modules/RecordManager';
@@ -27,37 +38,32 @@ import RecordGroup from '~/organisms/RecordGroup.vue';
 export default class RecordContainer extends Vue {
   private recordManager = RecordManager;
 
-  private get recordGroups(): IRecordGroup[] {
-    let nextRecordGroups: (
-      ITimerState[] | IRecordGroup[]
-    ) = this.recordManager.recordState;
+  private get recordGroups(): IRecordGroup[] | any {
+    const orderedRecords: ITimerState[] = orderBy(this.recordManager.recordState, ['startDatetime'], ['desc']);
+    const recordGroups: IRecordGroup[] = RecordContainer.groupByDate(orderedRecords);
 
-    nextRecordGroups = orderBy(nextRecordGroups, ['startDatetime'], ['desc']);
-    nextRecordGroups = RecordContainer.groupByDate(nextRecordGroups);
-
-    return nextRecordGroups;
+    return recordGroups;
   }
 
-  private static groupByDate(recordGroups: ITimerState[]): IRecordGroup[] {
-    return reduce(recordGroups, (
-      result: IRecordGroup[],
-      value: ITimerState,
-    ): IRecordGroup[] => {
-      const date: string = moment(value.startDatetime!).format('YYYY-MM-DD');
+  private static groupByDate(records: any): any {
+    const recordGroups: IRecordGroup[] = [];
 
-      // 同じ日付のレコードを探して、配列番号を求める
-      const targetIndex: number = result.findIndex((recordGroup: IRecordGroup) => (
-        recordGroup.date === date
-      ));
+    forEach(records, (record: ITimerState) => {
+      if (typeof record.startDatetime !== 'string') return;
 
-      if (targetIndex >= 0) {
-        result[targetIndex].records.push(value);
-        return result;
+      const date: string = moment(record.startDatetime).format('YYYY-MM-DD');
+      const prevIndex = recordGroups.length - 1;
+      const { date: prevDate = null }: { date: string | null } = recordGroups[prevIndex] || {};
+
+      if (date === prevDate) {
+        recordGroups[prevIndex].records.push(record);
+        return;
       }
 
-      result.push({ date, records: [value] });
-      return result;
-    }, []);
+      recordGroups.push({ date, records: [record] });
+    });
+
+    return recordGroups;
   }
 }
 </script>
