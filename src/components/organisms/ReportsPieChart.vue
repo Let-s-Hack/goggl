@@ -15,7 +15,7 @@
         >
            {{ project.name }}
         </p>
-        <p class="ReportsPieChart_Percent">{{ Math.round(project.time.percent) }}%</p>
+        <p class="ReportsPieChart_Percent">{{ project.time.percent }}%</p>
         <p class="ReportsPieChart_Time">{{ project.time.sum }}</p>
       </li>
     </ul>
@@ -85,15 +85,6 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  // TODO: 必要な時のみ更新するようにする
-  update() {
-    if (this.isLoading) {
-      this.playLoadingAnimation();
-    } else {
-      this.drawAllProjectGroup();
-    }
-  }
-
   @Watch('isLoading')
   private onChangeLoadingStatus(): void {
     if (this.isLoading) {
@@ -117,7 +108,7 @@ export default class ReportsPieChart extends Vue {
         name: project.name,
         color: project.color,
         time: {
-          percent: (seconds / sumSeconds) * 100,
+          percent: Math.round((seconds / sumSeconds) * 100),
           sum: this.$options.filters!.toTime(seconds),
         },
       });
@@ -142,7 +133,7 @@ export default class ReportsPieChart extends Vue {
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
-        this.drawDataLabel(endAngle, project.name, Math.round(project.time.percent));
+        this.drawDataLabel(endAngle, project.name, project.time.percent);
       }
 
       prevAngle = endAngle;
