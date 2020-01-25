@@ -35,10 +35,17 @@ import {
   Vue,
   Watch,
 } from 'vue-property-decorator';
-import { IPieChart } from '~/types';
 import ProjectManager from '@/store/modules/ProjectManager';
 import ReportManager from '@/store/modules/ReportManager';
-import Formatter from '@/utils/formatter';
+
+interface IProjectGroup {
+  name: string,
+  color: string,
+  time: {
+    percent: number,
+    sum: string,
+  },
+}
 
 const canvasMargin: number = 108;
 
@@ -57,7 +64,7 @@ export default class ReportsPieChart extends Vue {
 
   private ctx!: CanvasRenderingContext2D | null;
 
-  private allProjectGroup: IPieChart[] = [];
+  private allProjectGroup: IProjectGroup[] = [];
 
   private canvasSize: number = 0;
 
@@ -95,11 +102,11 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
-  private buildAllProjectGroup(): IPieChart[] {
+  private buildAllProjectGroup(): IProjectGroup[] {
     const graphData: { [projectId: number]: number } = ReportManager.reportState.pieChart;
     const sumSeconds: number = reduce(graphData, (sum, seconds) => sum + seconds) || 0;
 
-    let allProjectGroup: IPieChart[] = [];
+    let allProjectGroup: IProjectGroup[] = [];
     forEach(graphData, (seconds: number, projectId: string) => {
       const intProjectId = parseInt(projectId, 10);
       const project = ProjectManager.getById(intProjectId);
@@ -114,7 +121,7 @@ export default class ReportsPieChart extends Vue {
       });
     });
 
-    allProjectGroup = orderBy(allProjectGroup, (projectGroup: IPieChart) => projectGroup.time.percent, ['desc']);
+    allProjectGroup = orderBy(allProjectGroup, (projectGroup: IProjectGroup) => projectGroup.time.percent, ['desc']);
 
     return allProjectGroup;
   }
@@ -123,7 +130,7 @@ export default class ReportsPieChart extends Vue {
     if (typeof this.ctx === 'undefined') return;
     let prevAngle: number = 0;
 
-    forEach(this.allProjectGroup, (project: IPieChart) => {
+    forEach(this.allProjectGroup, (project: IProjectGroup) => {
       const startAngle: number = prevAngle;
       const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(project.time.percent);
       const groupDegree = endAngle - startAngle;
