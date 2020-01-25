@@ -12,16 +12,8 @@
 
 <script lang="ts">
 import {
-  // チェック: 並べ替える
-  orderBy,
-  reduce,
   forEach,
-  groupBy,
-  keyBy,
-  map,
-  partition,
-  invokeMap,
-  uniqBy,
+  orderBy,
 } from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
