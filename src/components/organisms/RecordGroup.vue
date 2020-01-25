@@ -14,21 +14,22 @@
       </template>
       <template v-slot:total>{{ totalSeconds | toTime }}</template>
     </RecordGroupHeader>
-    <ul
-      v-for="(records, index) in recordsList"
-      :key="records[0].id || index"
-    >
-      <RecordList
-        v-if="records.length > 1"
-        :records="records"
-        class="RecordGroup_Item"
-      />
-      <Record
-        v-else-if="records[0]"
-        @click.native="showTimerEditor()"
-        :record="records[0]"
-        class="RecordGroup_Item"
-      />
+    <ul>
+      <template v-for="(records, index) in recordsList">
+        <RecordList
+          v-if="records.length > 1"
+          :key="records[0].id || index"
+          :records="records"
+          class="RecordGroup_Item"
+        />
+        <Record
+          v-else-if="records[0]"
+          @click.native="showTimerEditor()"
+          :key="records[0].id || index"
+          :record="records[0]"
+          class="RecordGroup_Item"
+        />
+      </template>
     </ul>
   </div>
 </template>
