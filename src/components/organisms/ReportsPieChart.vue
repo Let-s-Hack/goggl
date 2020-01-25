@@ -15,7 +15,7 @@
         >
            {{ project.name }}
         </p>
-        <p class="ReportsPieChart_Percent">{{ project.time.percent }}%</p>
+        <p class="ReportsPieChart_Percent">{{ Math.round(project.time.percent) }}%</p>
         <p class="ReportsPieChart_Time">{{ project.time.sum }}</p>
       </li>
     </ul>
@@ -24,13 +24,21 @@
 
 <script lang="ts">
 import {
+  forEach,
+  orderBy,
+  reduce,
+} from 'lodash';
+import {
   Component,
   Prop,
   Ref,
   Vue,
   Watch,
 } from 'vue-property-decorator';
-import { forEach } from 'lodash';
+import { IPieChart } from '~/types';
+import ProjectManager from '@/store/modules/ProjectManager';
+import ReportManager from '@/store/modules/ReportManager';
+import Formatter from '@/utils/formatter';
 
 const canvasMargin: number = 108;
 
@@ -49,51 +57,18 @@ export default class ReportsPieChart extends Vue {
 
   private ctx!: CanvasRenderingContext2D | null;
 
+  private allProjectGroup: IPieChart[] = [];
+
   private canvasSize: number = 0;
 
   private centerPosition: number = 0;
 
   private radius: number = 0;
 
-  // TODO: 仮データなので置き換える、型をちゃんと設定する
-  private allProjectGroup: any = [
-    {
-      name: 'プロジェクトX',
-      color: '#3F46E3',
-      time: {
-        percent: 35,
-        sum: '12:33:11',
-      },
-    },
-    {
-      name: 'プロジェクトY',
-      color: '#3FE643',
-      time: {
-        percent: 30,
-        sum: '2:22:11',
-      },
-    },
-    {
-      name: 'プロジェクトZ',
-      color: '#F346E3',
-      time: {
-        percent: 30,
-        sum: '12:33:11',
-      },
-    },
-    {
-      name: 'プロジェクトA',
-      color: '#999',
-      time: {
-        percent: 5,
-        sum: '12:33:11',
-      },
-    },
-  ];
-
   private animationFrameId: number = 0;
 
-  beforeMount() {
+  created() {
+    this.allProjectGroup = this.buildAllProjectGroup();
     this.canvasSize = (window.innerWidth - canvasMargin) * 2;
     this.centerPosition = this.canvasSize / 4;
     this.radius = this.canvasSize / 4;
@@ -129,13 +104,35 @@ export default class ReportsPieChart extends Vue {
     }
   }
 
+  private buildAllProjectGroup(): IPieChart[] {
+    const graphData: { [projectId: number]: number } = ReportManager.reportState.pieChart;
+    const sumSeconds: number = reduce(graphData, (sum, seconds) => sum + seconds) || 0;
+
+    let allProjectGroup: IPieChart[] = [];
+    forEach(graphData, (seconds: number, projectId: string) => {
+      const intProjectId = parseInt(projectId, 10);
+      const project = ProjectManager.getById(intProjectId);
+
+      allProjectGroup.push({
+        name: project.name,
+        color: project.color,
+        time: {
+          percent: (seconds / sumSeconds) * 100,
+          sum: this.$options.filters!.toTime(seconds),
+        },
+      });
+    });
+
+    allProjectGroup = orderBy(allProjectGroup, (projectGroup: IPieChart) => projectGroup.time.percent, ['desc']);
+
+    return allProjectGroup;
+  }
+
   private drawAllProjectGroup(): void {
     if (typeof this.ctx === 'undefined') return;
     let prevAngle: number = 0;
 
-    forEach(this.allProjectGroup, (
-      project: { name: string, color: string, time: { percent: number } },
-    ) => {
+    forEach(this.allProjectGroup, (project: IPieChart) => {
       const startAngle: number = prevAngle;
       const endAngle: number = prevAngle + ReportsPieChart.percentToDegree(project.time.percent);
       const groupDegree = endAngle - startAngle;
@@ -145,7 +142,7 @@ export default class ReportsPieChart extends Vue {
 
       // 10°より角度が大きい場合はデータラベルを表示する
       if (groupDegree > ReportsPieChart.percentToDegree(minShowDataLabelDegree)) {
-        this.drawDataLabel(endAngle, project.name, project.time.percent);
+        this.drawDataLabel(endAngle, project.name, Math.round(project.time.percent));
       }
 
       prevAngle = endAngle;
