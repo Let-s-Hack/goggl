@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   Module,
   VuexModule,
@@ -16,16 +17,16 @@ const firestoreRecords: ITimerState[] = [
   {
     id: 1,
     title: 'design goggl',
-    startDatetime: '2020-01-18 11:46:12',
-    endDatetime: '2020-01-18 13:46:34',
+    startDatetime: '2020-01-25 11:46:12',
+    endDatetime: '2020-01-25 13:46:34',
     projectId: 1,
     tagIds: [1],
   },
   {
     id: 2,
     title: 'develop goggl',
-    startDatetime: '2020-01-18 13:46:43',
-    endDatetime: '2020-01-18 16:46:23',
+    startDatetime: '2020-01-25 13:46:43',
+    endDatetime: '2020-01-25 16:46:23',
     projectId: 2,
     tagIds: [2, 3],
   },
@@ -48,8 +49,8 @@ const firestoreRecords: ITimerState[] = [
   {
     id: 5,
     title: 'review',
-    startDatetime: '2020-01-18 09:46:57',
-    endDatetime: '2020-01-18 10:46:10',
+    startDatetime: '2020-01-25 09:46:57',
+    endDatetime: '2020-01-25 10:46:10',
     projectId: 1,
     tagIds: [1],
   },
@@ -80,13 +81,37 @@ const firestoreRecords: ITimerState[] = [
   {
     id: 9,
     title: 'develop goggl',
-    startDatetime: '2020-01-18 19:10:34',
-    endDatetime: '2020-01-18 21:20:21',
+    startDatetime: '2020-01-29 19:10:34',
+    endDatetime: '2020-01-29 21:20:21',
     projectId: 2,
     tagIds: [2, 3],
   },
   {
     id: 10,
+    title: null,
+    startDatetime: '2020-01-28 10:00:00',
+    endDatetime: '2020-01-28 10:44:40',
+    projectId: null,
+    tagIds: [],
+  },
+  {
+    id: 11,
+    title: 'develop goggl',
+    startDatetime: '2020-01-24 19:10:34',
+    endDatetime: '2020-01-24 21:20:21',
+    projectId: 2,
+    tagIds: [2, 3],
+  },
+  {
+    id: 12,
+    title: null,
+    startDatetime: '2020-01-25 10:00:00',
+    endDatetime: '2020-01-25 10:44:40',
+    projectId: null,
+    tagIds: [],
+  },
+  {
+    id: 13,
     title: null,
     startDatetime: '2020-01-19 10:00:00',
     endDatetime: '2020-01-19 10:44:40',
@@ -121,6 +146,21 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     }
 
     return false;
+  }
+
+  public get getDurationById(): Function {
+    return (id: number): number => {
+      const targetRecord: ITimerState | undefined = this.recordState.find((record: ITimerState) => (
+        record.id === id
+      ));
+      if (
+        typeof targetRecord === 'undefined'
+        || targetRecord.endDatetime === null
+        || targetRecord.startDatetime === null
+      ) return 0;
+
+      return moment(targetRecord.endDatetime).diff(moment(targetRecord.startDatetime), 'seconds');
+    };
   }
 }
 

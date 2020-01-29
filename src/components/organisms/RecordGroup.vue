@@ -2,31 +2,31 @@
   <div class="RecordGroup">
     <RecordGroupHeader class="RecordGroup_Header">
       <template v-slot:date>
-        <template v-if="diffDays() > 1">
+        <template v-if="getPassedDays() > 1">
           {{ recordGroup.date | format('ddd, DD MMM') }}
         </template>
-        <template v-else-if="diffDays() === 1">
+        <template v-else-if="getPassedDays() === 1">
           Yesterday
         </template>
-        <template v-else>
+        <template v-else-if="getPassedDays() === 0">
           Today
         </template>
       </template>
       <template v-slot:total>{{ totalSeconds | toTime }}</template>
     </RecordGroupHeader>
     <ul>
-      <template v-for="(records, index) in recordsList">
+      <template v-for="(recordList, index) in recordLists">
         <RecordList
-          v-if="records.length > 1"
-          :key="records[0].id || index"
-          :records="records"
+          v-if="recordList.type === recordType.recordList"
+          :key="recordList.records[0].id || index"
+          :records="recordList.records"
           class="RecordGroup_Item"
         />
         <Record
-          v-else-if="records[0]"
+          v-else-if="recordList.type === recordType.record"
           @click.native="showTimerEditor()"
-          :key="records[0].id || index"
-          :record="records[0]"
+          :key="recordList.record.id || index"
+          :record="recordList.record"
           class="RecordGroup_Item"
         />
       </template>
@@ -35,16 +35,31 @@
 </template>
 
 <script lang="ts">
-import { findIndex, forEach } from 'lodash';
+import {
+  findIndex,
+  forEach,
+  orderBy,
+} from 'lodash';
 import moment, { Moment } from 'moment';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';
 import { ITimerState } from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import RecordManager from '@/store/modules/RecordManager';
 import Record from '~/atoms/Record.vue';
 import RecordList from '~/molecules/RecordList.vue';
 import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
+
+interface IRecordList {
+  type: 'record' | 'recordList',
+  record?: ITimerState,
+  records?: ITimerState[],
+}
 
 @Component({
   components: {
@@ -58,7 +73,14 @@ export default class RecordGroup extends Vue {
 
   private pageLayer = PageLayer;
 
-  private diffDays(): number {
+  private recordManager = RecordManager;
+
+  private recordType: { [key: string]: 'record' | 'recordList' } = {
+    record: 'record',
+    recordList: 'recordList',
+  };
+
+  private getPassedDays(): number {
     const now: Moment = moment();
     const recordDate: Moment = moment(this.recordGroup.date);
     const diffDays: number = now.diff(recordDate, 'days');
@@ -70,40 +92,59 @@ export default class RecordGroup extends Vue {
     this.pageLayer.push({ component: TimerEditor });
   }
 
-  private get recordsList(): ITimerState[][] {
-    const recordsList: ITimerState[][] = [];
+  private get recordLists(): IRecordList[] {
+    const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
+    const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
+    const recordLists: IRecordList[] = this.sortByRecordType(groupedRecords);
 
-    forEach(this.recordGroup.records, (record: ITimerState): void => {
-      const sameRecordIndex: number = findIndex(recordsList, [0, {
-        title: record.title,
-        projectId: record.projectId,
-        tagIds: record.tagIds,
-      }]);
-
-      if (sameRecordIndex >= 0) {
-        recordsList[sameRecordIndex].push(record);
-        return;
-      }
-
-      recordsList.push([record]);
-    });
-
-    return recordsList;
+    return recordLists;
   }
 
   private get totalSeconds(): number {
     let totalSeconds = 0;
 
     forEach(this.recordGroup.records, (record: ITimerState): void => {
-      if (record.startDatetime === null || record.endDatetime === null) return;
-
-      const start: Moment = moment(record.startDatetime);
-      const end: Moment = moment(record.endDatetime);
-
-      totalSeconds += Math.floor(end.diff(start, 'seconds'));
+      if (record.id === null) return;
+      totalSeconds += this.recordManager.getDurationById(record.id);
     });
 
     return totalSeconds;
+  }
+
+  private static groupBySameRecord(records: ITimerState[]): ITimerState[][] {
+    const recordLists: ITimerState[][] = [];
+
+    forEach(records, (record: ITimerState): void => {
+      const sameRecordIndex: number = findIndex(recordLists, [0, {
+        title: record.title,
+        projectId: record.projectId,
+        tagIds: record.tagIds,
+      }]);
+
+      if (sameRecordIndex >= 0) {
+        recordLists[sameRecordIndex].push(record);
+        return;
+      }
+
+      recordLists.push([record]);
+    });
+
+    return recordLists;
+  }
+
+  private sortByRecordType(recordLists: ITimerState[][]): IRecordList[] {
+    const sortedRecordLists: IRecordList[] = [];
+
+    forEach(recordLists, (records: ITimerState[]) => {
+      if (records.length >= 2) {
+        sortedRecordLists.push({ type: this.recordType.recordList, records });
+        return;
+      }
+
+      sortedRecordLists.push({ type: this.recordType.record, record: records[0] });
+    });
+
+    return sortedRecordLists;
   }
 }
 </script>
