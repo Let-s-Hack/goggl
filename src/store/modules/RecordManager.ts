@@ -150,16 +150,16 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
   public get getDurationById(): Function {
     return (id: number): number => {
-      const targetRecord: ITimerState | undefined = this.recordState.find((record: ITimerState) => (
-        record.id === id
+      const record: ITimerState | undefined = this.recordState.find((foundRecord: ITimerState) => (
+        foundRecord.id === id
       ));
       if (
-        typeof targetRecord === 'undefined'
-        || targetRecord.endDatetime === null
-        || targetRecord.startDatetime === null
+        typeof record === 'undefined'
+        || record.endDatetime === null
+        || record.startDatetime === null
       ) return 0;
 
-      return moment(targetRecord.endDatetime).diff(moment(targetRecord.startDatetime), 'seconds');
+      return moment(record.endDatetime).diff(moment(record.startDatetime), 'seconds');
     };
   }
 }
