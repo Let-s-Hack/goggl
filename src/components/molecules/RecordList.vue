@@ -6,7 +6,6 @@
         <h3
           v-if="records[0]"
           :class="['RecordList_SummaryTitle', { '_isEmpty': !records[0].title }]"
-          class="RecordList_SummaryTitle"
         >{{ records[0].title || 'Add description' }}</h3>
         <span
           v-if="project"
