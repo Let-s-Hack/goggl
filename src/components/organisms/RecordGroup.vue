@@ -82,6 +82,13 @@ export default class RecordGroup extends Vue {
 
   private recordManager = RecordManager;
 
+  private recordType: {
+    [key: string]: RecordType.RecordComponent | RecordType.RecordListComponent
+  } = {
+    record: RecordType.RecordComponent,
+    recordList: RecordType.RecordListComponent,
+  };
+
   private get nextRecordGroups(): INextRecordGroup[] {
     const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
     const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
@@ -100,19 +107,27 @@ export default class RecordGroup extends Vue {
     return totalSeconds;
   }
 
-  private recordType: {
-    [key: string]: RecordType.RecordComponent | RecordType.RecordListComponent
-  } = {
-    record: RecordType.RecordComponent,
-    recordList: RecordType.RecordListComponent,
-  };
-
   private getPassedDays(): number {
     const now: Moment = moment();
     const recordDate: Moment = moment(this.recordGroup.date);
     const passedDays: number = now.diff(recordDate, 'days');
 
     return passedDays;
+  }
+
+  private pushRecordType(recordGroups: ITimerState[][]): INextRecordGroup[] {
+    const nextRecordGroups: INextRecordGroup[] = [];
+
+    forEach(recordGroups, (records: ITimerState[]) => {
+      if (records.length >= 2) {
+        nextRecordGroups.push({ type: this.recordType.recordList, records });
+        return;
+      }
+
+      nextRecordGroups.push({ type: this.recordType.record, record: records[0] });
+    });
+
+    return nextRecordGroups;
   }
 
   private showTimerEditor(): void {
@@ -147,21 +162,6 @@ export default class RecordGroup extends Vue {
     });
 
     return groupedRecords;
-  }
-
-  private pushRecordType(recordGroups: ITimerState[][]): INextRecordGroup[] {
-    const nextRecordGroups: INextRecordGroup[] = [];
-
-    forEach(recordGroups, (records: ITimerState[]) => {
-      if (records.length >= 2) {
-        nextRecordGroups.push({ type: this.recordType.recordList, records });
-        return;
-      }
-
-      nextRecordGroups.push({ type: this.recordType.record, record: records[0] });
-    });
-
-    return nextRecordGroups;
   }
 }
 </script>
