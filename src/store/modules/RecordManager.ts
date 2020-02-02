@@ -118,6 +118,14 @@ const firestoreRecords: ITimerState[] = [
     projectId: null,
     tagIds: [],
   },
+  {
+    id: 14,
+    title: 'develop goggl',
+    startDatetime: '2020-01-29 19:10:34',
+    endDatetime: '2020-01-29 21:20:21',
+    projectId: 2,
+    tagIds: [2, 3],
+  },
 ];
 
 @Module({
@@ -150,8 +158,8 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
   public get getDurationById(): Function {
     return (id: number): number => {
-      const record: ITimerState | undefined = this.recordState.find((foundRecord: ITimerState) => (
-        foundRecord.id === id
+      const record: ITimerState | undefined = this.recordState.find((_record: ITimerState) => (
+        _record.id === id
       ));
       if (
         typeof record === 'undefined'

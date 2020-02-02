@@ -82,6 +82,24 @@ export default class RecordGroup extends Vue {
 
   private recordManager = RecordManager;
 
+  private get nextRecordGroups(): INextRecordGroup[] {
+    const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
+    const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
+    const nextRecordGroups: INextRecordGroup[] = this.pushRecordType(groupedRecords);
+
+    return nextRecordGroups;
+  }
+
+  private get totalSeconds(): number {
+    const totalSeconds: number = reduce(
+      this.recordGroup.records,
+      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
+      0,
+    );
+
+    return totalSeconds;
+  }
+
   private recordType: {
     [key: string]: RecordType.RecordComponent | RecordType.RecordListComponent
   } = {
@@ -99,24 +117,6 @@ export default class RecordGroup extends Vue {
 
   private showTimerEditor(): void {
     this.pageLayer.push({ component: TimerEditor });
-  }
-
-  private get nextRecordGroups(): INextRecordGroup[] {
-    const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
-    const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
-    const nextRecordGroups: INextRecordGroup[] = this.pushRecordType(groupedRecords);
-
-    return nextRecordGroups;
-  }
-
-  private get totalSeconds(): number {
-    const totalSeconds: number = reduce(
-      this.recordGroup.records,
-      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
-      0,
-    );
-
-    return totalSeconds;
   }
 
   private static isSameRecord(record: ITimerState, compareRecord: ITimerState): boolean {
