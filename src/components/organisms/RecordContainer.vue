@@ -11,7 +11,11 @@
 </template>
 
 <script lang="ts">
-import { findLastIndex, forEach, orderBy } from 'lodash';
+import {
+  findLastIndex,
+  forEach,
+  orderBy,
+} from 'lodash';
 import moment from 'moment';
 import { Component, Vue } from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';

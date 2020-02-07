@@ -15,7 +15,7 @@
       <SvgIcon name="tag" class="RecordListItem_IconTag" />
     </div>
     <div class="RecordListItem_Right">
-      <span class="RecordListItem_Time">0:30:00</span>
+      <span class="RecordListItem_Duration">0:30:00</span>
       <SvgIcon name="triangle" class="RecordListItem_IconStart" />
     </div>
   </li>
@@ -114,7 +114,7 @@ export default class RecordListItem extends Vue {
     }
   }
 
-  &_Time {
+  &_Duration {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
   }

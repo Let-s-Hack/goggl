@@ -1,6 +1,6 @@
 <template>
   <div class="ActiveTimer">
-    <div class="ActiveTimer_Time">1:43:35</div>
+    <div class="ActiveTimer_Duration">1:43:35</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
@@ -47,7 +47,7 @@ export default class ActiveTimer extends Vue {
   font-size: 1.4rem;
   text-align: center;
 
-  &_Time {
+  &_Duration {
     margin-bottom: auto;
     font-weight: 500;
     letter-spacing: 0.1rem;
