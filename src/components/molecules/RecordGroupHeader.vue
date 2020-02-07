@@ -1,7 +1,7 @@
 <template>
   <div class="RecordGroupHeader">
     <h2 class="RecordGroupHeader_Date"><slot name="date" /></h2>
-    <p class="RecordGroupHeader_Duration"><slot name="total" /></p>
+    <p class="RecordGroupHeader_TotalDuration"><slot name="total" /></p>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default class RecordGroupHeader extends Vue {
     font-size: 1.5rem;
   }
 
-  &_Duration {
+  &_TotalDuration {
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
   }
