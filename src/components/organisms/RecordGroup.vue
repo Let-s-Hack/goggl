@@ -12,7 +12,7 @@
           Today
         </template>
       </template>
-      <template v-slot:total>{{ totalSeconds | toTime }}</template>
+      <template v-slot:totalDuration>{{ totalDuration | toTime }}</template>
     </RecordGroupHeader>
     <ul>
       <template v-for="recordGroup in recordTypeGroups">
@@ -98,10 +98,12 @@ export default class RecordGroup extends Vue {
     this.setRecordType(groupedRecords);
   }
 
-  private get totalSeconds(): number {
+  private get totalDuration(): number {
     return reduce(
       this.recordGroup.records,
-      (total: number, record: ITimerState) => total + this.recordManager.getDurationById(record.id),
+      (totalDuration: number, record: ITimerState) => (
+        totalDuration + this.recordManager.getDurationById(record.id)
+      ),
       0,
     );
   }
