@@ -1,7 +1,7 @@
 <template>
   <div class="RecordGroupHeader">
     <h2 class="RecordGroupHeader_Date">Thu, 21 Nov</h2>
-    <p class="RecordGroupHeader_Time">8:40:36</p>
+    <p class="RecordGroupHeader_Duration">8:40:36</p>
   </div>
 </template>
 
@@ -25,7 +25,7 @@ export default class RecordGroupHeader extends Vue {
     font-size: 1.5rem;
   }
 
-  &_Time {
+  &_Duration {
     font-size: 1.4rem;
     letter-spacing: 0.1rem;
   }
