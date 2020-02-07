@@ -57,7 +57,6 @@ import RecordManager from '@/store/modules/RecordManager';
 import RecordListItem from '~/atoms/RecordListItem.vue';
 import RecordListEditor from '~/organisms/RecordListEditor.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
-
 @Component({
   components: {
     RecordListItem,
@@ -82,7 +81,6 @@ export default class RecordList extends Vue {
       (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
       0,
     );
-
     return totalSeconds;
   }
 
@@ -105,24 +103,19 @@ export default class RecordList extends Vue {
     padding: 14px 16px;
     background: #FFF;
     box-sizing: border-box;
-
     &:active {
       background: #D9D9D9;
-
       .RecordList_SummaryCount {
         background: #D9D9D9;
       }
-
       .RecordList_SummaryTitleGroup::after {
         background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
       }
-
       .RecordList_IconStart {
         fill: #BCBCBE;
       }
     }
   }
-
   &_SummaryCount {
     display: flex;
     align-items: center;
@@ -136,14 +129,12 @@ export default class RecordList extends Vue {
     border: 1px solid #C6C6C8;
     border-radius: 50%;
     color: #8A8A8E;
-
     &._isActive {
       background: #E5E5EC;
       border: none;
       color: #4ADA64;
     }
   }
-
   &_SummaryTitleGroup {
     position: relative;
     flex: 1;
@@ -152,7 +143,6 @@ export default class RecordList extends Vue {
     justify-content: center;
     margin-right: 16px;
     overflow: hidden;
-
     &::after {
       position: absolute;
       top: 0;
@@ -164,30 +154,25 @@ export default class RecordList extends Vue {
       content: '';
     }
   }
-
   &_SummaryTag {
     flex: 0 1 auto;
     margin-right: 36px;
   }
-
   &_SummaryTimeGroup {
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
-
   &_SummaryTitle {
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
-
     &._isEmpty {
       color: #C7C7C9;
     }
   }
-
   &_SummaryProject {
     display: flex;
     align-items: center;
@@ -196,7 +181,6 @@ export default class RecordList extends Vue {
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
-
     &::before {
       display: inline-block;
       margin-right: 4px;
@@ -209,21 +193,17 @@ export default class RecordList extends Vue {
       content: '';
     }
   }
-
   &_SummaryTime {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
   }
-
   &_Record {
     border-top: 1px solid $color_recordBorder;
   }
-
   &_IconTag {
     width: 10px;
     fill: #B5BCC0;
   }
-
   &_IconStart {
     align-self: flex-end;
     width: 10px;

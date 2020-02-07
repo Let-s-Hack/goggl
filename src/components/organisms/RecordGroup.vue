@@ -12,20 +12,20 @@
           Today
         </template>
       </template>
-      <template v-slot:total>{{ totalSeconds | toTime }}</template>
+      <template v-slot:totalDuration>{{ totalDuration | toTime }}</template>
     </RecordGroupHeader>
     <ul>
-      <template v-for="(recordGroup, index) in nextRecordGroups">
+      <template v-for="recordGroup in recordTypeGroups">
         <RecordList
           v-if="recordGroup.type === recordType.recordList"
-          :key="recordGroup.records[0].id || index"
+          :key="recordGroup.records[0].id"
           :records="recordGroup.records"
           class="RecordGroup_Item"
         />
         <Record
           v-else-if="recordGroup.type === recordType.record"
           @click.native="showTimerEditor()"
-          :key="recordGroup.record.id || index"
+          :key="recordGroup.record.id"
           :record="recordGroup.record"
           class="RecordGroup_Item"
         />
@@ -47,6 +47,7 @@ import {
   Component,
   Prop,
   Vue,
+  Watch,
 } from 'vue-property-decorator';
 import { IRecordGroup } from '~/types';
 import { ITimerState } from '@/store/types';
@@ -57,13 +58,8 @@ import RecordList from '~/molecules/RecordList.vue';
 import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
 
-enum RecordType {
-  RecordComponent = 'RecordComponent',
-  RecordListComponent = 'RecordListComponent',
-}
-
-interface INextRecordGroup {
-  type: RecordType.RecordComponent | RecordType.RecordListComponent,
+interface IRecordTypeGroup {
+  type: string,
   record?: ITimerState,
   records?: ITimerState[],
 }
@@ -82,29 +78,49 @@ export default class RecordGroup extends Vue {
 
   private recordManager = RecordManager;
 
+  private recordTypeGroups: IRecordTypeGroup[] = [];
+
   private recordType: {
-    [key: string]: RecordType.RecordComponent | RecordType.RecordListComponent
+    [key: string]: 'RecordComponent' | 'RecordListComponent'
   } = {
-    record: RecordType.RecordComponent,
-    recordList: RecordType.RecordListComponent,
+    record: 'RecordComponent',
+    recordList: 'RecordListComponent',
   };
 
-  private get nextRecordGroups(): INextRecordGroup[] {
-    const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
-    const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
-    const nextRecordGroups: INextRecordGroup[] = this.pushRecordType(groupedRecords);
-
-    return nextRecordGroups;
+  created() {
+    this.buildRecordTypeGroups();
   }
 
-  private get totalSeconds(): number {
-    const totalSeconds: number = reduce(
+  @Watch('recordGroup')
+  private buildRecordTypeGroups(): void {
+    const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
+    const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
+    this.setRecordType(groupedRecords);
+  }
+
+  private get totalDuration(): number {
+    return reduce(
       this.recordGroup.records,
-      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
+      (totalDuration: number, record: ITimerState) => (
+        totalDuration + this.recordManager.getDurationById(record.id)
+      ),
       0,
     );
+  }
 
-    return totalSeconds;
+  private setRecordType(recordGroups: ITimerState[][]): void {
+    const recordTypeGroups: IRecordTypeGroup[] = [];
+
+    forEach(recordGroups, (records: ITimerState[]) => {
+      if (records.length >= 2) {
+        recordTypeGroups.push({ type: this.recordType.recordList, records });
+        return;
+      }
+
+      recordTypeGroups.push({ type: this.recordType.record, record: records[0] });
+    });
+
+    this.recordTypeGroups = recordTypeGroups;
   }
 
   private getPassedDays(): number {
@@ -115,33 +131,16 @@ export default class RecordGroup extends Vue {
     return passedDays;
   }
 
-  private pushRecordType(recordGroups: ITimerState[][]): INextRecordGroup[] {
-    const nextRecordGroups: INextRecordGroup[] = [];
-
-    forEach(recordGroups, (records: ITimerState[]) => {
-      if (records.length >= 2) {
-        nextRecordGroups.push({ type: this.recordType.recordList, records });
-        return;
-      }
-
-      nextRecordGroups.push({ type: this.recordType.record, record: records[0] });
-    });
-
-    return nextRecordGroups;
-  }
-
   private showTimerEditor(): void {
     this.pageLayer.push({ component: TimerEditor });
   }
 
-  private static isSameRecord(record: ITimerState, compareRecord: ITimerState): boolean {
-    const isSameRecord: boolean = isMatch(record, {
-      title: compareRecord.title,
-      projectId: compareRecord.projectId,
-      tagIds: compareRecord.tagIds,
+  private static isSameRecord(record: ITimerState, comparisonRecord: ITimerState): boolean {
+    return isMatch(record, {
+      title: comparisonRecord.title,
+      projectId: comparisonRecord.projectId,
+      tagIds: comparisonRecord.tagIds,
     });
-
-    return isSameRecord;
   }
 
   private static groupBySameRecord(records: ITimerState[]): ITimerState[][] {
@@ -149,8 +148,8 @@ export default class RecordGroup extends Vue {
 
     forEach(records, (record: ITimerState): void => {
       const sameRecordIndex: number = findIndex(groupedRecords, (_records: ITimerState[]) => {
-        const compareRecord = _records[0];
-        return RecordGroup.isSameRecord(record, compareRecord);
+        const comparisonRecord = _records[0];
+        return RecordGroup.isSameRecord(record, comparisonRecord);
       });
 
       if (sameRecordIndex >= 0) {
