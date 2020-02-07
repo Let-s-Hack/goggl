@@ -1,59 +1,37 @@
 <template>
   <li class="RecordList">
     <div @click="showRecordListEditor()" class="RecordList_Summary">
-      <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
+      <p class="RecordList_SummaryCount _isActive">4</p>
       <div class="RecordList_SummaryTitleGroup">
-        <h3
-          :class="['RecordList_SummaryTitle', { '_isEmpty': !records[0].title }]"
-          class="RecordList_SummaryTitle"
-        >{{ records[0].title || 'Add description' }}</h3>
+        <!-- TODO: _isEmptyの出し分け -->
+        <h3 class="RecordList_SummaryTitle">タイトルタイトルタイトルタイトルタイトル</h3>
+        <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
         <span
-          v-if="project"
           class="RecordList_SummaryProject"
-          :style="{
-            borderColor: project.color,
-            color: project.color
-          }"
-        >{{ project.name }}</span>
+          :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
+        >
+          ゴーグル
+        </span>
       </div>
-      <div
-        v-if="records[0] && recordManager.existsTags(records[0].id)"
-        class="RecordList_SummaryTag"
-      >
+      <div class="RecordList_SummaryTag">
         <SvgIcon name="tag" class="RecordList_IconTag" />
       </div>
       <div class="RecordList_SummaryTimeGroup">
-        <span class="RecordList_SummaryTime">{{ totalSeconds | toTime }}</span>
+        <span class="RecordList_SummaryTime">0:30:00</span>
         <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
     <ul>
-      <RecordListItem
-        v-for="record in records"
-        :key="record.id"
-        :record="record"
-        @click.native="showTimerEditor()"
-        class="RecordList_Record"
-      />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
+      <RecordListItem @click.native="showTimerEditor()" class="RecordList_Record" />
     </ul>
   </li>
 </template>
 
 <script lang="ts">
-import { reduce } from 'lodash';
-import moment, { Moment } from 'moment';
-import {
-  Component,
-  Prop,
-  Vue,
-} from 'vue-property-decorator';
-import {
-  IProjectState,
-  ITimerState,
-} from '@/store/types';
+import { Component, Vue } from 'vue-property-decorator';
 import PageLayer from '@/store/modules/PageLayer';
-import ProjectManager from '@/store/modules/ProjectManager';
-import RecordManager from '@/store/modules/RecordManager';
 import RecordListItem from '~/atoms/RecordListItem.vue';
 import RecordListEditor from '~/organisms/RecordListEditor.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
@@ -64,27 +42,7 @@ import TimerEditor from '~/organisms/TimerEditor.vue';
   },
 })
 export default class RecordList extends Vue {
-  @Prop({ required: true }) records!: ITimerState[];
-
   private pageLayer = PageLayer;
-
-  private projectManager = ProjectManager;
-
-  private recordManager = RecordManager;
-
-  private get project(): IProjectState | undefined {
-    return this.projectManager.getById(this.records[0].projectId);
-  }
-
-  private get totalSeconds(): number {
-    const totalSeconds: number = reduce(
-      this.records,
-      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
-      0,
-    );
-
-    return totalSeconds;
-  }
 
   private showRecordListEditor(): void {
     this.pageLayer.push({ component: RecordListEditor });
