@@ -87,7 +87,7 @@ export default class RecordGroup extends Vue {
     recordList: 'RecordListComponent',
   };
 
-  @Watch('isLoading')
+  @Watch('recordGroup')
   private buildRecordGroups(): void {
     const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
     const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
