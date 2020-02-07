@@ -158,11 +158,10 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
   public get existsTags(): Function {
     return (id: number): boolean => {
-      const filteredRecord: ITimerState[] | undefined = this.recordState.filter(
+      const record: ITimerState | undefined = this.recordState.find(
         (_record: ITimerState) => _record.id === id,
       );
-      if (typeof filteredRecord === 'undefined') return false;
-      const record: ITimerState = filteredRecord[0];
+      if (typeof record === 'undefined') return false;
 
       return record.tagIds.length > 0;
     };
