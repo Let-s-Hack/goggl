@@ -15,7 +15,7 @@
       <template v-slot:total>{{ totalSeconds | toTime }}</template>
     </RecordGroupHeader>
     <ul>
-      <template v-for="recordGroup in nextRecordGroups">
+      <template v-for="recordGroup in recordTypeGroups">
         <RecordList
           v-if="recordGroup.type === recordType.recordList"
           :key="recordGroup.records[0].id"
@@ -87,24 +87,26 @@ export default class RecordGroup extends Vue {
     recordList: 'RecordListComponent',
   };
 
+  created() {
+    this.buildRecordTypeGroups();
+  }
+
   @Watch('recordGroup')
-  private buildRecordGroups(): void {
+  private buildRecordTypeGroups(): void {
     const orderedRecords: ITimerState[] = orderBy(this.recordGroup.records, ['startDatetime'], ['desc']);
     const groupedRecords: ITimerState[][] = RecordGroup.groupBySameRecord(orderedRecords);
-    this.attachRecordType(groupedRecords);
+    this.setRecordType(groupedRecords);
   }
 
   private get totalSeconds(): number {
-    const totalSeconds: number = reduce(
+    return reduce(
       this.recordGroup.records,
-      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
+      (total: number, record: ITimerState) => total + this.recordManager.getDurationById(record.id),
       0,
     );
-
-    return totalSeconds;
   }
 
-  private attachRecordType(recordGroups: ITimerState[][]): void {
+  private setRecordType(recordGroups: ITimerState[][]): void {
     const recordTypeGroups: IRecordTypeGroup[] = [];
 
     forEach(recordGroups, (records: ITimerState[]) => {
@@ -131,11 +133,11 @@ export default class RecordGroup extends Vue {
     this.pageLayer.push({ component: TimerEditor });
   }
 
-  private static isSameRecord(record: ITimerState, compareRecord: ITimerState): boolean {
+  private static isSameRecord(record: ITimerState, comparisonRecord: ITimerState): boolean {
     return isMatch(record, {
-      title: compareRecord.title,
-      projectId: compareRecord.projectId,
-      tagIds: compareRecord.tagIds,
+      title: comparisonRecord.title,
+      projectId: comparisonRecord.projectId,
+      tagIds: comparisonRecord.tagIds,
     });
   }
 
@@ -144,8 +146,8 @@ export default class RecordGroup extends Vue {
 
     forEach(records, (record: ITimerState): void => {
       const sameRecordIndex: number = findIndex(groupedRecords, (_records: ITimerState[]) => {
-        const compareRecord = _records[0];
-        return RecordGroup.isSameRecord(record, compareRecord);
+        const comparisonRecord = _records[0];
+        return RecordGroup.isSameRecord(record, comparisonRecord);
       });
 
       if (sameRecordIndex >= 0) {
