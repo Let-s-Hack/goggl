@@ -4,11 +4,10 @@
       <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
-          v-if="records[0]"
-          :class="['RecordList_SummaryTitle', { '_isEmpty': !records[0].title }]"
-        >{{ records[0].title || 'Add description' }}</h3>
+          :class="['RecordList_SummaryTitle', { '_isEmpty': !record.title }]"
+        >{{ record.title || 'Add description' }}</h3>
         <span
-          v-if="project"
+          v-if="!recordManager.isNoProject(record.projectId)"
           class="RecordList_SummaryProject"
           :style="{
             borderColor: project.color,
@@ -17,22 +16,22 @@
         >{{ project.name }}</span>
       </div>
       <div
-        v-if="records[0] && recordManager.existsTags(records[0].id)"
+        v-if="recordManager.existsTags(record.id)"
         class="RecordList_SummaryTag"
       >
         <SvgIcon name="tag" class="RecordList_IconTag" />
       </div>
-      <div class="RecordList_SummaryTimeGroup">
-        <span class="RecordList_SummaryTime">{{ totalSeconds | toTime }}</span>
+      <div class="RecordList_SummaryDurationGroup">
+        <span class="RecordList_SummaryDuration">{{ totalDuration | toTime }}</span>
         <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
     <ul>
       <RecordListItem
         v-for="record in records"
+        @click.native="showTimerEditor()"
         :key="record.id"
         :record="record"
-        @click.native="showTimerEditor()"
         class="RecordList_Record"
       />
     </ul>
@@ -40,7 +39,11 @@
 </template>
 
 <script lang="ts">
-import { reduce } from 'lodash';
+import {
+  head,
+  last,
+  reduce,
+} from 'lodash';
 import moment, { Moment } from 'moment';
 import {
   Component,
@@ -72,16 +75,21 @@ export default class RecordList extends Vue {
   private recordManager = RecordManager;
 
   private get project(): IProjectState | undefined {
-    return this.projectManager.getById(this.records[0].projectId);
+    if (typeof this.record === 'undefined') return undefined;
+
+    return this.projectManager.getById(this.record.projectId);
   }
 
-  private get totalSeconds(): number {
-    const totalSeconds: number = reduce(
-      this.records,
-      (sum: number, record: ITimerState) => sum + this.recordManager.getDurationById(record.id),
-      0,
-    );
-    return totalSeconds;
+  private get record(): ITimerState | undefined {
+    return head(this.records);
+  }
+
+  private get totalDuration(): number {
+    const firstRecord: ITimerState | undefined = head(this.records);
+    const lastRecord: ITimerState | undefined = last(this.records);
+    if (typeof firstRecord === 'undefined' || typeof lastRecord === 'undefined') return 0;
+
+    return this.recordManager.getTotalDuration(firstRecord.startDatetime, lastRecord.startDatetime);
   }
 
   private showRecordListEditor(): void {
@@ -158,7 +166,7 @@ export default class RecordList extends Vue {
     flex: 0 1 auto;
     margin-right: 36px;
   }
-  &_SummaryTimeGroup {
+  &_SummaryDurationGroup {
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
@@ -193,7 +201,7 @@ export default class RecordList extends Vue {
       content: '';
     }
   }
-  &_SummaryTime {
+  &_SummaryDuration {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
   }

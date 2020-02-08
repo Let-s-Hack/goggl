@@ -1,4 +1,5 @@
-import moment from 'moment';
+import { reduce } from 'lodash';
+import moment, { Moment } from 'moment';
 import {
   Module,
   VuexModule,
@@ -35,7 +36,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-19 09:06:45',
     endDatetime: '2020-01-19 12:00:00',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -91,7 +92,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-28 10:00:00',
     endDatetime: '2020-01-28 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -107,7 +108,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-25 10:00:00',
     endDatetime: '2020-01-25 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -115,7 +116,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-19 10:00:00',
     endDatetime: '2020-01-19 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -136,6 +137,8 @@ const firestoreRecords: ITimerState[] = [
 })
 class RecordManager extends VuexModule implements IRecordManagerState {
   public recordState: ITimerState[] = firestoreRecords;
+
+  public readonly noProjectId: number = 1;
 
   @Mutation
   public setState(payload: ITimerState[]): void {
@@ -182,6 +185,43 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
       return moment(record.endDatetime).diff(moment(record.startDatetime), 'seconds');
     };
+  }
+
+  public get getRecordsByDatetime(): Function {
+    return (startDatetime: string, endDatetime: string): ITimerState[] => {
+      const start: Moment = moment(startDatetime);
+      const end: Moment = moment(endDatetime);
+      const records = this.recordState.filter((record: ITimerState) => {
+        if (record.startDatetime === null) return false;
+
+        // レコードの「開始時間」が指定の範囲内であるかを判定
+        return (
+          start.isSameOrAfter(record.startDatetime)
+          && end.isSameOrBefore(record.startDatetime)
+        );
+      });
+
+      return records;
+    };
+  }
+
+  public get getTotalDuration(): Function {
+    return (startDatetime: string, endDatetime: string): number => {
+      const records = this.getRecordsByDatetime(startDatetime, endDatetime);
+      const totalDuration = reduce(
+        records,
+        (_totalDuration: number, record: ITimerState) => (
+          _totalDuration + this.getDurationById(record.id)
+        ),
+        0,
+      );
+
+      return totalDuration;
+    };
+  }
+
+  public get isNoProject(): Function {
+    return (projectId: number): boolean => projectId === this.noProjectId;
   }
 }
 
