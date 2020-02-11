@@ -79,12 +79,7 @@ export default class RecordList extends Vue {
   }
 
   private get totalDuration(): number {
-    const recordIds: number[] = [];
-    this.records.forEach((record: ITimerState) => {
-      if (typeof record.id === 'number') recordIds.push(record.id);
-    });
-
-    return this.recordManager.calcTotalDurationByIds(recordIds);
+    return this.recordManager.calcTotalDuration(this.records);
   }
 
   private showRecordListEditor(): void {

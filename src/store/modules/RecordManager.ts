@@ -1,5 +1,4 @@
-import { reduce } from 'lodash';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import {
   Module,
   VuexModule,
@@ -187,13 +186,13 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     };
   }
 
-  public get calcTotalDurationByIds(): Function {
-    return (ids: number[]): number => {
-      const total: number = reduce(
-        ids,
-        (_total: number, id: number) => _total + this.getDurationById(id),
-        0,
-      );
+  public get calcTotalDuration(): Function {
+    return (records: ITimerState[]): number => {
+      let total = 0;
+      records.forEach((record: ITimerState) => {
+        if (record.id === null) return;
+        total += this.getDurationById(record.id);
+      });
 
       return total;
     };
