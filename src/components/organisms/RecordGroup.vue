@@ -40,7 +40,6 @@ import {
   forEach,
   isMatch,
   orderBy,
-  reduce,
 } from 'lodash';
 import moment, { Moment } from 'moment';
 import {
@@ -76,8 +75,6 @@ export default class RecordGroup extends Vue {
 
   private pageLayer = PageLayer;
 
-  private recordManager = RecordManager;
-
   private recordTypeGroups: IRecordTypeGroup[] = [];
 
   private recordType: {
@@ -99,13 +96,7 @@ export default class RecordGroup extends Vue {
   }
 
   private get totalDuration(): number {
-    return reduce(
-      this.recordGroup.records,
-      (totalDuration: number, record: ITimerState) => (
-        totalDuration + this.recordManager.getDurationById(record.id)
-      ),
-      0,
-    );
+    return RecordManager.calcTotalDuration(this.recordGroup.records);
   }
 
   private setRecordType(recordGroups: ITimerState[][]): void {
