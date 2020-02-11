@@ -62,7 +62,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
     values: ITimerState,
     type?: string,
   }): void {
-    each(payload.values, (value: any, key: string) => {
+    each(payload.values, (value: (string | number | number[] | null), key: string) => {
       const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
       state[key] = value;
     });

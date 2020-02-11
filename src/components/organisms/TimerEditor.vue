@@ -191,7 +191,11 @@ export default class TimerEditor extends Vue {
 
   private get duration(): number {
     const startDatetime = this.timeRecorder.getState({ type: 'tmp', key: 'startDatetime' });
-    const endDatetime = this.timeRecorder.getState({ type: 'tmp', key: 'endDatetime' });
+    // TODO: Active状態の場合、durationをカウントさせる
+    const endDatetime = (
+      this.timeRecorder.getState({ type: 'tmp', key: 'endDatetime' })
+      || moment().format('YYYY-MM-DD HH:mm:ss')
+    );
 
     return moment(endDatetime).diff(moment(startDatetime), 'seconds');
   }
