@@ -1,31 +1,57 @@
 <template>
   <li class="Record">
     <div class="Record_Left">
-      <!-- TODO: _isEmptyの出し分け -->
-      <h3 class="Record_Title _isEmpty">説明を追加</h3>
-      <!-- colorとborder-colorにstyle属性でカラーコードを指定する -->
+      <h3
+        :class="['Record_Title', { '_isEmpty': !record.title }]"
+      >{{ record.title || 'Add description' }}</h3>
       <span
+        v-if="!recordManager.isNoProject(record.projectId)"
         class="Record_Project"
-        :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-      >
-        ゴーグル
-      </span>
+        :style="{
+          borderColor: project.color,
+          color: project.color
+        }"
+      >{{ project.name }}</span>
     </div>
-    <div class="Record_Center">
+    <div
+      v-if="recordManager.hasTags(record.id)"
+      class="Record_Center"
+    >
       <SvgIcon name="tag" class="Record_IconTag" />
     </div>
     <div class="Record_Right">
-      <span class="Record_Duration">0:30:00</span>
+      <span class="Record_Duration">{{ duration | toTime }}</span>
       <SvgIcon name="triangle" class="Record_IconStart" />
     </div>
   </li>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
+import {
+  IProjectState,
+  ITimerState,
+} from '@/store/types';
+import ProjectManager from '@/store/modules/ProjectManager';
+import RecordManager from '@/store/modules/RecordManager';
 
 @Component
 export default class Record extends Vue {
+  @Prop({ required: true }) record!: ITimerState;
+
+  private recordManager = RecordManager;
+
+  private get project(): IProjectState | undefined {
+    return ProjectManager.getById(this.record.projectId);
+  }
+
+  private get duration(): number {
+    return this.recordManager.getDurationById(this.record.id);
+  }
 }
 </script>
 

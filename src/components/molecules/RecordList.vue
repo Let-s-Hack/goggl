@@ -16,7 +16,7 @@
         >{{ project.name }}</span>
       </div>
       <div
-        v-if="recordManager.existsTags(record.id)"
+        v-if="recordManager.hasTags(record.id)"
         class="RecordList_SummaryTag"
       >
         <SvgIcon name="tag" class="RecordList_IconTag" />
@@ -40,7 +40,6 @@
 
 <script lang="ts">
 import { head } from 'lodash';
-import moment, { Moment } from 'moment';
 import {
   Component,
   Prop,
