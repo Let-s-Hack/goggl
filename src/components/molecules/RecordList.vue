@@ -84,7 +84,7 @@ export default class RecordList extends Vue {
       if (typeof record.id === 'number') recordIds.push(record.id);
     });
 
-    return this.recordManager.calculateTotalDurationByIds(recordIds);
+    return this.recordManager.calcTotalDurationByIds(recordIds);
   }
 
   private showRecordListEditor(): void {

@@ -187,10 +187,10 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     };
   }
 
-  public get calculateTotalDurationByIds(): Function {
-    return (Ids: number[]): number => {
+  public get calcTotalDurationByIds(): Function {
+    return (ids: number[]): number => {
       const total: number = reduce(
-        Ids,
+        ids,
         (_total: number, id: number) => _total + this.getDurationById(id),
         0,
       );
