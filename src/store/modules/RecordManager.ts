@@ -174,7 +174,8 @@ class RecordManager extends VuexModule implements IRecordManagerState {
   }
 
   public get getDurationById(): Function {
-    return (id: number): number => {
+    return (id: number | null): number => {
+      if (id === null) return 0;
       const record: ITimerState | undefined = this.getById(id);
       if (
         typeof record === 'undefined'
@@ -190,7 +191,6 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     return (records: ITimerState[]): number => {
       let total = 0;
       records.forEach((record: ITimerState) => {
-        if (record.id === null) return;
         total += this.getDurationById(record.id);
       });
 
