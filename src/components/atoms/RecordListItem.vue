@@ -44,12 +44,10 @@ import RecordManager from '@/store/modules/RecordManager';
 export default class RecordListItem extends Vue {
   @Prop({ required: true }) record!: ITimerState;
 
-  private projectManager = ProjectManager;
-
   private recordManager = RecordManager;
 
   private get project(): IProjectState | undefined {
-    return this.projectManager.getById(this.record.projectId);
+    return ProjectManager.getById(this.record.projectId);
   }
 
   private get duration(): number {

@@ -20,7 +20,7 @@
       <SvgIcon name="tag" class="Record_IconTag" />
     </div>
     <div class="Record_Right">
-      <span class="Record_Duration">{{ totalSeconds | toTime }}</span>
+      <span class="Record_Duration">{{ duration | toTime }}</span>
       <SvgIcon name="triangle" class="Record_IconStart" />
     </div>
   </li>
@@ -44,12 +44,10 @@ import RecordManager from '@/store/modules/RecordManager';
 export default class Record extends Vue {
   @Prop({ required: true }) record!: ITimerState;
 
-  private projectManager = ProjectManager;
-
   private recordManager = RecordManager;
 
   private get project(): IProjectState | undefined {
-    return this.projectManager.getById(this.record.projectId);
+    return ProjectManager.getById(this.record.projectId);
   }
 
   private get duration(): number {
