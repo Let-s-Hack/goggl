@@ -23,7 +23,6 @@
           @click="showProjectSelector()"
           class="TimerEditor_InputGroup"
         >
-          <!-- TODO: 選択済み時の出し分け -->
           <span
             v-if="recordManager.hasProject(tmpRecord.projectId)"
             class="TimerEditor_Project"
