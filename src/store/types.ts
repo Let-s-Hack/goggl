@@ -1,5 +1,5 @@
 export interface IPageLayerPropState {
-  [key: string]: string | Function,
+  [key: string]: string | Function | ITimerState,
 }
 
 export interface IPageLayerComponentState {
@@ -25,6 +25,7 @@ export interface ILoaderState {
 }
 
 export interface ITimerState {
+  id: number | null,
   title: string | null,
   startDatetime: string | null,
   endDatetime: string | null,
