@@ -25,7 +25,6 @@ export interface ILoaderState {
 }
 
 export interface ITimerState {
-  id: number | null,
   title: string | null,
   startDatetime: string | null,
   endDatetime: string | null,
