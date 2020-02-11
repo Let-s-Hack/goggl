@@ -1,5 +1,5 @@
 import { reduce } from 'lodash';
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import {
   Module,
   VuexModule,
@@ -159,13 +159,12 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     return false;
   }
 
-  public get existsTags(): Function {
-    return (id: number): boolean => {
-      const record: ITimerState | undefined = this.getById(id);
-      if (typeof record === 'undefined') return false;
-
-      return record.tagIds.length > 0;
-    };
+  public get calcTotalDuration(): Function {
+    return (records: ITimerState[]): number => reduce(
+      records,
+      (total: number, record: ITimerState) => total + this.getDurationById(record.id),
+      0,
+    );
   }
 
   public get getById(): Function {
@@ -187,15 +186,12 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     };
   }
 
-  public get calculateTotalDurationByIds(): Function {
-    return (Ids: number[]): number => {
-      const total: number = reduce(
-        Ids,
-        (_total: number, id: number) => _total + this.getDurationById(id),
-        0,
-      );
+  public get hasTags(): Function {
+    return (id: number): boolean => {
+      const record: ITimerState | undefined = this.getById(id);
+      if (typeof record === 'undefined') return false;
 
-      return total;
+      return record.tagIds.length > 0;
     };
   }
 
