@@ -14,7 +14,7 @@
       >{{ project.name }}</span>
     </div>
     <div
-      v-if="recordManager.existsTags(record.id)"
+      v-if="recordManager.hasTags(record.id)"
       class="Record_Center"
     >
       <SvgIcon name="tag" class="Record_IconTag" />
@@ -27,7 +27,6 @@
 </template>
 
 <script lang="ts">
-import moment, { Moment } from 'moment';
 import {
   Component,
   Prop,
