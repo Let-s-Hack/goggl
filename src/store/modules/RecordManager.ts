@@ -196,7 +196,7 @@ class RecordManager extends VuexModule implements IRecordManagerState {
   }
 
   public get hasProject(): Function {
-    return (projectId: number): boolean => projectId === this.noProjectId;
+    return (projectId: number): boolean => projectId !== this.noProjectId;
   }
 }
 
