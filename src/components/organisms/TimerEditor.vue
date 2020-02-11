@@ -64,7 +64,7 @@
             <SvgIcon name="time" class="TimerEditor_Icon" />
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">
-                {{ tmpRecord.startDatetime | format('HH:mm')}}
+                {{ tmpRecord.startDatetime | format('HH:mm A')}}
               </span>
               <span class="TimerEditor_LabelSubText">Start</span>
             </div>
@@ -86,7 +86,7 @@
           >
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">
-                {{ tmpRecord.endDatetime | format('HH:mm') }}
+                {{ tmpRecord.endDatetime | format('HH:mm A') }}
               </span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
@@ -98,7 +98,7 @@
         >
           <SvgIcon name="timer" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">0:00:23</span>
+            <span class="TimerEditor_LabelText">{{ duration | toTime }}</span>
             <span class="TimerEditor_LabelSubText">Duration</span>
           </div>
         </li>
@@ -178,21 +178,22 @@ export default class TimerEditor extends Vue {
   private tmp: boolean = true;
 
   private get project(): IProjectState | undefined {
-    const projectId = this.timeRecorder.getState({
-      key: 'projectId',
-      type: 'tmp',
-    });
+    const projectId = this.timeRecorder.getState({ type: 'tmp', key: 'projectId' });
 
     return ProjectManager.getById(projectId);
   }
 
   private get tags(): ITagState | undefined {
-    const tagIds = this.timeRecorder.getState({
-      key: 'tagIds',
-      type: 'tmp',
-    });
+    const tagIds = this.timeRecorder.getState({ type: 'tmp', key: 'tagIds' });
 
     return TagManager.getByIds(tagIds);
+  }
+
+  private get duration(): number {
+    const startDatetime = this.timeRecorder.getState({ type: 'tmp', key: 'startDatetime' });
+    const endDatetime = this.timeRecorder.getState({ type: 'tmp', key: 'endDatetime' });
+
+    return moment(endDatetime).diff(moment(startDatetime), 'seconds');
   }
 
   private get tmpRecord(): ITimerState {
@@ -200,10 +201,7 @@ export default class TimerEditor extends Vue {
   }
 
   created() {
-    this.timeRecorder.setStates({
-      type: 'tmp',
-      values: this.record,
-    });
+    this.timeRecorder.setStates({ type: 'tmp', values: this.record });
 
     if (this.record.endDatetime) {
       this.isTimerActive = false;
