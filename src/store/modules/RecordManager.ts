@@ -138,7 +138,7 @@ const firestoreRecords: ITimerState[] = [
 class RecordManager extends VuexModule implements IRecordManagerState {
   public recordState: ITimerState[] = firestoreRecords;
 
-  private readonly noProjectId: number = 1;
+  public readonly noProjectId: number = 1;
 
   @Mutation
   public setState(payload: ITimerState[]): void {

@@ -1,3 +1,4 @@
+import { each } from 'lodash';
 import {
   Module,
   VuexModule,
@@ -9,13 +10,14 @@ import {
   ITimerState,
   ITimeRecorderState,
 } from '@/store/types';
+import RecordManager from './RecordManager';
 import store from '@/store';
 
 const initialTimerState: ITimerState = {
   title: null,
   startDatetime: null,
   endDatetime: null,
-  projectId: null,
+  projectId: RecordManager.noProjectId,
   tagIds: [],
 };
 
@@ -47,12 +49,23 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   @Mutation
   public setState(payload: {
+    type?: string,
     key: string,
     value: string | number | number[] | null,
-    type?: string,
   }): void {
     const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
     state[payload.key] = payload.value;
+  }
+
+  @Mutation
+  public setStates(payload: {
+    values: ITimerState,
+    type?: string,
+  }): void {
+    each(payload.values, (value: any, key: string) => {
+      const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
+      state[key] = value;
+    });
   }
 
   @Action
