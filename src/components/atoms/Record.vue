@@ -35,6 +35,7 @@ export default class Record extends Vue {
   display: flex;
   height: $heightSize;
   padding: 14px 16px;
+  margin-bottom: -2px;
   background: #FFF;
   box-sizing: border-box;
 
@@ -98,6 +99,7 @@ export default class Record extends Vue {
     display: flex;
     align-items: center;
     margin-top: auto;
+    padding-bottom: 2px;
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     white-space: nowrap;

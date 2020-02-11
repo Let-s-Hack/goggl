@@ -106,46 +106,54 @@ export default class RecordList extends Vue {
     padding: 14px 16px;
     background: #FFF;
     box-sizing: border-box;
+
     &:active {
       background: #D9D9D9;
+
       .RecordList_SummaryCount {
         background: #D9D9D9;
       }
+
       .RecordList_SummaryTitleGroup::after {
         background: linear-gradient(to left, #D9D9D9, rgba(#D9D9D9, 0));
       }
+
       .RecordList_IconStart {
         fill: #BCBCBE;
       }
     }
   }
+
   &_SummaryCount {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 28px;
     height: 28px;
-    margin-right: 32px;
+    margin: auto 32px auto 0;
     background: transparent;
     font-size: 1.6rem;
     box-sizing: border-box;
     border: 1px solid #C6C6C8;
     border-radius: 50%;
     color: #8A8A8E;
+
     &._isActive {
       background: #E5E5EC;
       border: none;
       color: #4ADA64;
     }
   }
+
   &_SummaryTitleGroup {
     position: relative;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-right: 16px;
+    margin: 0 16px -2px 0;
     overflow: hidden;
+
     &::after {
       position: absolute;
       top: 0;
@@ -157,38 +165,45 @@ export default class RecordList extends Vue {
       content: '';
     }
   }
+
   &_SummaryTag {
     flex: 0 1 auto;
     margin-right: 36px;
   }
+
   &_SummaryDurationGroup {
     flex: 0 1 auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
+
   &_SummaryTitle {
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
     &._isEmpty {
       color: #C7C7C9;
     }
   }
+
   &_SummaryProject {
     display: flex;
     align-items: center;
     margin-top: auto;
+    padding-bottom: 2px;
     font-size: 1.3rem;
     letter-spacing: 0.1rem;
     white-space: nowrap;
     text-overflow: clip;
+
     &::before {
       display: inline-block;
       margin-right: 4px;
       border-radius: 50%;
-      // border-colorを親(.RecordList_SummaryProject)から継承するため、ショートハンドプロパティは使いません
+      // border-colorを親から継承するため、ショートハンドプロパティは使いません
       border-width: 3px;
       border-style: solid;
       border-color: inherit;
@@ -196,17 +211,21 @@ export default class RecordList extends Vue {
       content: '';
     }
   }
+
   &_SummaryDuration {
     font-size: 1.2rem;
     letter-spacing: 0.1rem;
   }
+
   &_Record {
     border-top: 1px solid $color_recordBorder;
   }
+
   &_IconTag {
     width: 10px;
     fill: #B5BCC0;
   }
+
   &_IconStart {
     align-self: flex-end;
     width: 10px;
