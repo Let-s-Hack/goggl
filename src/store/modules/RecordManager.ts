@@ -1,3 +1,4 @@
+import { reduce } from 'lodash';
 import moment from 'moment';
 import {
   Module,
@@ -35,7 +36,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-19 09:06:45',
     endDatetime: '2020-01-19 12:00:00',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -91,7 +92,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-28 10:00:00',
     endDatetime: '2020-01-28 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -107,7 +108,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-25 10:00:00',
     endDatetime: '2020-01-25 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -115,7 +116,7 @@ const firestoreRecords: ITimerState[] = [
     title: null,
     startDatetime: '2020-01-19 10:00:00',
     endDatetime: '2020-01-19 10:44:40',
-    projectId: null,
+    projectId: 1,
     tagIds: [],
   },
   {
@@ -136,6 +137,8 @@ const firestoreRecords: ITimerState[] = [
 })
 class RecordManager extends VuexModule implements IRecordManagerState {
   public recordState: ITimerState[] = firestoreRecords;
+
+  private readonly noProjectId: number = 1;
 
   @Mutation
   public setState(payload: ITimerState[]): void {
@@ -182,6 +185,18 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
       return moment(record.endDatetime).diff(moment(record.startDatetime), 'seconds');
     };
+  }
+
+  public get calcTotalDuration(): Function {
+    return (records: ITimerState[]): number => reduce(
+      records,
+      (total: number, record: ITimerState) => total + this.getDurationById(record.id),
+      0,
+    );
+  }
+
+  public get isNoProject(): Function {
+    return (projectId: number): boolean => projectId === this.noProjectId;
   }
 }
 
