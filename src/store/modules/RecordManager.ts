@@ -138,7 +138,7 @@ const firestoreRecords: ITimerState[] = [
 class RecordManager extends VuexModule implements IRecordManagerState {
   public recordState: ITimerState[] = firestoreRecords;
 
-  public readonly noProjectId: number = 1;
+  private readonly noProjectId: number = 1;
 
   @Mutation
   public setState(payload: ITimerState[]): void {
@@ -187,36 +187,15 @@ class RecordManager extends VuexModule implements IRecordManagerState {
     };
   }
 
-  public get getRecordsByDatetime(): Function {
-    return (startDatetime: string, endDatetime: string): ITimerState[] => {
-      const start: Moment = moment(startDatetime);
-      const end: Moment = moment(endDatetime);
-      const records = this.recordState.filter((record: ITimerState) => {
-        if (record.startDatetime === null) return false;
-
-        // レコードの「開始時間」が指定の範囲内であるかを判定
-        return (
-          start.isSameOrAfter(record.startDatetime)
-          && end.isSameOrBefore(record.startDatetime)
-        );
-      });
-
-      return records;
-    };
-  }
-
-  public get getTotalDuration(): Function {
-    return (startDatetime: string, endDatetime: string): number => {
-      const records = this.getRecordsByDatetime(startDatetime, endDatetime);
-      const totalDuration = reduce(
-        records,
-        (_totalDuration: number, record: ITimerState) => (
-          _totalDuration + this.getDurationById(record.id)
-        ),
+  public get calculateTotalDurationByIds(): Function {
+    return (Ids: number[]): number => {
+      const total: number = reduce(
+        Ids,
+        (_total: number, id: number) => _total + this.getDurationById(id),
         0,
       );
 
-      return totalDuration;
+      return total;
     };
   }
 

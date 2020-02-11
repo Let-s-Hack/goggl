@@ -28,10 +28,10 @@
     </div>
     <ul>
       <RecordListItem
-        v-for="record in records"
+        v-for="_record in records"
         @click.native="showTimerEditor()"
-        :key="record.id"
-        :record="record"
+        :key="_record.id"
+        :record="_record"
         class="RecordList_Record"
       />
     </ul>
@@ -39,11 +39,7 @@
 </template>
 
 <script lang="ts">
-import {
-  head,
-  last,
-  reduce,
-} from 'lodash';
+import { head } from 'lodash';
 import moment, { Moment } from 'moment';
 import {
   Component,
@@ -70,14 +66,12 @@ export default class RecordList extends Vue {
 
   private pageLayer = PageLayer;
 
-  private projectManager = ProjectManager;
-
   private recordManager = RecordManager;
 
   private get project(): IProjectState | undefined {
     if (typeof this.record === 'undefined') return undefined;
 
-    return this.projectManager.getById(this.record.projectId);
+    return ProjectManager.getById(this.record.projectId);
   }
 
   private get record(): ITimerState | undefined {
@@ -85,11 +79,12 @@ export default class RecordList extends Vue {
   }
 
   private get totalDuration(): number {
-    const firstRecord: ITimerState | undefined = head(this.records);
-    const lastRecord: ITimerState | undefined = last(this.records);
-    if (typeof firstRecord === 'undefined' || typeof lastRecord === 'undefined') return 0;
+    const recordIds: number[] = [];
+    this.records.forEach((record: ITimerState) => {
+      if (typeof record.id === 'number') recordIds.push(record.id);
+    });
 
-    return this.recordManager.getTotalDuration(firstRecord.startDatetime, lastRecord.startDatetime);
+    return this.recordManager.calculateTotalDurationByIds(recordIds);
   }
 
   private showRecordListEditor(): void {
