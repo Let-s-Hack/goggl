@@ -21,7 +21,10 @@
 
 <script lang="ts">
 import moment from 'moment';
-import { Component, Mixins, Vue } from 'vue-property-decorator';
+import {
+  Component,
+  Mixins,
+} from 'vue-property-decorator';
 import {
   IProjectState,
   ITimerState,
