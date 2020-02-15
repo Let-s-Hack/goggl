@@ -59,8 +59,8 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   @Mutation
   public setStates(payload: {
-    values: ITimerState,
     type?: string,
+    values: ITimerState,
   }): void {
     each(payload.values, (value: (string | number | number[] | null), key: string) => {
       const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
