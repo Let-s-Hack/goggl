@@ -1,13 +1,16 @@
 <template>
   <div class="ActiveTimer">
-    <div class="ActiveTimer_Duration">1:43:35</div>
+    <div class="ActiveTimer_Duration">{{ duration | toTime }}</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
-      <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
+      <span class="ActiveTimer_Title">{{ timer.title }}</span>
       <span
-        :style="{ borderColor: '#E30909', color: '#E30909' }"
+        :style="{
+          borderColor: project.color,
+          color: project.color
+        }"
         class="ActiveTimer_Project"
-      >goggl</span>
+      >{{ project.name }}</span>
     </div>
     <TimerStopButton
       @click.stop.native="timeRecorder.record()"
@@ -17,7 +20,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
+import { Component, Mixins, Vue } from 'vue-property-decorator';
+import {
+  IProjectState,
+  ITimerState,
+} from '@/store/types';
+import DurationCounterMixin from '@/mixins/DurationCounterMixin';
+import ProjectManager from '@/store/modules/ProjectManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
@@ -26,8 +36,20 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
     TimerStopButton,
   },
 })
-export default class ActiveTimer extends Vue {
+export default class ActiveTimer extends Mixins(DurationCounterMixin) {
   private timeRecorder = TimeRecorder;
+
+  created() {
+    this.start(this.timer.startDatetime);
+  }
+
+  private get project(): IProjectState | undefined {
+    return ProjectManager.getById(this.timer.projectId);
+  }
+
+  private get timer(): ITimerState {
+    return this.timeRecorder.timerState;
+  }
 }
 </script>
 

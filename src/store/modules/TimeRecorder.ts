@@ -30,7 +30,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  public isActive: boolean = true;
+  public isActive: boolean = false;
 
   @Mutation
   public activate(payload: ITimerState): void {
