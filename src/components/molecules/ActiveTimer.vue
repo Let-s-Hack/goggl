@@ -1,6 +1,6 @@
 <template>
   <div class="ActiveTimer">
-    <div class="ActiveTimer_Duration">{{ duration | toTime }}</div>
+    <div class="ActiveTimer_Duration">{{ passedSeconds | toTime }}</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">{{ timer.title }}</span>
@@ -43,16 +43,16 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
 export default class ActiveTimer extends Mixins(TimeCounterMixin) {
   private timeRecorder = TimeRecorder;
 
-  created() {
-    this.start(this.timer.startDatetime);
-  }
-
   private get project(): IProjectState | undefined {
     return ProjectManager.getById(this.timer.projectId);
   }
 
   private get timer(): ITimerState {
     return this.timeRecorder.timerState;
+  }
+
+  created() {
+    this.startTimer(this.timer.startDatetime);
   }
 }
 </script>
