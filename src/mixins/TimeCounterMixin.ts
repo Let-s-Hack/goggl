@@ -4,7 +4,7 @@ import { Component, Vue } from 'vue-property-decorator';
 const delay: number = 1000;
 
 // 最大許容時間 999時間
-const maxTime: number = 60 * 60 * 999;
+const maxSeconds: number = 60 * 60 * 999;
 
 @Component
 export default class TimeCounterMixin extends Vue {
@@ -19,7 +19,7 @@ export default class TimeCounterMixin extends Vue {
   public startTimer(startDatetime: string | null): void {
     if (
       startDatetime === null
-      || this.passedSeconds > maxTime
+      || this.passedSeconds > maxSeconds
     ) return;
 
     this.passedSeconds = moment().diff(moment(startDatetime), 'seconds');
