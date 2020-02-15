@@ -10,14 +10,14 @@ import {
   ITimerState,
   ITimeRecorderState,
 } from '@/store/types';
-import RecordManager from './RecordManager';
+import ProjectManager from './ProjectManager';
 import store from '@/store';
 
 const initialTimerState: ITimerState = {
   title: null,
   startDatetime: null,
   endDatetime: null,
-  projectId: RecordManager.noProjectId,
+  projectId: ProjectManager.noProjectId,
   tagIds: [],
 };
 
