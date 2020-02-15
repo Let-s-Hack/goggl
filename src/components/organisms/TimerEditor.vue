@@ -13,28 +13,24 @@
       </BottomSheetHeader>
       <ul>
         <li class="TimerEditor_InputGroup">
-          <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-          <input type="text" class="TimerEditor_Description" value="goggl | 静的コーディング"/>
-          <!--
           <input
             type="text"
-            class="TimerEditor_Description _isEmpty"
-            value="Add description"
+            :class="['TimerEditor_Description', { '_isEmpty': !tmpRecord.title }]"
+            :value="tmpRecord.title || 'Add description'"
           />
-          -->
         </li>
         <li
           @click="showProjectSelector()"
           class="TimerEditor_InputGroup"
         >
-          <!-- TODO: 選択済み時の出し分け -->
           <span
-            v-if="true"
+            v-if="recordManager.hasProject(tmpRecord.projectId)"
             class="TimerEditor_Project"
-            :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-          >
-            テスト
-          </span>
+            :style="{
+              borderColor: project.color,
+              color: project.color
+            }"
+          >{{ project.name }}</span>
           <span
             v-else
             class="TimerEditor_EmptyItem"
@@ -46,10 +42,12 @@
           @click="showTagsSelector()"
           class="TimerEditor_InputGroup"
         >
-          <!-- TODO: 選択済み時の出し分け -->
-          <ul v-if="true">
-            <li class="TimerEditor_Tag">設計</li>
-            <li class="TimerEditor_Tag">実装</li>
+          <ul v-if="recordManager.hasTags(tmpRecord.id)">
+            <li
+              v-for="tag in tags"
+              :key="tag.id"
+              class="TimerEditor_Tag"
+            >{{ tag.name }}</li>
           </ul>
           <span
             v-else
@@ -65,7 +63,9 @@
           >
             <SvgIcon name="time" class="TimerEditor_Icon" />
             <div class="TimerEditor_LabelGroup">
-              <span class="TimerEditor_LabelText">05:06 PM</span>
+              <span class="TimerEditor_LabelText">
+                {{ tmpRecord.startDatetime | format('HH:mm A')}}
+              </span>
               <span class="TimerEditor_LabelSubText">Start</span>
             </div>
           </div>
@@ -75,9 +75,7 @@
             class="TimerEditor_TimeItem"
           >
             <div class="TimerEditor_LabelGroup">
-              <span
-                class="TimerEditor_LabelText _isStop"
-              >Stop</span>
+              <span class="TimerEditor_LabelText _isStop">Stop</span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
           </div>
@@ -88,7 +86,7 @@
           >
             <div class="TimerEditor_LabelGroup">
               <span class="TimerEditor_LabelText">
-                {{ displayEndDatetime | format('HH:mm') }}
+                {{ tmpRecord.endDatetime | format('HH:mm A') }}
               </span>
               <span class="TimerEditor_LabelSubText">End</span>
             </div>
@@ -100,14 +98,16 @@
         >
           <SvgIcon name="timer" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">0:00:23</span>
+            <span class="TimerEditor_LabelText">{{ duration | toTime }}</span>
             <span class="TimerEditor_LabelSubText">Duration</span>
           </div>
         </li>
         <li class="TimerEditor_InputGroup _large">
           <SvgIcon name="calendar" class="TimerEditor_Icon" />
           <div class="TimerEditor_LabelGroup">
-            <span class="TimerEditor_LabelText">12/29</span>
+            <span class="TimerEditor_LabelText">
+              {{ tmpRecord.startDatetime | format('MM/DD') }}
+            </span>
             <span class="TimerEditor_LabelSubText">Start date</span>
           </div>
           <label class="TimerEditor_InputBlock">
@@ -131,9 +131,21 @@
 
 <script lang="ts">
 import moment from 'moment';
-import { Component, Vue } from 'vue-property-decorator';
-import { IPageLayerComponentState } from '@/store/types';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
+import {
+  ITagState,
+  ITimerState,
+  IPageLayerComponentState,
+  IProjectState,
+} from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import ProjectManager from '@/store/modules/ProjectManager';
+import RecordManager from '@/store/modules/RecordManager';
+import TagManager from '@/store/modules/TagManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
@@ -152,7 +164,11 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   },
 })
 export default class TimerEditor extends Vue {
+  @Prop({ required: true }) record!: ITimerState;
+
   private pageLayer = PageLayer;
+
+  private recordManager = RecordManager;
 
   private timeRecorder = TimeRecorder;
 
@@ -161,11 +177,39 @@ export default class TimerEditor extends Vue {
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
 
-  private get displayEndDatetime(): string {
-    return (
-      this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
-      || this.timeRecorder.getState({ key: 'endDatetime' })
+  private get project(): IProjectState | undefined {
+    const projectId = this.timeRecorder.getState({ type: 'tmp', key: 'projectId' });
+
+    return ProjectManager.getById(projectId);
+  }
+
+  private get tags(): ITagState | undefined {
+    const tagIds = this.timeRecorder.getState({ type: 'tmp', key: 'tagIds' });
+
+    return TagManager.getByIds(tagIds);
+  }
+
+  private get duration(): number {
+    const startDatetime = this.timeRecorder.getState({ type: 'tmp', key: 'startDatetime' });
+    // TODO: Active状態の場合、durationをカウントさせる
+    const endDatetime = (
+      this.timeRecorder.getState({ type: 'tmp', key: 'endDatetime' })
+      || moment().format('YYYY-MM-DD HH:mm:ss')
     );
+
+    return moment(endDatetime).diff(moment(startDatetime), 'seconds');
+  }
+
+  private get tmpRecord(): ITimerState {
+    return this.timeRecorder.tmpState;
+  }
+
+  created() {
+    this.timeRecorder.setStates({ type: 'tmp', values: this.record });
+
+    if (this.record.endDatetime) {
+      this.isTimerActive = false;
+    }
   }
 
   private close(): void {
