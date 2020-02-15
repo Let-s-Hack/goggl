@@ -1,5 +1,5 @@
 export interface IPageLayerPropState {
-  [key: string]: string | Function,
+  [key: string]: string | Function | ITimerState,
 }
 
 export interface IPageLayerComponentState {

@@ -1,6 +1,9 @@
 <template>
   <li class="RecordList">
-    <div @click="showRecordListEditor()" class="RecordList_Summary">
+    <div
+      @click="showRecordListEditor()"
+      class="RecordList_Summary"
+    >
       <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
@@ -29,7 +32,7 @@
     <ul>
       <RecordListItem
         v-for="_record in records"
-        @click.native="showTimerEditor()"
+        @click.native="showTimerEditor(_record)"
         :key="_record.id"
         :record="_record"
         class="RecordList_Record"
@@ -85,8 +88,11 @@ export default class RecordList extends Vue {
     this.pageLayer.push({ component: RecordListEditor });
   }
 
-  private showTimerEditor(): void {
-    this.pageLayer.push({ component: TimerEditor });
+  private showTimerEditor(record: ITimerState): void {
+    this.pageLayer.push({
+      component: TimerEditor,
+      attributes: { record },
+    });
   }
 }
 </script>

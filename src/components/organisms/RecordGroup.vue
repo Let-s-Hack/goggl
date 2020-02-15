@@ -24,7 +24,7 @@
         />
         <Record
           v-else-if="recordGroup.type === recordType.record"
-          @click.native="showTimerEditor()"
+          @click.native="showTimerEditor(recordGroup.record)"
           :key="recordGroup.record.id"
           :record="recordGroup.record"
           class="RecordGroup_Item"
@@ -122,8 +122,11 @@ export default class RecordGroup extends Vue {
     return passedDays;
   }
 
-  private showTimerEditor(): void {
-    this.pageLayer.push({ component: TimerEditor });
+  private showTimerEditor(record: ITimerState): void {
+    this.pageLayer.push({
+      component: TimerEditor,
+      attributes: { record },
+    });
   }
 
   private static isSameRecord(record: ITimerState, comparisonRecord: ITimerState): boolean {

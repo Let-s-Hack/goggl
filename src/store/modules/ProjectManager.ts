@@ -17,6 +17,8 @@ import store from '@/store';
   store,
 })
 class ProjectManager extends VuexModule implements IProjectManagerState {
+  public readonly noProjectId: number = 1;
+
   // TODO: 一時的に仮データを初期値に置いている。あとで修正する。
   public projectState: IProjectState[] = [
     {

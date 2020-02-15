@@ -85,7 +85,11 @@ export default class Timer extends Vue {
   }
 
   private showTimerEditor(): void {
-    this.pageLayer.push({ component: TimerEditor });
+    const record = this.timeRecorder.timerState;
+    this.pageLayer.push({
+      component: TimerEditor,
+      attributes: { record },
+    });
   }
 }
 </script>

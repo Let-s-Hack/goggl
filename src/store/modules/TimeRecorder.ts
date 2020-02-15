@@ -1,3 +1,4 @@
+import { each } from 'lodash';
 import {
   Module,
   VuexModule,
@@ -9,14 +10,14 @@ import {
   ITimerState,
   ITimeRecorderState,
 } from '@/store/types';
-import RecordManager from './RecordManager';
+import ProjectManager from './ProjectManager';
 import store from '@/store';
 
 const initialTimerState: ITimerState = {
   title: null,
   startDatetime: null,
   endDatetime: null,
-  projectId: null,
+  projectId: ProjectManager.noProjectId,
   tagIds: [],
 };
 
@@ -33,7 +34,7 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  private readonly noProjectId: number = RecordManager.noProjectId;
+  private readonly noProjectId: number = ProjectManager.noProjectId;
 
   @Mutation
   public activate(payload: ITimerState): void {
@@ -50,12 +51,23 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   @Mutation
   public setState(payload: {
+    type?: string,
     key: string,
     value: string | number | number[] | null,
-    type?: string,
   }): void {
     const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
     state[payload.key] = payload.value;
+  }
+
+  @Mutation
+  public setStates(payload: {
+    type?: string,
+    values: ITimerState,
+  }): void {
+    each(payload.values, (value: (string | number | number[] | null), key: string) => {
+      const state = (payload.type === 'tmp') ? this.tmpState : this.timerState;
+      state[key] = value;
+    });
   }
 
   @Action
