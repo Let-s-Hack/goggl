@@ -22,8 +22,6 @@ export default class DurationCounterMixin extends Vue {
     if (this.duration !== null && this.duration > maxDuration) return;
 
     this.duration = moment().diff(moment(startDatetime), 'seconds');
-    console.log(this.duration);
-
     this.timeoutId = setTimeout(() => this.start(startDatetime), delay);
   }
 

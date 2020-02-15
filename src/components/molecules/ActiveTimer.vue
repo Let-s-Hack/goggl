@@ -5,6 +5,7 @@
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">{{ timer.title }}</span>
       <span
+        v-if="timeRecorder.hasProject(timer.projectId)"
         :style="{
           borderColor: project.color,
           color: project.color

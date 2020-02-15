@@ -9,6 +9,7 @@ import {
   ITimerState,
   ITimeRecorderState,
 } from '@/store/types';
+import RecordManager from './RecordManager';
 import store from '@/store';
 
 const initialTimerState: ITimerState = {
@@ -26,23 +27,25 @@ const initialTimerState: ITimerState = {
   store,
 })
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
+  public isActive: boolean = false;
+
   public timerState: ITimerState = { ...initialTimerState };
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  public isActive: boolean = false;
+  private readonly noProjectId: number = RecordManager.noProjectId;
 
   @Mutation
   public activate(payload: ITimerState): void {
-    this.timerState = { ...payload };
     this.isActive = true;
+    this.timerState = { ...payload };
   }
 
   @Mutation
   public deactivate(): void {
+    this.isActive = false;
     this.timerState = { ...initialTimerState };
     this.tmpState = { ...initialTimerState };
-    this.isActive = false;
   }
 
   @Mutation
@@ -66,6 +69,10 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
       const state = (params.type === 'tmp') ? this.tmpState : this.timerState;
       return state[params.key];
     };
+  }
+
+  public get hasProject(): Function {
+    return (projectId: number): boolean => projectId !== this.noProjectId;
   }
 }
 
