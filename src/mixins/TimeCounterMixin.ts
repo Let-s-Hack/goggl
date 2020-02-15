@@ -8,7 +8,7 @@ const delay: number = 1000;
 const maxDuration: number = 60 * 60 * 999;
 
 @Component
-export default class DurationCounterMixin extends Vue {
+export default class TimeCounterMixin extends Vue {
   private duration: number | null = null;
 
   private timeoutId: number | null = null;

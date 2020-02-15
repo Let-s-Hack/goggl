@@ -30,7 +30,7 @@ import {
   IProjectState,
   ITimerState,
 } from '@/store/types';
-import DurationCounterMixin from '@/mixins/DurationCounterMixin';
+import TimeCounterMixin from '@/mixins/TimeCounterMixin';
 import ProjectManager from '@/store/modules/ProjectManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
@@ -40,7 +40,7 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
     TimerStopButton,
   },
 })
-export default class ActiveTimer extends Mixins(DurationCounterMixin) {
+export default class ActiveTimer extends Mixins(TimeCounterMixin) {
   private timeRecorder = TimeRecorder;
 
   created() {
