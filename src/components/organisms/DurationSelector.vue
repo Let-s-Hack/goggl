@@ -81,7 +81,7 @@
 </template>
 
 <script lang="ts">
-import moment, { min } from 'moment';
+import moment from 'moment';
 import {
   Component,
   Prop,
