@@ -1,10 +1,13 @@
 <template>
   <li class="RecordList">
     <div
-      @click="isSelected = !isSelected"
+      @click="showRecordListEditor()"
       class="RecordList_Summary"
     >
-      <p :class="['RecordList_SummaryCount', { '_isActive': isSelected }]">{{ records.length }}</p>
+      <p
+        @click="isSelected = !isSelected"
+        :class="['RecordList_SummaryCount', { '_isActive': isSelected }]"
+      >{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
           :class="['RecordList_SummaryTitle', { '_isEmpty': !record.title }]"
