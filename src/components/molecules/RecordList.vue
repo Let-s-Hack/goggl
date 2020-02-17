@@ -4,7 +4,10 @@
       @click="showRecordListEditor()"
       class="RecordList_Summary"
     >
-      <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
+      <p
+        @click="isSelected = !isSelected"
+        :class="['RecordList_SummaryCount', { '_isActive': isSelected }]"
+      >{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
           :class="['RecordList_SummaryTitle', { '_isEmpty': !record.title }]"
@@ -29,7 +32,7 @@
         <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
-    <ul>
+    <ul v-if="isSelected">
       <RecordListItem
         v-for="_record in records"
         @click.native="showTimerEditor(_record)"
@@ -69,6 +72,8 @@ export default class RecordList extends Vue {
   private pageLayer = PageLayer;
 
   private recordManager = RecordManager;
+
+  private isSelected = false;
 
   private get project(): IProjectState | undefined {
     if (typeof this.record === 'undefined') return undefined;
