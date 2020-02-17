@@ -10,30 +10,28 @@
           <SvgIcon name="close" class="RecordListEditor_CloseIcon" />
         </template>
         <template v-slot:title>Editing 4 time entries</template>
-        <template v-slot:text>0:30:00</template>
+        <template v-slot:text>{{ totalDuration | toTime }}</template>
       </BottomSheetHeader>
       <ul>
         <li class="RecordListEditor_InputGroup">
-          <!-- TODO: v-modelを使用、_isEmptyの出し分け -->
-          <input type="text" class="RecordListEditor_Description" value="goggl | 静的コーディング"/>
-          <!--
           <input
             type="text"
-            class="RecordListEditor_Description _isEmpty"
-            value="Add description"
+            :class="['RecordListEditor_Description', { '_isEmpty': !tmpRecord.title }]"
+            :value="tmpRecord.title || 'Add description'"
           />
-          -->
         </li>
         <li
           @click="showProjectSelector()"
           class="RecordListEditor_InputGroup"
         >
-          <!-- TODO: 選択済み時の出し分け -->
           <span
-            v-if="true"
+            v-if="recordManager.hasProject(tmpRecord.projectId)"
             class="RecordListEditor_Project"
-            :style="{ borderColor: '#3F46E3', color: '#3F46E3' }"
-          >テスト</span>
+            :style="{
+              borderColor: project.color,
+              color: project.color
+            }"
+          >{{ project.name }}</span>
           <span
             v-else
             class="RecordListEditor_EmptyItem"
@@ -42,13 +40,15 @@
           </span>
         </li>
         <li
-            @click="showTagsSelector()"
-            class="RecordListEditor_InputGroup"
+          @click="showTagsSelector()"
+          class="RecordListEditor_InputGroup"
         >
-          <!-- TODO: 選択済み時の出し分け -->
-          <ul v-if="true">
-            <li class="RecordListEditor_Tag">設計</li>
-            <li class="RecordListEditor_Tag">実装</li>
+          <ul v-if="recordManager.hasTags(tmpRecord.id)">
+            <li
+              v-for="tag in tags"
+              :key="tag.id"
+              class="RecordListEditor_Tag"
+            >{{ tag.name }}</li>
           </ul>
           <span
             v-else
@@ -73,8 +73,24 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
+import { head } from 'lodash';
+import {
+  Component,
+  Prop,
+  Vue,
+} from 'vue-property-decorator';
+import {
+  ITagState,
+  ITimerState,
+  IPageLayerComponentState,
+  IProjectState,
+} from '@/store/types';
 import PageLayer from '@/store/modules/PageLayer';
+import ProjectManager from '@/store/modules/ProjectManager';
+import RecordManager from '@/store/modules/RecordManager';
+import TagManager from '@/store/modules/TagManager';
+import TimeRecorder from '@/store/modules/TimeRecorder';
 import BackgroundOverlay from '~/atoms/BackgroundOverlay.vue';
 import BottomSheet from '~/atoms/BottomSheet.vue';
 import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
@@ -91,10 +107,46 @@ import TagsSelector from '~/organisms/TagsSelector.vue';
   },
 })
 export default class RecordListEditor extends Vue {
+  @Prop({ required: true }) records!: ITimerState[];
+
   private pageLayer = PageLayer;
+
+  private recordManager = RecordManager;
+
+  private timeRecorder = TimeRecorder;
 
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
+
+  private get project(): IProjectState | undefined {
+    const projectId = this.timeRecorder.getState({ type: 'tmp', key: 'projectId' });
+
+    return ProjectManager.getById(projectId);
+  }
+
+  private get record(): ITimerState | undefined {
+    return head(this.records);
+  }
+
+  private get tags(): ITagState | undefined {
+    const tagIds = this.timeRecorder.getState({ type: 'tmp', key: 'tagIds' });
+
+    return TagManager.getByIds(tagIds);
+  }
+
+  private get totalDuration(): number {
+    return this.recordManager.calcTotalDuration(this.records);
+  }
+
+  private get tmpRecord(): ITimerState {
+    return this.timeRecorder.tmpState;
+  }
+
+  created() {
+    if (typeof this.record !== 'undefined') {
+      this.timeRecorder.setStates({ type: 'tmp', values: this.record });
+    }
+  }
 
   private close(): void {
     // TODO: 変更監視
