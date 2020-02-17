@@ -1,6 +1,6 @@
 <template>
   <div class="ActiveTimer">
-    <div class="ActiveTimer_Duration">{{ passedSeconds | toTime }}</div>
+    <div class="ActiveTimer_Duration">{{ duration | toTime }}</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">{{ timer.title }}</span>
@@ -24,13 +24,13 @@
 import moment from 'moment';
 import {
   Component,
-  Mixins,
+  Vue,
 } from 'vue-property-decorator';
 import {
   IProjectState,
   ITimerState,
 } from '@/store/types';
-import TimeCounterMixin from '@/mixins/TimeCounterMixin';
+import TimeCounter from '@/utils/timeCounter';
 import ProjectManager from '@/store/modules/ProjectManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
@@ -40,8 +40,10 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
     TimerStopButton,
   },
 })
-export default class ActiveTimer extends Mixins(TimeCounterMixin) {
+export default class ActiveTimer extends Vue {
   private timeRecorder = TimeRecorder;
+
+  private timeCounter: TimeCounter | null = null;
 
   private get project(): IProjectState | undefined {
     return ProjectManager.getById(this.timer.projectId);
@@ -51,8 +53,30 @@ export default class ActiveTimer extends Mixins(TimeCounterMixin) {
     return this.timeRecorder.timerState;
   }
 
+  private get duration(): number {
+    if (this.timeCounter === null) return 0;
+
+    return this.timeCounter.duration;
+  }
+
   created() {
-    this.startTimer(this.timer.startDatetime);
+    this.startTimeCounter();
+  }
+
+  beforeDestroy() {
+    this.stopTimeCoutner();
+  }
+
+  private startTimeCounter(): void {
+    this.timeCounter = new TimeCounter(this.timer.startDatetime);
+    this.timeCounter.start();
+  }
+
+  private stopTimeCoutner(): void {
+    if (this.timeCounter === null) return;
+
+    this.timeCounter.stop();
+    delete this.timeCounter;
   }
 }
 </script>
