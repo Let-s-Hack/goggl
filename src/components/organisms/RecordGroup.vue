@@ -18,6 +18,7 @@
       <template v-for="recordGroup in recordTypeGroups">
         <RecordList
           v-if="recordGroup.type === recordType.recordList"
+          @click.native="showRecordListEditor(recordGroup.records)"
           :key="recordGroup.records[0].id"
           :records="recordGroup.records"
           class="RecordGroup_Item"
@@ -55,6 +56,7 @@ import RecordManager from '@/store/modules/RecordManager';
 import Record from '~/atoms/Record.vue';
 import RecordList from '~/molecules/RecordList.vue';
 import RecordGroupHeader from '~/molecules/RecordGroupHeader.vue';
+import RecordListEditor from '~/organisms/RecordListEditor.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
 
 interface IRecordTypeGroup {
@@ -120,6 +122,13 @@ export default class RecordGroup extends Vue {
     const passedDays: number = now.diff(recordDate, 'days');
 
     return passedDays;
+  }
+
+  private showRecordListEditor(records: ITimerState[]): void {
+    this.pageLayer.push({
+      component: RecordListEditor,
+      attributes: { records },
+    });
   }
 
   private showTimerEditor(record: ITimerState): void {
