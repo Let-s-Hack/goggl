@@ -101,6 +101,8 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
   },
   filters: {
     toTime: (value: number) => {
+      if (value <= 0) return '';
+
       const hours: number = Math.floor(value / 3600);
       const minutes: number = Math.floor((value - hours * 3600) / 60);
       const seconds: number = Math.floor(value - hours * 3600 - minutes * 60);
@@ -108,7 +110,7 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
       let format = '';
       if (hours > 0) format += `${hours}:`;
       if (minutes > 0) format += `${String(minutes).padStart(2, '0')}:`;
-      if (seconds > 0) format += `${String(seconds).padStart(2, '0')}`;
+      format += `${String(seconds).padStart(2, '0')}`;
 
       return format;
     },
