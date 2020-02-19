@@ -51,6 +51,10 @@ class ProjectManager extends VuexModule implements IProjectManagerState {
   public get getById(): Function {
     return (id: number): IProjectState | undefined => find(this.projectState, { id });
   }
+
+  public get hasProject(): Function {
+    return (projectId: number): boolean => projectId !== this.noProjectId;
+  }
 }
 
 const projectManager = getModule(ProjectManager);

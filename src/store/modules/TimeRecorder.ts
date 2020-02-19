@@ -34,8 +34,6 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  private readonly noProjectId: number = ProjectManager.noProjectId;
-
   @Mutation
   public activate(payload: ITimerState): void {
     this.isActive = true;
@@ -81,10 +79,6 @@ class TimeRecorder extends VuexModule implements ITimeRecorderState {
       const state = (params.type === 'tmp') ? this.tmpState : this.timerState;
       return state[params.key];
     };
-  }
-
-  public get hasProject(): Function {
-    return (projectId: number): boolean => projectId !== this.noProjectId;
   }
 }
 

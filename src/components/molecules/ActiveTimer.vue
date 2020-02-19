@@ -5,7 +5,7 @@
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">{{ timer.title }}</span>
       <span
-        v-if="timeRecorder.hasProject(timer.projectId)"
+        v-if="projectManager.hasProject(timer.projectId)"
         :style="{
           borderColor: project.color,
           color: project.color
@@ -41,9 +41,11 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
+  private projectManager = ProjectManager;
+
   private timeRecorder = TimeRecorder;
 
-  private timeCounter: TimeCounter | null = null;
+  private timeCounter: TimeCounter = new TimeCounter(this.timer.startDatetime);
 
   private get project(): IProjectState | undefined {
     return ProjectManager.getById(this.timer.projectId);
@@ -54,27 +56,14 @@ export default class ActiveTimer extends Vue {
   }
 
   private get duration(): number {
-    if (this.timeCounter === null) return 0;
-
-    return this.timeCounter.duration;
+    return this.timeCounter.getDuration;
   }
 
   created() {
-    this.startTimeCounter();
-  }
-
-  beforeDestroy() {
-    this.stopTimeCoutner();
-  }
-
-  private startTimeCounter(): void {
-    this.timeCounter = new TimeCounter(this.timer.startDatetime);
     this.timeCounter.start();
   }
 
-  private stopTimeCoutner(): void {
-    if (this.timeCounter === null) return;
-
+  beforeDestroy() {
     this.timeCounter.stop();
     delete this.timeCounter;
   }

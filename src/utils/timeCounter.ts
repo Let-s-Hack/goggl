@@ -1,24 +1,34 @@
 import moment from 'moment';
 
-export default class TimeCounter {
-  public duration: number = 0;
+const ONE_SECOND: number = 1000;
 
-  private delay: number = 1000;
+export default class TimeCounter {
+  private duration: number = 0;
 
   private intervalId: number | null = null;
 
   private startDatetime: string | null = null;
 
-  constructor(startDatetime: string | null) {
+  constructor(startDatetime?: string | null) {
+    if (typeof startDatetime === 'undefined') {
+      this.startDatetime = moment().format('YYYY-MM-DD HH:mm:ss');
+
+      return;
+    }
+
     this.startDatetime = startDatetime;
   }
 
-  public start(): void {
-    this.intervalId = setInterval(() => {
-      if (this.startDatetime === null) return;
+  public get getDuration(): number {
+    return this.duration;
+  }
 
-      this.duration = moment().diff(moment(this.startDatetime), 'seconds');
-    }, this.delay);
+  public start(): void {
+    if (this.startDatetime === null) return;
+
+    this.intervalId = setInterval(() => {
+      this.duration = moment().diff(moment(this.startDatetime!), 'seconds');
+    }, ONE_SECOND);
   }
 
   public stop(): void {
