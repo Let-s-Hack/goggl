@@ -11,7 +11,6 @@ import {
   ITimerState,
   IRecordManagerState,
 } from '@/store/types';
-import ProjectManager from './ProjectManager';
 import store from '@/store';
 
 // TODO: firestoreの仮データ
@@ -139,8 +138,6 @@ const firestoreRecords: ITimerState[] = [
 class RecordManager extends VuexModule implements IRecordManagerState {
   public recordState: ITimerState[] = firestoreRecords;
 
-  private readonly noProjectId: number = ProjectManager.noProjectId;
-
   @Mutation
   public setState(payload: ITimerState[]): void {
     this.recordState = payload;
@@ -194,10 +191,6 @@ class RecordManager extends VuexModule implements IRecordManagerState {
 
       return record.tagIds.length > 0;
     };
-  }
-
-  public get hasProject(): Function {
-    return (projectId: number): boolean => projectId !== this.noProjectId;
   }
 }
 
