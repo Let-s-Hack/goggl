@@ -48,12 +48,12 @@ class ProjectManager extends VuexModule implements IProjectManagerState {
     },
   ];
 
-  public get existsProject(): Function {
-    return (projectId: number): boolean => projectId !== this.noProjectId;
-  }
-
   public get getById(): Function {
     return (id: number): IProjectState | undefined => find(this.projectState, { id });
+  }
+
+  public get isNoProject(): Function {
+    return (projectId: number): boolean => projectId === this.noProjectId;
   }
 }
 
