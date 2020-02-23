@@ -5,7 +5,7 @@
         :class="['Record_Title', { '_isEmpty': !record.title }]"
       >{{ record.title || 'Add description' }}</h3>
       <span
-        v-if="projectManager.existsProject(record.projectId)"
+        v-if="!projectManager.isNoProject(record.projectId)"
         class="Record_Project"
         :style="{
           borderColor: project.color,

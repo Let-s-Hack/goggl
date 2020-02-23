@@ -24,7 +24,7 @@
           class="TimerEditor_InputGroup"
         >
           <span
-            v-if="projectManager.existsProject(tmpRecord.projectId)"
+            v-if="!projectManager.isNoProject(tmpRecord.projectId)"
             class="TimerEditor_Project"
             :style="{
               borderColor: project.color,
