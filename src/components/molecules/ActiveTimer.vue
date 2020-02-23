@@ -47,16 +47,16 @@ export default class ActiveTimer extends Vue {
 
   private timeCounter: TimeCounter = new TimeCounter(this.timer.startDatetime);
 
+  private get duration(): number {
+    return this.timeCounter.getDuration;
+  }
+
   private get project(): IProjectState | undefined {
     return ProjectManager.getById(this.timer.projectId);
   }
 
   private get timer(): ITimerState {
     return this.timeRecorder.timerState;
-  }
-
-  private get duration(): number {
-    return this.timeCounter.getDuration;
   }
 
   created() {
