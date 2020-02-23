@@ -20,9 +20,12 @@ export default class TimeCounter {
   public start(): void {
     if (this.startDatetime === null) return;
 
-    this.intervalId = setInterval(() => {
+    const calcDuration: Function = (): void => {
       this.duration = moment().diff(moment(this.startDatetime!), 'seconds');
-    }, ONE_SECOND);
+    };
+
+    calcDuration();
+    this.intervalId = setInterval(() => calcDuration(), ONE_SECOND);
   }
 
   public stop(): void {
