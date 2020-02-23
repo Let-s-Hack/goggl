@@ -18,8 +18,6 @@ export default class TimeCounter {
   }
 
   public start(): void {
-    if (this.startDatetime === null) return;
-
     const calcDuration: Function = (): void => {
       this.duration = moment().diff(moment(this.startDatetime!), 'seconds');
     };
