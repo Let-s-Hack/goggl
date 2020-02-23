@@ -10,13 +10,7 @@ export default class TimeCounter {
   private startDatetime: string | null = null;
 
   constructor(startDatetime?: string | null) {
-    if (typeof startDatetime === 'undefined') {
-      this.startDatetime = moment().format('YYYY-MM-DD HH:mm:ss');
-
-      return;
-    }
-
-    this.startDatetime = startDatetime;
+    this.startDatetime = startDatetime || moment().format('YYYY-MM-DD HH:mm:ss');
   }
 
   public get getDuration(): number {
