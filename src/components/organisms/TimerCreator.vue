@@ -11,7 +11,7 @@
         </button>
         <div class="TimerCreator_HeaderTimeGroup">
           <SvgIcon name="timer" class="TimerCreator_TimerIcon" />
-          <span class="TimerCreator_HeaderTime">0:32:10</span>
+          <span class="TimerCreator_HeaderTime">{{ duration | toTime }}</span>
         </div>
       </div>
       <div class="TimerCreator_Content">
@@ -114,6 +114,7 @@ import {
   ITagState,
   ITimerState,
 } from '@/store/types';
+import TimeCounter from '@/utils/timeCounter';
 import PageLayer from '@/store/modules/PageLayer';
 import ProjectManager from '@/store/modules/ProjectManager';
 import TagManager from '@/store/modules/TagManager';
@@ -145,8 +146,14 @@ export default class TimerCreator extends Vue {
     tagIds: [1, 2],
   };
 
+  private timeCounter: TimeCounter = new TimeCounter(this.timerState.startDatetime);
+
   // TODO: 変更監視（要削除）
   private tmp: boolean = true;
+
+  private get duration(): number {
+    return this.timeCounter.getDuration;
+  }
 
   private get selectedProject(): IProjectState | undefined {
     return ProjectManager.getById(this.timerState.projectId);
@@ -154,6 +161,15 @@ export default class TimerCreator extends Vue {
 
   private get selectedTags(): ITagState[] {
     return TagManager.getByIds(this.timerState.tagIds);
+  }
+
+  created() {
+    this.timeCounter.start();
+  }
+
+  beforeDestroy() {
+    this.timeCounter.stop();
+    delete this.timeCounter;
   }
 
   private close(): void {
