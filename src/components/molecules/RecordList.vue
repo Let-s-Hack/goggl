@@ -65,9 +65,9 @@ import TimerEditor from '~/organisms/TimerEditor.vue';
 export default class RecordList extends Vue {
   @Prop({ required: true }) records!: ITimerState[];
 
-  private projectManager = ProjectManager;
-
   private pageLayer = PageLayer;
+
+  private projectManager = ProjectManager;
 
   private recordManager = RecordManager;
 
