@@ -24,7 +24,7 @@
           class="TimerEditor_InputGroup"
         >
           <span
-            v-if="recordManager.hasProject(tmpRecord.projectId)"
+            v-if="!projectManager.isNoProject(tmpRecord.projectId)"
             class="TimerEditor_Project"
             :style="{
               borderColor: project.color,
@@ -167,6 +167,8 @@ export default class TimerEditor extends Vue {
   @Prop({ required: true }) record!: ITimerState;
 
   private pageLayer = PageLayer;
+
+  private projectManager = ProjectManager;
 
   private recordManager = RecordManager;
 

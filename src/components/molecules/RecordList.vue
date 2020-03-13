@@ -10,7 +10,7 @@
           :class="['RecordList_SummaryTitle', { '_isEmpty': !record.title }]"
         >{{ record.title || 'Add description' }}</h3>
         <span
-          v-if="recordManager.hasProject(record.projectId)"
+          v-if="!projectManager.isNoProject(record.projectId)"
           class="RecordList_SummaryProject"
           :style="{
             borderColor: project.color,
@@ -66,6 +66,8 @@ export default class RecordList extends Vue {
   @Prop({ required: true }) records!: ITimerState[];
 
   private pageLayer = PageLayer;
+
+  private projectManager = ProjectManager;
 
   private recordManager = RecordManager;
 

@@ -5,7 +5,7 @@
         :class="['RecordListItem_Title', { '_isEmpty': !record.title }]"
       >{{ record.title || 'Add description' }}</h4>
       <span
-        v-if="recordManager.hasProject(record.projectId)"
+        v-if="!projectManager.isNoProject(record.projectId)"
         class="RecordListItem_Project"
         :style="{
           borderColor: project.color,
@@ -42,6 +42,8 @@ import RecordManager from '@/store/modules/RecordManager';
 @Component
 export default class RecordListItem extends Vue {
   @Prop({ required: true }) record!: ITimerState;
+
+  private projectManager = ProjectManager;
 
   private recordManager = RecordManager;
 
