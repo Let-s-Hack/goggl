@@ -25,7 +25,7 @@
           class="RecordListEditor_InputGroup"
         >
           <span
-            v-if="recordManager.hasProject(tmpRecord.projectId)"
+            v-if="!projectManager.isNoProject(tmpRecord.projectId)"
             class="RecordListEditor_Project"
             :style="{
               borderColor: project.color,
@@ -110,6 +110,8 @@ export default class RecordListEditor extends Vue {
   @Prop({ required: true }) records!: ITimerState[];
 
   private pageLayer = PageLayer;
+
+  private projectManager = ProjectManager;
 
   private recordManager = RecordManager;
 
