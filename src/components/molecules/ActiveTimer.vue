@@ -5,7 +5,7 @@
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
       <span class="ActiveTimer_Title">{{ timer.title }}</span>
       <span
-        v-if="projectManager.existsProject(timer.projectId)"
+        v-if="!projectManager.isNoProject(timer.projectId)"
         :style="{
           borderColor: project.color,
           color: project.color

@@ -25,8 +25,8 @@
               class="DurationSelector_DurationInput"
             >
             <label for="durationStart" class="DurationSelector_DurationInputBlock">
-              <!-- TODO: inputで入力した値を整形して表示する -->
-              09:21 AM <span>01/04</span>
+              {{ startDatetime | format('HH:mm A ') }}
+              <span>{{ startDatetime | format('MM/DD') }}</span>
             </label>
           </li>
           <li class="DurationSelector_DurationItem">
@@ -48,8 +48,8 @@
               for="durationEnd"
               class="DurationSelector_DurationInputBlock"
             >
-              {{ displayEndDatetime | format('HH:mm A ') }}
-              <span>{{ displayEndDatetime | format('MM/DD') }}</span>
+              {{ endDatetime | format('HH:mm A ') }}
+              <span>{{ endDatetime | format('MM/DD') }}</span>
             </label>
           </li>
         </ul>
@@ -68,8 +68,10 @@
               for="timePicker"
               class="DurationSelector_TimePickerInputGroup"
             >
-              <!-- TODO: inputで入力した値を整形して表示する -->
-              00:<span>30</span>
+              <template v-if="duration < oneHour">00:</template>
+              <template v-if="duration < oneMinute">00:</template>
+              <template v-if="duration === 0">00</template>
+              <span v-if="duration > 0">{{ duration | toTime }}</span>
             </label>
           </div>
         </div>
@@ -97,6 +99,22 @@ import BottomSheetHeader from '~/molecules/BottomSheetHeader.vue';
     BottomSheet,
     BottomSheetHeader,
   },
+  filters: {
+    toTime: (value: number) => {
+      if (value <= 0) return '';
+
+      const hours: number = Math.floor(value / 3600);
+      const minutes: number = Math.floor((value - hours * 3600) / 60);
+      const seconds: number = Math.floor(value - hours * 3600 - minutes * 60);
+
+      let format = '';
+      if (hours > 0) format += `${hours}:`;
+      if (minutes > 0) format += `${String(minutes).padStart(2, '0')}:`;
+      format += `${String(seconds).padStart(2, '0')}`;
+
+      return format;
+    },
+  },
 })
 export default class DurationSelector extends Vue {
   @Prop({ default: null }) focusTarget?: string | null;
@@ -109,11 +127,26 @@ export default class DurationSelector extends Vue {
 
   private isTimerActive: boolean = this.timeRecorder.isActive;
 
-  private get displayEndDatetime(): string {
+  private readonly oneMinute = 60;
+
+  private readonly oneHour = this.oneMinute * 60;
+
+  private get startDatetime(): string {
     return (
-      this.timeRecorder.getState({ key: 'endDatetime', type: 'tmp' })
+      this.timeRecorder.getState({ type: 'tmp', key: 'startDatetime' })
+      || this.timeRecorder.getState({ key: 'startDatetime' })
+    );
+  }
+
+  private get endDatetime(): string {
+    return (
+      this.timeRecorder.getState({ type: 'tmp', key: 'endDatetime' })
       || this.timeRecorder.getState({ key: 'endDatetime' })
     );
+  }
+
+  private get duration(): number {
+    return moment(this.endDatetime).diff(moment(this.startDatetime), 'seconds');
   }
 
   mounted() {

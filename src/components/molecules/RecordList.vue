@@ -1,10 +1,10 @@
 <template>
   <li class="RecordList">
-    <div
-      @click="showRecordListEditor()"
-      class="RecordList_Summary"
-    >
-      <p class="RecordList_SummaryCount _isActive">{{ records.length }}</p>
+    <div class="RecordList_Summary">
+      <p
+        @click.stop.prevent="isSelected = !isSelected"
+        :class="['RecordList_SummaryCount', { '_isActive': isSelected }]"
+      >{{ records.length }}</p>
       <div class="RecordList_SummaryTitleGroup">
         <h3
           :class="['RecordList_SummaryTitle', { '_isEmpty': !record.title }]"
@@ -29,10 +29,10 @@
         <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
-    <ul>
+    <ul v-if="isSelected">
       <RecordListItem
         v-for="_record in records"
-        @click.native="showTimerEditor(_record)"
+        @click.native.stop.prevent="showTimerEditor(_record)"
         :key="_record.id"
         :record="_record"
         class="RecordList_Record"
@@ -56,7 +56,6 @@ import PageLayer from '@/store/modules/PageLayer';
 import ProjectManager from '@/store/modules/ProjectManager';
 import RecordManager from '@/store/modules/RecordManager';
 import RecordListItem from '~/atoms/RecordListItem.vue';
-import RecordListEditor from '~/organisms/RecordListEditor.vue';
 import TimerEditor from '~/organisms/TimerEditor.vue';
 @Component({
   components: {
@@ -70,6 +69,8 @@ export default class RecordList extends Vue {
 
   private recordManager = RecordManager;
 
+  private isSelected = false;
+
   private get project(): IProjectState | undefined {
     if (typeof this.record === 'undefined') return undefined;
 
@@ -82,10 +83,6 @@ export default class RecordList extends Vue {
 
   private get totalDuration(): number {
     return this.recordManager.calcTotalDuration(this.records);
-  }
-
-  private showRecordListEditor(): void {
-    this.pageLayer.push({ component: RecordListEditor });
   }
 
   private showTimerEditor(record: ITimerState): void {
