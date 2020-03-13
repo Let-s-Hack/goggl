@@ -77,7 +77,7 @@ export default class TimerSkeletonScreen extends Vue {
       display: block;
       height: 100%;
       width: 100%;
-      background: linear-gradient(90deg, transparent, rgba(#fff, 0.3), transparent);
+      background: linear-gradient(90deg, transparent, rgba(#FFF, 0.3), transparent);
       animation: skeletonAnimation 1.2s linear infinite;
       content: '';
     }
