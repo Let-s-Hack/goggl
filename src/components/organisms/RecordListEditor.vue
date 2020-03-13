@@ -9,7 +9,7 @@
         <template v-slot:icon>
           <SvgIcon name="close" class="RecordListEditor_CloseIcon" />
         </template>
-        <template v-slot:title>Editing 4 time entries</template>
+        <template v-slot:title>Editing {{ records.length }} time entries</template>
         <template v-slot:text>{{ totalDuration | toTime }}</template>
       </BottomSheetHeader>
       <ul>
@@ -73,8 +73,8 @@
 </template>
 
 <script lang="ts">
-import moment from 'moment';
 import { head } from 'lodash';
+import moment from 'moment';
 import {
   Component,
   Prop,
