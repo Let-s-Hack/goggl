@@ -28,23 +28,23 @@ const initialTimerState: ITimerState = {
   store,
 })
 class TimeRecorder extends VuexModule implements ITimeRecorderState {
+  public isActive: boolean = false;
+
   public timerState: ITimerState = { ...initialTimerState };
 
   public tmpState: ITimerState = { ...initialTimerState };
 
-  public isActive: boolean = true;
-
   @Mutation
   public activate(payload: ITimerState): void {
-    this.timerState = { ...payload };
     this.isActive = true;
+    this.timerState = { ...payload };
   }
 
   @Mutation
   public deactivate(): void {
+    this.isActive = false;
     this.timerState = { ...initialTimerState };
     this.tmpState = { ...initialTimerState };
-    this.isActive = false;
   }
 
   @Mutation

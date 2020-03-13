@@ -1,13 +1,17 @@
 <template>
   <div class="ActiveTimer">
-    <div class="ActiveTimer_Duration">1:43:35</div>
+    <div class="ActiveTimer_Duration">{{ duration | toTime }}</div>
     <div class="ActiveTimer_TitleGroup">
       <!-- TODO: 文字数が多い場合のアニメーションの実装 -->
-      <span class="ActiveTimer_Title">goggl | 静的コーディング</span>
+      <span class="ActiveTimer_Title">{{ timer.title }}</span>
       <span
-        :style="{ borderColor: '#E30909', color: '#E30909' }"
+        v-if="!projectManager.isNoProject(timer.projectId)"
+        :style="{
+          borderColor: project.color,
+          color: project.color
+        }"
         class="ActiveTimer_Project"
-      >goggl</span>
+      >{{ project.name }}</span>
     </div>
     <TimerStopButton
       @click.stop.native="timeRecorder.record()"
@@ -17,7 +21,17 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import moment from 'moment';
+import {
+  Component,
+  Vue,
+} from 'vue-property-decorator';
+import {
+  IProjectState,
+  ITimerState,
+} from '@/store/types';
+import TimeCounter from '@/utils/timeCounter';
+import ProjectManager from '@/store/modules/ProjectManager';
 import TimeRecorder from '@/store/modules/TimeRecorder';
 import TimerStopButton from '~/atoms/TimerStopButton.vue';
 
@@ -27,7 +41,32 @@ import TimerStopButton from '~/atoms/TimerStopButton.vue';
   },
 })
 export default class ActiveTimer extends Vue {
+  private projectManager = ProjectManager;
+
   private timeRecorder = TimeRecorder;
+
+  private timeCounter: TimeCounter = new TimeCounter(this.timer.startDatetime);
+
+  private get duration(): number {
+    return this.timeCounter.getDuration;
+  }
+
+  private get project(): IProjectState | undefined {
+    return ProjectManager.getById(this.timer.projectId);
+  }
+
+  private get timer(): ITimerState {
+    return this.timeRecorder.timerState;
+  }
+
+  created() {
+    this.timeCounter.start();
+  }
+
+  beforeDestroy() {
+    this.timeCounter.stop();
+    delete this.timeCounter;
+  }
 }
 </script>
 
