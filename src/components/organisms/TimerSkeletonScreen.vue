@@ -52,6 +52,7 @@ export default class TimerSkeletonScreen extends Vue {
   }
 
   &_Item {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,6 +63,23 @@ export default class TimerSkeletonScreen extends Vue {
 
     &:first-child {
       border-top: 1px solid #EEEEEE;
+    }
+
+    @keyframes skeletonAnimation {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(100%); }
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(#FFF, 0.3), transparent);
+      animation: skeletonAnimation 1.2s linear infinite;
+      content: '';
     }
   }
 
