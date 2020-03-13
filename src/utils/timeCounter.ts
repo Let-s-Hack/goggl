@@ -17,13 +17,13 @@ export default class TimeCounter {
     return this.duration;
   }
 
-  public start(): void {
-    const calcDuration: Function = (): void => {
-      this.duration = moment().diff(moment(this.startDatetime!), 'seconds');
-    };
+  public calcDuration(): void {
+    this.duration = moment().diff(moment(this.startDatetime!), 'seconds');
+  }
 
-    calcDuration();
-    this.intervalId = setInterval(() => calcDuration(), ONE_SECOND);
+  public start(): void {
+    this.calcDuration();
+    this.intervalId = setInterval(() => this.calcDuration(), ONE_SECOND);
   }
 
   public stop(): void {
