@@ -29,15 +29,17 @@
         <SvgIcon name="triangle" class="RecordList_IconStart" />
       </div>
     </div>
-    <ul v-if="isSelected">
-      <RecordListItem
-        v-for="_record in records"
-        @click.native.stop.prevent="showTimerEditor(_record)"
-        :key="_record.id"
-        :record="_record"
-        class="RecordList_Record"
-      />
-    </ul>
+    <transition name="accordion">
+      <ul v-if="isSelected">
+        <RecordListItem
+          v-for="_record in records"
+          @click.native.stop.prevent="showTimerEditor(_record)"
+          :key="_record.id"
+          :record="_record"
+          class="RecordList_Record"
+        />
+      </ul>
+    </transition>
   </li>
 </template>
 
@@ -97,14 +99,33 @@ export default class RecordList extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.accordion-enter-active {
+  animation: accordion 0.3s;
+}
+
+.accordion-leave-active {
+  animation: accordion 0.3s reverse;
+}
+
+@keyframes accordion {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .RecordList {
   &_Summary {
     $heightSize: 64px;
+    position: relative;
     display: flex;
     height: $heightSize;
     padding: 14px 16px;
     background: #FFF;
     box-sizing: border-box;
+    z-index: 1;
 
     &:active {
       background: #D9D9D9;
